@@ -10,35 +10,31 @@
 </head>
 <body>
     <header class="navbar">
-        <div class="navbar-container">
-            <div class="logo-area">
-                <span class="material-symbols-outlined logo-icon">eco</span>
-                <div class="logo-text">
-                    <div class="brand">Link Supply</div>
-                </div>
-            </div>
-            
-            <div class="search-bar">
-                <span class="material-symbols-outlined search-icon">search</span>
-                <input type="text" placeholder="Cari...">
-                <button class="btn-cari">Cari</button>
-            </div>
+        <div class="logo-area">
+            <span class="material-symbols-outlined logo-icon">eco</span>
+            <div class="brand">Link Supply</div>
+        </div>
+        
+        <div class="search-bar">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input type="text" placeholder="Cari produk, kategori, atau merek">
+            <button class="btn-cari">Cari</button>
+        </div>
 
-            <div class="nav-actions">
-                <div class="location">
-                    <span class="material-symbols-outlined">location_on</span>
-                    <span>Lokasi</span>
-                </div>
-                <div class="icon-group">
-                    <span class="material-symbols-outlined icon-btn">notifications</span>
-                    <span class="material-symbols-outlined icon-btn">shopping_cart</span>
-                </div>
-                <div class="user-profile">
-                    <span class="material-symbols-outlined">storefront</span>
-                    <div class="user-text">
-                        <div class="placeholder" style="width: 120px; height: 12px; margin-bottom: 4px;"></div>
-                        <div class="placeholder" style="width: 80px; height: 12px;"></div>
-                    </div>
+        <div class="nav-actions">
+            <div class="location">
+                <span class="material-symbols-outlined">location_on</span>
+                <span>Lokasi</span>
+            </div>
+            <div class="icon-group">
+                <span class="material-symbols-outlined icon-btn">notifications</span>
+                <span class="material-symbols-outlined icon-btn">shopping_cart</span>
+            </div>
+            <div class="user-profile">
+                <span class="material-symbols-outlined">storefront</span>
+                <div class="user-text">
+                    <div class="placeholder" style="width: 120px; height: 12px; margin-bottom: 4px;"></div>
+                    <div class="placeholder" style="width: 80px; height: 12px;"></div>
                 </div>
             </div>
         </div>
@@ -46,133 +42,137 @@
 
     <div class="wrapper">
         <main class="main-content">
-            <section class="hero-banner">
-                <div class="hero-left">
-                    <div class="placeholder" style="width: 80%; height: 28px; margin-bottom: 12px;"></div>
-                    <div class="placeholder" style="width: 60%; height: 16px;"></div>
+            
+            <div class="slider-container">
+                <div class="slider-wrapper">
+                    
+                    <!-- Slide 1 -->
+                    <section class="slide-banner ad-banner">
+                        <div class="ad-content">
+                            <span class="ad-badge">PROMO TERBATAS</span>
+                            <h1 class="ad-title">Flash Sale Panen Raya! Diskon Hingga 50%</h1>
+                            <p class="ad-desc">Dapatkan harga terbaik langsung dari petani untuk beras, jagung, dan sayuran segar hari ini.</p>
+                            <button class="btn-ad">Lihat Promo Sekarang</button>
+                        </div>
+                    </section>
+
+                    <!-- Slide 2 -->
+                    <section class="slide-banner ad-banner" style="background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);">
+                        <div class="ad-content">
+                            <span class="ad-badge" style="background: var(--primary-dark); color: white;">PENAWARAN KHUSUS</span>
+                            <h1 class="ad-title" style="color: var(--primary-dark);">Gratis Ongkir untuk Area Jawa Timur</h1>
+                            <p class="ad-desc" style="color: var(--primary-dark);">Beli minimal 500kg dan nikmati pengiriman gratis langsung ke gudang Anda.</p>
+                            <button class="btn-ad" style="background: var(--primary-dark); color: white;">Cek Area Pengiriman</button>
+                        </div>
+                    </section>
+                    
+                    <!-- Slide 3 -->
+                    <section class="slide-banner ad-banner" style="background: linear-gradient(135deg, var(--text-main) 0%, #1a1a1a 100%);">
+                        <div class="ad-content">
+                            <span class="ad-badge" style="background: var(--primary); color: white;">MITRA BARU</span>
+                            <h1 class="ad-title">Koperasi Nelayan Pantura Resmi Bergabung</h1>
+                            <p class="ad-desc">Pasokan ikan laut segar kini lebih terjamin dengan kapasitas hingga 10 ton per hari.</p>
+                            <button class="btn-ad" style="background: var(--primary); color: white;">Lihat Katalog Ikan</button>
+                        </div>
+                    </section>
+
                 </div>
-                <div class="hero-right">
-                    <div class="stats-box">
-                        <div class="placeholder" style="width: 150px; height: 32px;"></div>
-                    </div>
-                    <button class="btn-rfq"><span class="material-symbols-outlined">request_quote</span> Penawaran</button>
-                </div>
-            </section>
+            </div>
 
             <section class="category-pills">
                 <a href="#" class="pill active"><span class="material-symbols-outlined">eco</span> Semua</a>
-                <a href="#" class="pill"><span class="material-symbols-outlined">water</span> Water</a>
-                <a href="#" class="pill"><span class="material-symbols-outlined">agriculture</span> Agriculture</a>
-                <a href="#" class="pill"><span class="material-symbols-outlined">local_dining</span> Local Dining</a>
+                <a href="#" class="pill"><span class="material-symbols-outlined">water</span>Perikanan</a>
+                <a href="#" class="pill"><span class="material-symbols-outlined">wheat</span>Pertanian</a>
+                <a href="#" class="pill"><span class="material-symbols-outlined">grocery</span>Bahan Makanan</a>
+                <a href="#" class="pill"><span class="material-symbols-outlined">potted_plant</span>Perkebunan</a>
+                <a href="#" class="pill"><span class="material-symbols-outlined">steppers</span>Lainnya</a>
             </section>
 
-            <!-- <div class="layout-grid">
-                <aside class="sidebar">
-                    <div class="filter-header">
-                        <span class="material-symbols-outlined">tune</span> Filter
+            <div class="product-area">
+                <div class="product-header">
+                    <div class="placeholder" style="width: 150px; height: 16px;"></div>
+                    <div class="sort-box">
+                        <div class="placeholder" style="width: 100px; height: 16px;"></div>
                     </div>
+                </div>
 
-                    <div class="filter-section">
-                        <div class="placeholder" style="width: 100%; height: 18px; margin-bottom: 12px;"></div>
-                        <div class="placeholder" style="width: 100%; height: 18px; margin-bottom: 12px;"></div>
-                        <div class="placeholder" style="width: 100%; height: 18px; margin-bottom: 12px;"></div>
-                    </div>
-
-                    <div class="filter-section">
-                        <div class="location-grid">
-                            <div class="placeholder" style="width: 100%; height: 28px;"></div>
-                            <div class="placeholder" style="width: 100%; height: 28px;"></div>
-                            <div class="placeholder" style="width: 100%; height: 28px;"></div>
-                        </div>
-                    </div>
-                </aside> -->
-
-                <div class="product-area">
-                    <div class="product-header">
-                        <div class="placeholder" style="width: 150px; height: 16px;"></div>
-                        <div class="sort-box">
-                            <div class="placeholder" style="width: 100px; height: 16px;"></div>
-                        </div>
-                    </div>
-
-                    <div class="grid-container">
-                        <div class="product-card">
-                            <div class="card-img-container placeholder" style="height: 180px; border-radius: 0;"></div>
-                            <div class="card-body">
-                                <div class="card-meta">
-                                    <div class="placeholder" style="width: 40%; height: 12px;"></div>
-                                    <div class="placeholder" style="width: 20%; height: 12px;"></div>
+                <div class="grid-container">
+                    <div class="product-card">
+                        <div class="card-img-container placeholder" style="height: 180px; border-radius: 0;"></div>
+                        <div class="card-body">
+                            <div class="card-meta">
+                                <div class="placeholder" style="width: 40%; height: 12px;"></div>
+                                <div class="placeholder" style="width: 20%; height: 12px;"></div>
+                            </div>
+                            <div class="placeholder" style="width: 80%; height: 20px; margin-bottom: 8px;"></div>
+                            <div class="placeholder" style="width: 60%; height: 12px; margin-bottom: 16px;"></div>
+                            
+                            <div class="price-row">
+                                <div>
+                                    <div class="placeholder" style="width: 50px; height: 12px; margin-bottom: 4px;"></div>
+                                    <div class="placeholder" style="width: 100px; height: 24px;"></div>
                                 </div>
-                                <div class="placeholder" style="width: 80%; height: 20px; margin-bottom: 8px;"></div>
-                                <div class="placeholder" style="width: 60%; height: 12px; margin-bottom: 16px;"></div>
-                                
-                                <div class="price-row">
-                                    <div>
-                                        <div class="placeholder" style="width: 50px; height: 12px; margin-bottom: 4px;"></div>
-                                        <div class="placeholder" style="width: 100px; height: 24px;"></div>
-                                    </div>
-                                    <div class="stock-info">
-                                        <div class="placeholder" style="width: 40px; height: 12px; margin-bottom: 4px; margin-left: auto;"></div>
-                                        <div class="placeholder" style="width: 60px; height: 18px; margin-left: auto;"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="card-actions">
-                                    <div class="placeholder" style="height: 36px;"></div>
-                                    <div class="placeholder" style="height: 36px;"></div>
+                                <div class="stock-info">
+                                    <div class="placeholder" style="width: 40px; height: 12px; margin-bottom: 4px; margin-left: auto;"></div>
+                                    <div class="placeholder" style="width: 60px; height: 18px; margin-left: auto;"></div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="product-card">
-                            <div class="card-img-container placeholder" style="height: 180px; border-radius: 0;"></div>
-                            <div class="card-body">
-                                <div class="card-meta">
-                                    <div class="placeholder" style="width: 50%; height: 12px;"></div>
-                                    <div class="placeholder" style="width: 15%; height: 12px;"></div>
-                                </div>
-                                <div class="placeholder" style="width: 70%; height: 20px; margin-bottom: 8px;"></div>
-                                <div class="placeholder" style="width: 50%; height: 12px; margin-bottom: 16px;"></div>
-                                <div class="price-row">
-                                    <div>
-                                        <div class="placeholder" style="width: 60px; height: 12px; margin-bottom: 4px;"></div>
-                                        <div class="placeholder" style="width: 90px; height: 24px;"></div>
-                                    </div>
-                                    <div class="stock-info">
-                                        <div class="placeholder" style="width: 30px; height: 12px; margin-bottom: 4px; margin-left: auto;"></div>
-                                        <div class="placeholder" style="width: 50px; height: 18px; margin-left: auto;"></div>
-                                    </div>
-                                </div>
-                                <div class="card-actions">
-                                    <div class="placeholder" style="height: 36px;"></div>
-                                    <div class="placeholder" style="height: 36px;"></div>
-                                </div>
+                            
+                            <div class="card-actions">
+                                <div class="placeholder" style="height: 36px;"></div>
+                                <div class="placeholder" style="height: 36px;"></div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="product-card">
-                            <div class="card-img-container placeholder" style="height: 180px; border-radius: 0;"></div>
-                            <div class="card-body">
-                                <div class="card-meta">
-                                    <div class="placeholder" style="width: 30%; height: 12px;"></div>
-                                    <div class="placeholder" style="width: 25%; height: 12px;"></div>
+                    <div class="product-card">
+                        <div class="card-img-container placeholder" style="height: 180px; border-radius: 0;"></div>
+                        <div class="card-body">
+                            <div class="card-meta">
+                                <div class="placeholder" style="width: 50%; height: 12px;"></div>
+                                <div class="placeholder" style="width: 15%; height: 12px;"></div>
+                            </div>
+                            <div class="placeholder" style="width: 70%; height: 20px; margin-bottom: 8px;"></div>
+                            <div class="placeholder" style="width: 50%; height: 12px; margin-bottom: 16px;"></div>
+                            <div class="price-row">
+                                <div>
+                                    <div class="placeholder" style="width: 60px; height: 12px; margin-bottom: 4px;"></div>
+                                    <div class="placeholder" style="width: 90px; height: 24px;"></div>
                                 </div>
-                                <div class="placeholder" style="width: 90%; height: 20px; margin-bottom: 8px;"></div>
-                                <div class="placeholder" style="width: 70%; height: 12px; margin-bottom: 16px;"></div>
-                                <div class="price-row">
-                                    <div>
-                                        <div class="placeholder" style="width: 40px; height: 12px; margin-bottom: 4px;"></div>
-                                        <div class="placeholder" style="width: 110px; height: 24px;"></div>
-                                    </div>
-                                    <div class="stock-info">
-                                        <div class="placeholder" style="width: 45px; height: 12px; margin-bottom: 4px; margin-left: auto;"></div>
-                                        <div class="placeholder" style="width: 55px; height: 18px; margin-left: auto;"></div>
-                                    </div>
+                                <div class="stock-info">
+                                    <div class="placeholder" style="width: 30px; height: 12px; margin-bottom: 4px; margin-left: auto;"></div>
+                                    <div class="placeholder" style="width: 50px; height: 18px; margin-left: auto;"></div>
                                 </div>
-                                <div class="card-actions">
-                                    <div class="placeholder" style="height: 36px;"></div>
-                                    <div class="placeholder" style="height: 36px;"></div>
+                            </div>
+                            <div class="card-actions">
+                                <div class="placeholder" style="height: 36px;"></div>
+                                <div class="placeholder" style="height: 36px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="card-img-container placeholder" style="height: 180px; border-radius: 0;"></div>
+                        <div class="card-body">
+                            <div class="card-meta">
+                                <div class="placeholder" style="width: 30%; height: 12px;"></div>
+                                <div class="placeholder" style="width: 25%; height: 12px;"></div>
+                            </div>
+                            <div class="placeholder" style="width: 90%; height: 20px; margin-bottom: 8px;"></div>
+                            <div class="placeholder" style="width: 70%; height: 12px; margin-bottom: 16px;"></div>
+                            <div class="price-row">
+                                <div>
+                                    <div class="placeholder" style="width: 40px; height: 12px; margin-bottom: 4px;"></div>
+                                    <div class="placeholder" style="width: 110px; height: 24px;"></div>
                                 </div>
+                                <div class="stock-info">
+                                    <div class="placeholder" style="width: 45px; height: 12px; margin-bottom: 4px; margin-left: auto;"></div>
+                                    <div class="placeholder" style="width: 55px; height: 18px; margin-left: auto;"></div>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <div class="placeholder" style="height: 36px;"></div>
+                                <div class="placeholder" style="height: 36px;"></div>
                             </div>
                         </div>
                     </div>
