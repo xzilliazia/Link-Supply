@@ -284,11 +284,12 @@ body {
 
 /* Desain Isi Banner Ad (Slide 1: Brightest Green) */
 .ad-banner {
-  background: linear-gradient(
-    135deg,
-    #2e7d32 0%,
-    #1b5e20 100%
-  );
+    background: linear-gradient(
+      135deg,
+      rgba(83, 103, 90, 0.82) 0%,
+      rgba(3, 15, 6, 0.88) 100%
+    ),
+    url('../Assets/pexels-shvets-production-8900041.jpg') center center / cover no-repeat !important;
   color: #ffffff;
   padding: 45px 32px 55px;
   text-align: center;
@@ -303,12 +304,22 @@ body {
 /* Progressive Darkening from Slide 1 to Slide 5 */
 .banner-alt-1 {
   /* Slide 2: Medium-Dark Green */
-  background: linear-gradient(135deg, #1b5e20 0%, #0d3b14 100%) !important;
+    background: linear-gradient(
+      135deg,
+      rgba(83, 103, 90, 0.82) 0%,
+      rgba(3, 15, 6, 0.88) 100%
+    ),
+    url('../Assets/pexels-tima-miroshnichenko-6169177.jpg') center center / cover no-repeat !important;
 }
 
 .banner-alt-2 {
-  /* Slide 3: Dark Hunter Green */
-  background: linear-gradient(135deg, #12431f 0%, #072510 100%) !important;
+  /* Slide 4: Fresh Organic Vegetables Background with Dark Gradient Overlay */
+  background: linear-gradient(
+      135deg,
+      rgba(83, 103, 90, 0.82) 0%,
+      rgba(3, 15, 6, 0.88) 100%
+    ),
+    url('../Assets/pexels-1135897-30199346.jpg') center center / cover no-repeat !important;
 }
 
 .banner-alt-3 {
@@ -323,7 +334,12 @@ body {
 
 .banner-alt-4 {
   /* Slide 5: Darkest Deep Midnight Green / Black */
-  background: linear-gradient(135deg, #07170c 0%, #010703 100%) !important;
+  background: linear-gradient(
+      135deg,
+      rgba(83, 103, 90, 0.82) 0%,
+      rgba(3, 15, 6, 0.88) 100%
+    ),
+    url('../Assets/pexels-nicolas-rueda-175965148-17546504.jpg') center center / cover no-repeat !important;
 }
 
 .ad-content {
