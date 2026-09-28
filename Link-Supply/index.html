@@ -4,593 +4,586 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Supply</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#00750c',
+                            light: '#72a857',
+                            dark: '#155402',
+                        },
+                        'bg-main': '#ffffff',
+                        'bg-muted': '#edf1d6',
+                        'card-bg': '#ffffff',
+                        'text-main': '#40513b',
+                        'text-muted': '#609966',
+                        'border-custom': '#9dc08b',
+                        'placeholder-bg': 'rgba(157, 192, 139, 0.4)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <!-- Header Top Section Begin
-    <div class="header__top">
-        <div class="header__top-container">
-            <div class="header__top__left">
-                <ul>
-                    <li><i class="fa fa-envelope"></i> support@linksupply.id</li>
-                    <li>Gratis Ongkir untuk semua pesanan minimal Rp150.000,00</li>
-                </ul>
+<body class="font-sans text-text-main text-sm antialiased bg-fixed bg-cover bg-center bg-no-repeat min-h-screen" style="background-color: #ffffff; background-image: linear-gradient(rgba(254, 254, 254, 0.88), rgba(255, 255, 255, 0.88)), url('Assets/pexels-strannik-sk-36849925.jpg');">
+
+    <!-- Navbar Begin -->
+    <header class="navbar sticky top-0 z-50 w-full bg-white border-b border-border-custom px-4 sm:px-6 md:px-8 py-2.5 flex flex-wrap md:flex-nowrap items-center justify-between gap-3 shadow-sm">
+        <div class="logo-area flex items-center gap-1 shrink-0 order-1">
+            <span class="material-symbols-outlined text-primary text-3xl sm:text-4xl select-none">eco</span>
+            <div class="brand text-xl sm:text-2xl font-extrabold flex items-center tracking-tight">
+                <span class="brand-link text-primary">Link</span><span class="brand-supply text-[#1c1c1c]">Supply.</span>
             </div>
-            <div class="header__top__right">
-                <div class="header__top__right__social">
-                    <a href="#" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fa fa-linkedin"></i></a>
-                    <a href="#" aria-label="Pinterest"><i class="fa fa-pinterest-p"></i></a>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Header Top Section End -->
-    <header class="navbar">
-        <div class="logo-area">
-            <span class="material-symbols-outlined logo-icon">eco</span>
-            <div class="brand"><span class="brand-link">Link</span><span class="brand-supply">Supply.</span></div>
         </div>
         
-        <div class="search-bar">
-            <span class="material-symbols-outlined search-icon">search</span>
-            <input type="text" placeholder="Cari produk, kategori, atau merek">
-            <button class="btn-cari">Cari</button>
+        <div class="search-bar flex items-center flex-1 w-full md:w-auto md:max-w-[800px] order-3 md:order-2 my-1 md:my-0 md:mx-4 border border-primary-dark rounded-lg p-0.5 pl-2.5 bg-white shadow-inner focus-within:ring-2 focus-within:ring-primary/20">
+            <span class="material-symbols-outlined text-text-muted text-xl select-none">search</span>
+            <input type="text" placeholder="Cari produk, kategori, atau merek" class="flex-1 border-none bg-transparent py-2 px-2.5 outline-none font-sans text-text-main text-xs sm:text-sm">
+            <button class="btn-cari bg-primary text-white font-medium text-xs sm:text-sm py-2 px-3.5 sm:px-5 rounded-md hover:bg-primary-dark transition-colors duration-200 cursor-pointer shrink-0">Cari</button>
         </div>
 
-        <div class="nav-actions">
-            <div class="location">
-                <span class="material-symbols-outlined">location_on</span>
+        <div class="nav-actions flex items-center gap-3 sm:gap-5 order-2 md:order-3 shrink-0">
+            <div class="location hidden md:flex items-center gap-1 text-text-muted text-xs border-r border-border-custom pr-4 lg:pr-6 select-none">
+                <span class="material-symbols-outlined text-lg">location_on</span>
                 <span>Lokasi</span>
             </div>
-            <div class="icon-group">
-                <span class="material-symbols-outlined icon-btn">notifications</span>
-                <span class="material-symbols-outlined icon-btn">shopping_cart</span>
+            <div class="icon-group flex items-center gap-3 sm:gap-4 text-primary border-r-0 md:border-r border-border-custom md:pr-4 lg:pr-6">
+                <span class="material-symbols-outlined icon-btn cursor-pointer text-xl sm:text-2xl hover:opacity-80 transition-opacity select-none">notifications</span>
+                <span class="material-symbols-outlined icon-btn cursor-pointer text-xl sm:text-2xl hover:opacity-80 transition-opacity select-none">shopping_cart</span>
             </div>
-            <div class="user-profile">
-                <span class="material-symbols-outlined">storefront</span>
-                <div class="user-text">
-                    <div class="placeholder" style="width: 120px; height: 12px; margin-bottom: 4px;"></div>
-                    <div class="placeholder" style="width: 80px; height: 12px;"></div> 
+            <div class="user-profile flex items-center gap-2 text-primary cursor-pointer select-none">
+                <span class="material-symbols-outlined text-2xl sm:text-3xl">storefront</span>
+                <div class="user-text hidden sm:flex flex-col gap-1">
+                    <div class="placeholder w-24 sm:w-28 h-2.5"></div>
+                    <div class="placeholder w-16 sm:w-20 h-2.5"></div> 
                 </div>
             </div>
         </div>
     </header>
 
-    <div class="wrapper">
-        <main class="main-content">
+    <div class="wrapper w-full max-w-[1400px] mx-auto min-h-screen relative pb-20">
+        <main class="main-content p-3 sm:p-5 md:p-8">
             
-            <div class="slider-container" id="adSlider">
-                <div class="slider-wrapper" id="sliderWrapper">
+            <div class="slider-container group relative w-full overflow-hidden rounded-xl mb-4 sm:mb-5 shadow-lg" id="adSlider">
+                <div class="slider-wrapper flex w-full transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]" id="sliderWrapper">
                     
-                    <!-- Slide 1 -->
-                    <section class="slide-banner ad-banner">
-                        <div class="ad-content">
-                            <span class="ad-badge">PROMO TERBATAS</span>
-                            <h1 class="ad-title">Flash Sale Panen Raya! Diskon Hingga 50%</h1>
-                            <p class="ad-desc">Dapatkan harga terbaik langsung dari petani untuk beras, jagung, dan sayuran segar hari ini.</p>
-                            <button class="btn-ad">Lihat Promo Sekarang</button>
+                    <section class="slide-banner min-w-full w-full shrink-0 relative flex flex-col items-center justify-center text-center text-white min-h-[200px] sm:min-h-[250px] md:min-h-[290px] py-8 sm:py-11 md:py-14 px-4 sm:px-8 bg-cover bg-center" style="background-image: linear-gradient(135deg, rgba(83, 103, 90, 0.82) 0%, rgba(3, 15, 6, 0.88) 100%), url('Assets/pexels-shvets-production-8900041.jpg');">
+                        <div class="ad-content max-w-2xl px-2">
+                            <span class="ad-badge inline-block bg-bg-muted/95 text-primary-dark text-xs font-bold px-3.5 py-1 rounded-md mb-3 sm:mb-4 tracking-wider shadow-sm">PROMO TERBATAS</span>
+                            <h1 class="ad-title text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 leading-tight text-white">Flash Sale Panen Raya! Diskon Hingga 50%</h1>
+                            <p class="ad-desc text-xs sm:text-sm md:text-base text-white/90 mb-5 sm:mb-6 leading-relaxed">Dapatkan harga terbaik langsung dari petani untuk beras, jagung, dan sayuran segar hari ini.</p>
+                            <button class="btn-ad bg-[#edf1d6] hover:bg-white text-[#155402] font-bold text-xs sm:text-sm md:text-base py-2.5 sm:py-3.5 px-5 sm:px-7 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer">Lihat Promo Sekarang</button>
                         </div>
                     </section>
 
-                    <!-- Slide 2 -->
-                    <section class="slide-banner ad-banner banner-alt-1">
-                        <div class="ad-content">
-                            <span class="ad-badge">PENAWARAN KHUSUS</span>
-                            <h1 class="ad-title">Gratis Ongkir untuk Area Jawa Timur</h1>
-                            <p class="ad-desc">Beli minimal 500kg dan nikmati pengiriman gratis langsung ke gudang atau pasar induk Anda.</p>
-                            <button class="btn-ad">Cek Area Pengiriman</button>
+                    <section class="slide-banner min-w-full w-full shrink-0 relative flex flex-col items-center justify-center text-center text-white min-h-[200px] sm:min-h-[250px] md:min-h-[290px] py-8 sm:py-11 md:py-14 px-4 sm:px-8 bg-cover bg-center" style="background-image: linear-gradient(135deg, rgba(83, 103, 90, 0.82) 0%, rgba(3, 15, 6, 0.88) 100%), url('Assets/pexels-tima-miroshnichenko-6169177.jpg');">
+                        <div class="ad-content max-w-2xl px-2">
+                            <span class="ad-badge inline-block bg-bg-muted/95 text-primary-dark text-xs font-bold px-3.5 py-1 rounded-md mb-3 sm:mb-4 tracking-wider shadow-sm">PENAWARAN KHUSUS</span>
+                            <h1 class="ad-title text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 leading-tight text-white">Gratis Ongkir untuk Area Jawa Timur</h1>
+                            <p class="ad-desc text-xs sm:text-sm md:text-base text-white/90 mb-5 sm:mb-6 leading-relaxed">Beli minimal 500kg dan nikmati pengiriman gratis langsung ke gudang atau pasar induk Anda.</p>
+                            <button class="btn-ad bg-[#edf1d6] hover:bg-white text-[#155402] font-bold text-xs sm:text-sm md:text-base py-2.5 sm:py-3.5 px-5 sm:px-7 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer">Cek Area Pengiriman</button>
                         </div>
                     </section>
                     
-                    <!-- Slide 3 -->
-                    <section class="slide-banner ad-banner banner-alt-2">
-                        <div class="ad-content">
-                            <span class="ad-badge">MITRA BARU</span>
-                            <h1 class="ad-title">Koperasi Nelayan Pantura Resmi Bergabung</h1>
-                            <p class="ad-desc">Pasokan ikan laut segar kini lebih terjamin dengan kapasitas hingga 10 ton per hari langsung dari dermaga.</p>
-                            <button class="btn-ad">Lihat Katalog Ikan</button>
+                    <section class="slide-banner min-w-full w-full shrink-0 relative flex flex-col items-center justify-center text-center text-white min-h-[200px] sm:min-h-[250px] md:min-h-[290px] py-8 sm:py-11 md:py-14 px-4 sm:px-8 bg-cover bg-center" style="background-image: linear-gradient(135deg, rgba(83, 103, 90, 0.82) 0%, rgba(3, 15, 6, 0.88) 100%), url('Assets/pexels-1135897-30199346.jpg');">
+                        <div class="ad-content max-w-2xl px-2">
+                            <span class="ad-badge inline-block bg-bg-muted/95 text-primary-dark text-xs font-bold px-3.5 py-1 rounded-md mb-3 sm:mb-4 tracking-wider shadow-sm">MITRA BARU</span>
+                            <h1 class="ad-title text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 leading-tight text-white">Koperasi Nelayan Pantura Resmi Bergabung</h1>
+                            <p class="ad-desc text-xs sm:text-sm md:text-base text-white/90 mb-5 sm:mb-6 leading-relaxed">Pasokan ikan laut segar kini lebih terjamin dengan kapasitas hingga 10 ton per hari langsung dari dermaga.</p>
+                            <button class="btn-ad bg-[#edf1d6] hover:bg-white text-[#155402] font-bold text-xs sm:text-sm md:text-base py-2.5 sm:py-3.5 px-5 sm:px-7 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer">Lihat Katalog Ikan</button>
                         </div>
                     </section>
 
-                    <!-- Slide 4 -->
-                    <section class="slide-banner ad-banner banner-alt-3">
-                        <div class="ad-content">
-                            <span class="ad-badge">KUALITAS EKSPOR</span>
-                            <h1 class="ad-title">Suplai Buah & Sayuran Organik Grade A</h1>
-                            <p class="ad-desc">Dipanen harian dari kebun mitra bersertifikasi GAP. Kualitas terjamin segar, higienis, dan siap kirim tepat waktu.</p>
-                            <button class="btn-ad">Pesan Pasokan Organik</button>
+                    <section class="slide-banner min-w-full w-full shrink-0 relative flex flex-col items-center justify-center text-center text-white min-h-[200px] sm:min-h-[250px] md:min-h-[290px] py-8 sm:py-11 md:py-14 px-4 sm:px-8 bg-cover bg-center" style="background-image: linear-gradient(135deg, rgba(83, 103, 90, 0.82) 0%, rgba(3, 15, 6, 0.88) 100%), url('Assets/pexels-yuslava-36897781.jpg');">
+                        <div class="ad-content max-w-2xl px-2">
+                            <span class="ad-badge inline-block bg-bg-muted/95 text-primary-dark text-xs font-bold px-3.5 py-1 rounded-md mb-3 sm:mb-4 tracking-wider shadow-sm">KUALITAS EKSPOR</span>
+                            <h1 class="ad-title text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 leading-tight text-white">Suplai Buah & Sayuran Organik Grade A</h1>
+                            <p class="ad-desc text-xs sm:text-sm md:text-base text-white/90 mb-5 sm:mb-6 leading-relaxed">Dipanen harian dari kebun mitra bersertifikasi GAP. Kualitas terjamin segar, higienis, dan siap kirim tepat waktu.</p>
+                            <button class="btn-ad bg-[#edf1d6] hover:bg-white text-[#155402] font-bold text-xs sm:text-sm md:text-base py-2.5 sm:py-3.5 px-5 sm:px-7 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer">Pesan Pasokan Organik</button>
                         </div>
                     </section>
 
-                    <!-- Slide 5 -->
-                    <section class="slide-banner ad-banner banner-alt-4">
-                        <div class="ad-content">
-                            <span class="ad-badge">SOLUSI LOGISTIK</span>
-                            <h1 class="ad-title">Jaga Kesegaran dengan Cold Storage Modern</h1>
-                            <p class="ad-desc">Sewa ruang pendingin berkapasitas tinggi dan armada cold chain untuk menjaga mutu komoditas pertanian & perikanan Anda.</p>
-                            <button class="btn-ad">Konsultasi Cold Chain</button>
+                    <section class="slide-banner min-w-full w-full shrink-0 relative flex flex-col items-center justify-center text-center text-white min-h-[200px] sm:min-h-[250px] md:min-h-[290px] py-8 sm:py-11 md:py-14 px-4 sm:px-8 bg-cover bg-center" style="background-image: linear-gradient(135deg, rgba(83, 103, 90, 0.82) 0%, rgba(3, 15, 6, 0.88) 100%), url('Assets/pexels-nicolas-rueda-175965148-17546504.jpg');">
+                        <div class="ad-content max-w-2xl px-2">
+                            <span class="ad-badge inline-block bg-bg-muted/95 text-primary-dark text-xs font-bold px-3.5 py-1 rounded-md mb-3 sm:mb-4 tracking-wider shadow-sm">SOLUSI LOGISTIK</span>
+                            <h1 class="ad-title text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 leading-tight text-white">Jaga Kesegaran dengan Cold Storage Modern</h1>
+                            <p class="ad-desc text-xs sm:text-sm md:text-base text-white/90 mb-5 sm:mb-6 leading-relaxed">Sewa ruang pendingin berkapasitas tinggi dan armada cold chain untuk menjaga mutu komoditas pertanian & perikanan Anda.</p>
+                            <button class="btn-ad bg-[#edf1d6] hover:bg-white text-[#155402] font-bold text-xs sm:text-sm md:text-base py-2.5 sm:py-3.5 px-5 sm:px-7 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer">Konsultasi Cold Chain</button>
                         </div>
                     </section>
 
                 </div>
 
-                <!-- Slider Navigation Buttons -->
-                <button class="slider-btn slider-prev" id="slidePrev" aria-label="Slide Sebelumnya">
-                    <span class="material-symbols-outlined">chevron_left</span>
+                <button class="slider-btn slider-prev absolute top-1/2 -translate-y-1/2 left-2 sm:left-4 w-9 h-9 sm:w-11 sm:h-11 bg-white/90 hover:bg-black border border-white/40 rounded-full text-text-main hover:text-primary flex items-center justify-center shadow-lg transition-all duration-200 z-10 opacity-80 sm:opacity-0 sm:invisible group-hover:opacity-100 group-hover:visible hover:scale-105 active:scale-95 cursor-pointer" id="slidePrev" aria-label="Slide Sebelumnya">
+                    <span class="material-symbols-outlined text-2xl">chevron_left</span>
                 </button>
-                <button class="slider-btn slider-next" id="slideNext" aria-label="Slide Berikutnya">
-                    <span class="material-symbols-outlined">chevron_right</span>
+                <button class="slider-btn slider-next absolute top-1/2 -translate-y-1/2 right-2 sm:right-4 w-9 h-9 sm:w-11 sm:h-11 bg-white/90 hover:bg-black border border-white/40 rounded-full text-text-main hover:text-primary flex items-center justify-center shadow-lg transition-all duration-200 z-10 opacity-80 sm:opacity-0 sm:invisible group-hover:opacity-100 group-hover:visible hover:scale-105 active:scale-95 cursor-pointer" id="slideNext" aria-label="Slide Berikutnya">
+                    <span class="material-symbols-outlined text-2xl">chevron_right</span>
                 </button>
 
-                <!-- Slider Dots / Indicators -->
-                <div class="slider-dots" id="sliderDots"></div>
+                <div class="slider-dots absolute bottom-2.5 sm:bottom-3.5 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10 py-1 sm:py-1.5 px-3 bg-black/25 backdrop-blur-sm rounded-full" id="sliderDots"></div>
             </div>
 
-            <section class="category-pills">
-                <a href="#" class="pill active"><span class="material-symbols-outlined">eco</span> Semua</a>
-                <a href="#" class="pill"><span class="material-symbols-outlined">water</span>Perikanan</a>
-                <a href="#" class="pill"><span class="material-symbols-outlined">wheat</span>Pertanian</a>
-                <a href="#" class="pill"><span class="material-symbols-outlined">grocery</span>Bahan Makanan</a>
-                <a href="#" class="pill"><span class="material-symbols-outlined">potted_plant</span>Perkebunan</a>
-                <a href="#" class="pill"><span class="material-symbols-outlined">steppers</span>Lainnya</a>
+            <section class="category-pills flex gap-1.5 sm:gap-2 overflow-x-auto pb-2 mb-4 scrollbar-none">
+                <a href="#" class="pill active flex items-center gap-1.5 bg-primary-dark text-bg-muted border border-primary-dark py-1.5 px-2.5 sm:px-3 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap shadow-xs"><span class="material-symbols-outlined text-base">eco</span> Semua</a>
+                <a href="#" class="pill flex items-center gap-1.5 bg-white text-text-main border border-border-custom hover:bg-emerald-50 hover:text-primary py-1.5 px-2.5 sm:px-3 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors"><span class="material-symbols-outlined text-base">water</span> Perikanan</a>
+                <a href="#" class="pill flex items-center gap-1.5 bg-white text-text-main border border-border-custom hover:bg-emerald-50 hover:text-primary py-1.5 px-2.5 sm:px-3 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors"><span class="material-symbols-outlined text-base">wheat</span> Pertanian</a>
+                <a href="#" class="pill flex items-center gap-1.5 bg-white text-text-main border border-border-custom hover:bg-emerald-50 hover:text-primary py-1.5 px-2.5 sm:px-3 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors"><span class="material-symbols-outlined text-base">grocery</span> Bahan Makanan</a>
+                <a href="#" class="pill flex items-center gap-1.5 bg-white text-text-main border border-border-custom hover:bg-emerald-50 hover:text-primary py-1.5 px-2.5 sm:px-3 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors"><span class="material-symbols-outlined text-base">potted_plant</span> Perkebunan</a>
+                <a href="#" class="pill flex items-center gap-1.5 bg-white text-text-main border border-border-custom hover:bg-emerald-50 hover:text-primary py-1.5 px-2.5 sm:px-3 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors"><span class="material-symbols-outlined text-base">steppers</span> Lainnya</a>
             </section>
 
             <div class="product-area">
-                <div class="product-header">
-    <div class="product-count">
-        <strong>Semua Produk</strong>
-        <span>12 produk</span>
-    </div>
+                <div class="product-header flex justify-between items-center mb-4 sm:mb-5">
+                    <div class="product-count flex items-center gap-2 sm:gap-2.5">
+                        <strong class="text-base sm:text-lg font-bold text-gray-900">Semua Produk</strong>
+                        <span class="text-xs sm:text-sm text-gray-500">12 produk</span>
+                    </div>
 
-    <div class="sort-box">
-        <span class="material-symbols-outlined">sort</span>
+                    <div class="sort-box flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-600">
+                        <span class="material-symbols-outlined text-lg sm:text-xl text-gray-500">sort</span>
+                        <label for="sortProducts" class="hidden sm:inline font-medium">Urutkan:</label>
+                        <select id="sortProducts" class="py-1.5 sm:py-2 pl-2.5 pr-8 border border-gray-300 rounded-lg bg-white text-gray-800 text-xs sm:text-sm cursor-pointer outline-none focus:border-primary-dark shadow-xs">
+                            <option value="default">Rekomendasi</option>
+                            <option value="price-low">Harga Terendah</option>
+                            <option value="price-high">Harga Tertinggi</option>
+                            <option value="name-az">Nama A - Z</option>
+                            <option value="name-za">Nama Z - A</option>
+                        </select>
+                    </div>
+                </div>
 
-        <label for="sortProducts">Urutkan:</label>
+                <div class="grid-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mb-5" id="productGrid">
 
-        <select id="sortProducts">
-            <option value="default">Rekomendasi</option>
-            <option value="price-low">Harga Terendah</option>
-            <option value="price-high">Harga Tertinggi</option>
-            <option value="name-az">Nama A - Z</option>
-            <option value="name-za">Nama Z - A</option>
-        </select>
-    </div>
-</div>
-
-                <div class="grid-container" id="productGrid">
-                    <!-- Product Card 1 -->
-                    <div class="product-card">
-                        <div class="card-img-container placeholder" style="height: 135px; border-radius: 0;"></div>
-                        <div class="card-body">
-                            <div class="card-meta">
-                                <div class="placeholder" style="width: 40%; height: 9px;"></div>
-                                <div class="placeholder" style="width: 20%; height: 9px;"></div>
+                    <div class="product-card bg-white border border-border-custom rounded-lg overflow-hidden flex flex-col shadow-xs hover:shadow-md transition-shadow">
+                        <div class="card-img-container placeholder h-[135px] w-full rounded-none"></div>
+                        <div class="card-body p-3 flex flex-col flex-1 gap-2">
+                            <div class="card-meta flex justify-between items-center mb-1">
+                                <div class="placeholder w-[40%] h-2.5"></div>
+                                <div class="placeholder w-[20%] h-2.5"></div>
                             </div>
-                            <div class="placeholder" style="width: 80%; height: 15px; margin-bottom: 6px;"></div>
-                            <div class="placeholder" style="width: 60%; height: 9px; margin-bottom: 12px;"></div>
-                            <div class="price-row">
+                            <div class="placeholder w-[80%] h-4 mb-1"></div>
+                            <div class="placeholder w-[60%] h-2.5 mb-2"></div>
+                            <div class="price-row flex justify-between items-end border-b border-dashed border-border-custom pb-2.5 mb-2">
                                 <div>
-                                    <div class="placeholder" style="width: 40px; height: 9px; margin-bottom: 3px;"></div>
-                                    <div class="placeholder" style="width: 80px; height: 18px;"></div>
+                                    <div class="placeholder w-10 h-2.5 mb-1"></div>
+                                    <div class="placeholder w-20 h-4.5"></div>
                                 </div>
-                                <div class="stock-info">
-                                    <div class="placeholder" style="width: 32px; height: 9px; margin-bottom: 3px; margin-left: auto;"></div>
-                                    <div class="placeholder" style="width: 48px; height: 14px; margin-left: auto;"></div>
+                                <div class="stock-info text-right">
+                                    <div class="placeholder w-8 h-2.5 mb-1 ml-auto"></div>
+                                    <div class="placeholder w-12 h-3.5 ml-auto"></div>
                                 </div>
                             </div>
-                            <div class="card-actions">
-                                <div class="placeholder" style="height: 28px;"></div>
-                                <div class="placeholder" style="height: 28px;"></div>
+                            <div class="card-actions grid grid-cols-2 gap-1.5 mt-auto">
+                                <div class="placeholder h-7"></div>
+                                <div class="placeholder h-7"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Product Card 2 -->
-                    <div class="product-card">
-                        <div class="card-img-container placeholder" style="height: 135px; border-radius: 0;"></div>
-                        <div class="card-body">
-                            <div class="card-meta">
-                                <div class="placeholder" style="width: 50%; height: 9px;"></div>
-                                <div class="placeholder" style="width: 15%; height: 9px;"></div>
+                    <div class="product-card bg-white border border-border-custom rounded-lg overflow-hidden flex flex-col shadow-xs hover:shadow-md transition-shadow">
+                        <div class="card-img-container placeholder h-[135px] w-full rounded-none"></div>
+                        <div class="card-body p-3 flex flex-col flex-1 gap-2">
+                            <div class="card-meta flex justify-between items-center mb-1">
+                                <div class="placeholder w-[50%] h-2.5"></div>
+                                <div class="placeholder w-[15%] h-2.5"></div>
                             </div>
-                            <div class="placeholder" style="width: 70%; height: 15px; margin-bottom: 6px;"></div>
-                            <div class="placeholder" style="width: 50%; height: 9px; margin-bottom: 12px;"></div>
-                            <div class="price-row">
+                            <div class="placeholder w-[70%] h-4 mb-1"></div>
+                            <div class="placeholder w-[50%] h-2.5 mb-2"></div>
+                            <div class="price-row flex justify-between items-end border-b border-dashed border-border-custom pb-2.5 mb-2">
                                 <div>
-                                    <div class="placeholder" style="width: 48px; height: 9px; margin-bottom: 3px;"></div>
-                                    <div class="placeholder" style="width: 72px; height: 18px;"></div>
+                                    <div class="placeholder w-12 h-2.5 mb-1"></div>
+                                    <div class="placeholder w-18 h-4.5"></div>
                                 </div>
-                                <div class="stock-info">
-                                    <div class="placeholder" style="width: 24px; height: 9px; margin-bottom: 3px; margin-left: auto;"></div>
-                                    <div class="placeholder" style="width: 40px; height: 14px; margin-left: auto;"></div>
+                                <div class="stock-info text-right">
+                                    <div class="placeholder w-6 h-2.5 mb-1 ml-auto"></div>
+                                    <div class="placeholder w-10 h-3.5 ml-auto"></div>
                                 </div>
                             </div>
-                            <div class="card-actions">
-                                <div class="placeholder" style="height: 28px;"></div>
-                                <div class="placeholder" style="height: 28px;"></div>
+                            <div class="card-actions grid grid-cols-2 gap-1.5 mt-auto">
+                                <div class="placeholder h-7"></div>
+                                <div class="placeholder h-7"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Product Card 3 -->
-                    <div class="product-card">
-                        <div class="card-img-container placeholder" style="height: 135px; border-radius: 0;"></div>
-                        <div class="card-body">
-                            <div class="card-meta">
-                                <div class="placeholder" style="width: 30%; height: 9px;"></div>
-                                <div class="placeholder" style="width: 25%; height: 9px;"></div>
+                    <div class="product-card bg-white border border-border-custom rounded-lg overflow-hidden flex flex-col shadow-xs hover:shadow-md transition-shadow">
+                        <div class="card-img-container placeholder h-[135px] w-full rounded-none"></div>
+                        <div class="card-body p-3 flex flex-col flex-1 gap-2">
+                            <div class="card-meta flex justify-between items-center mb-1">
+                                <div class="placeholder w-[30%] h-2.5"></div>
+                                <div class="placeholder w-[25%] h-2.5"></div>
                             </div>
-                            <div class="placeholder" style="width: 90%; height: 15px; margin-bottom: 6px;"></div>
-                            <div class="placeholder" style="width: 70%; height: 9px; margin-bottom: 12px;"></div>
-                            <div class="price-row">
+                            <div class="placeholder w-[90%] h-4 mb-1"></div>
+                            <div class="placeholder w-[70%] h-2.5 mb-2"></div>
+                            <div class="price-row flex justify-between items-end border-b border-dashed border-border-custom pb-2.5 mb-2">
                                 <div>
-                                    <div class="placeholder" style="width: 32px; height: 9px; margin-bottom: 3px;"></div>
-                                    <div class="placeholder" style="width: 88px; height: 18px;"></div>
+                                    <div class="placeholder w-8 h-2.5 mb-1"></div>
+                                    <div class="placeholder w-22 h-4.5"></div>
                                 </div>
-                                <div class="stock-info">
-                                    <div class="placeholder" style="width: 36px; height: 9px; margin-bottom: 3px; margin-left: auto;"></div>
-                                    <div class="placeholder" style="width: 44px; height: 14px; margin-left: auto;"></div>
+                                <div class="stock-info text-right">
+                                    <div class="placeholder w-9 h-2.5 mb-1 ml-auto"></div>
+                                    <div class="placeholder w-11 h-3.5 ml-auto"></div>
                                 </div>
                             </div>
-                            <div class="card-actions">
-                                <div class="placeholder" style="height: 28px;"></div>
-                                <div class="placeholder" style="height: 28px;"></div>
+                            <div class="card-actions grid grid-cols-2 gap-1.5 mt-auto">
+                                <div class="placeholder h-7"></div>
+                                <div class="placeholder h-7"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Product Card 4 -->
-                    <div class="product-card">
-                        <div class="card-img-container placeholder" style="height: 135px; border-radius: 0;"></div>
-                        <div class="card-body">
-                            <div class="card-meta">
-                                <div class="placeholder" style="width: 45%; height: 9px;"></div>
-                                <div class="placeholder" style="width: 20%; height: 9px;"></div>
+                    <div class="product-card bg-white border border-border-custom rounded-lg overflow-hidden flex flex-col shadow-xs hover:shadow-md transition-shadow">
+                        <div class="card-img-container placeholder h-[135px] w-full rounded-none"></div>
+                        <div class="card-body p-3 flex flex-col flex-1 gap-2">
+                            <div class="card-meta flex justify-between items-center mb-1">
+                                <div class="placeholder w-[45%] h-2.5"></div>
+                                <div class="placeholder w-[20%] h-2.5"></div>
                             </div>
-                            <div class="placeholder" style="width: 85%; height: 15px; margin-bottom: 6px;"></div>
-                            <div class="placeholder" style="width: 65%; height: 9px; margin-bottom: 12px;"></div>
-                            <div class="price-row">
+                            <div class="placeholder w-[85%] h-4 mb-1"></div>
+                            <div class="placeholder w-[65%] h-2.5 mb-2"></div>
+                            <div class="price-row flex justify-between items-end border-b border-dashed border-border-custom pb-2.5 mb-2">
                                 <div>
-                                    <div class="placeholder" style="width: 36px; height: 9px; margin-bottom: 3px;"></div>
-                                    <div class="placeholder" style="width: 84px; height: 18px;"></div>
+                                    <div class="placeholder w-9 h-2.5 mb-1"></div>
+                                    <div class="placeholder w-20 h-4.5"></div>
                                 </div>
-                                <div class="stock-info">
-                                    <div class="placeholder" style="width: 28px; height: 9px; margin-bottom: 3px; margin-left: auto;"></div>
-                                    <div class="placeholder" style="width: 52px; height: 14px; margin-left: auto;"></div>
+                                <div class="stock-info text-right">
+                                    <div class="placeholder w-7 h-2.5 mb-1 ml-auto"></div>
+                                    <div class="placeholder w-13 h-3.5 ml-auto"></div>
                                 </div>
                             </div>
-                            <div class="card-actions">
-                                <div class="placeholder" style="height: 28px;"></div>
-                                <div class="placeholder" style="height: 28px;"></div>
+                            <div class="card-actions grid grid-cols-2 gap-1.5 mt-auto">
+                                <div class="placeholder h-7"></div>
+                                <div class="placeholder h-7"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Product Card 5 -->
-                    <div class="product-card">
-                        <div class="card-img-container placeholder" style="height: 135px; border-radius: 0;"></div>
-                        <div class="card-body">
-                            <div class="card-meta">
-                                <div class="placeholder" style="width: 35%; height: 9px;"></div>
-                                <div class="placeholder" style="width: 22%; height: 9px;"></div>
+                    <div class="product-card bg-white border border-border-custom rounded-lg overflow-hidden flex flex-col shadow-xs hover:shadow-md transition-shadow">
+                        <div class="card-img-container placeholder h-[135px] w-full rounded-none"></div>
+                        <div class="card-body p-3 flex flex-col flex-1 gap-2">
+                            <div class="card-meta flex justify-between items-center mb-1">
+                                <div class="placeholder w-[35%] h-2.5"></div>
+                                <div class="placeholder w-[22%] h-2.5"></div>
                             </div>
-                            <div class="placeholder" style="width: 75%; height: 15px; margin-bottom: 6px;"></div>
-                            <div class="placeholder" style="width: 55%; height: 9px; margin-bottom: 12px;"></div>
-                            <div class="price-row">
+                            <div class="placeholder w-[75%] h-4 mb-1"></div>
+                            <div class="placeholder w-[55%] h-2.5 mb-2"></div>
+                            <div class="price-row flex justify-between items-end border-b border-dashed border-border-custom pb-2.5 mb-2">
                                 <div>
-                                    <div class="placeholder" style="width: 40px; height: 9px; margin-bottom: 3px;"></div>
-                                    <div class="placeholder" style="width: 76px; height: 18px;"></div>
+                                    <div class="placeholder w-10 h-2.5 mb-1"></div>
+                                    <div class="placeholder w-19 h-4.5"></div>
                                 </div>
-                                <div class="stock-info">
-                                    <div class="placeholder" style="width: 32px; height: 9px; margin-bottom: 3px; margin-left: auto;"></div>
-                                    <div class="placeholder" style="width: 40px; height: 14px; margin-left: auto;"></div>
+                                <div class="stock-info text-right">
+                                    <div class="placeholder w-8 h-2.5 mb-1 ml-auto"></div>
+                                    <div class="placeholder w-10 h-3.5 ml-auto"></div>
                                 </div>
                             </div>
-                            <div class="card-actions">
-                                <div class="placeholder" style="height: 28px;"></div>
-                                <div class="placeholder" style="height: 28px;"></div>
+                            <div class="card-actions grid grid-cols-2 gap-1.5 mt-auto">
+                                <div class="placeholder h-7"></div>
+                                <div class="placeholder h-7"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Product Card 6 -->
-                    <div class="product-card">
-                        <div class="card-img-container placeholder" style="height: 135px; border-radius: 0;"></div>
-                        <div class="card-body">
-                            <div class="card-meta">
-                                <div class="placeholder" style="width: 40%; height: 9px;"></div>
-                                <div class="placeholder" style="width: 18%; height: 9px;"></div>
+                    <div class="product-card bg-white border border-border-custom rounded-lg overflow-hidden flex flex-col shadow-xs hover:shadow-md transition-shadow">
+                        <div class="card-img-container placeholder h-[135px] w-full rounded-none"></div>
+                        <div class="card-body p-3 flex flex-col flex-1 gap-2">
+                            <div class="card-meta flex justify-between items-center mb-1">
+                                <div class="placeholder w-[40%] h-2.5"></div>
+                                <div class="placeholder w-[18%] h-2.5"></div>
                             </div>
-                            <div class="placeholder" style="width: 80%; height: 15px; margin-bottom: 6px;"></div>
-                            <div class="placeholder" style="width: 60%; height: 9px; margin-bottom: 12px;"></div>
-                            <div class="price-row">
+                            <div class="placeholder w-[80%] h-4 mb-1"></div>
+                            <div class="placeholder w-[60%] h-2.5 mb-2"></div>
+                            <div class="price-row flex justify-between items-end border-b border-dashed border-border-custom pb-2.5 mb-2">
                                 <div>
-                                    <div class="placeholder" style="width: 44px; height: 9px; margin-bottom: 3px;"></div>
-                                    <div class="placeholder" style="width: 92px; height: 18px;"></div>
+                                    <div class="placeholder w-11 h-2.5 mb-1"></div>
+                                    <div class="placeholder w-23 h-4.5"></div>
                                 </div>
-                                <div class="stock-info">
-                                    <div class="placeholder" style="width: 36px; height: 9px; margin-bottom: 3px; margin-left: auto;"></div>
-                                    <div class="placeholder" style="width: 48px; height: 14px; margin-left: auto;"></div>
+                                <div class="stock-info text-right">
+                                    <div class="placeholder w-9 h-2.5 mb-1 ml-auto"></div>
+                                    <div class="placeholder w-12 h-3.5 ml-auto"></div>
                                 </div>
                             </div>
-                            <div class="card-actions">
-                                <div class="placeholder" style="height: 28px;"></div>
-                                <div class="placeholder" style="height: 28px;"></div>
+                            <div class="card-actions grid grid-cols-2 gap-1.5 mt-auto">
+                                <div class="placeholder h-7"></div>
+                                <div class="placeholder h-7"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Product Card 7 -->
-                    <div class="product-card">
-                        <div class="card-img-container placeholder" style="height: 135px; border-radius: 0;"></div>
-                        <div class="card-body">
-                            <div class="card-meta">
-                                <div class="placeholder" style="width: 48%; height: 9px;"></div>
-                                <div class="placeholder" style="width: 16%; height: 9px;"></div>
+                    <div class="product-card bg-white border border-border-custom rounded-lg overflow-hidden flex flex-col shadow-xs hover:shadow-md transition-shadow">
+                        <div class="card-img-container placeholder h-[135px] w-full rounded-none"></div>
+                        <div class="card-body p-3 flex flex-col flex-1 gap-2">
+                            <div class="card-meta flex justify-between items-center mb-1">
+                                <div class="placeholder w-[48%] h-2.5"></div>
+                                <div class="placeholder w-[16%] h-2.5"></div>
                             </div>
-                            <div class="placeholder" style="width: 88%; height: 15px; margin-bottom: 6px;"></div>
-                            <div class="placeholder" style="width: 68%; height: 9px; margin-bottom: 12px;"></div>
-                            <div class="price-row">
+                            <div class="placeholder w-[88%] h-4 mb-1"></div>
+                            <div class="placeholder w-[68%] h-2.5 mb-2"></div>
+                            <div class="price-row flex justify-between items-end border-b border-dashed border-border-custom pb-2.5 mb-2">
                                 <div>
-                                    <div class="placeholder" style="width: 32px; height: 9px; margin-bottom: 3px;"></div>
-                                    <div class="placeholder" style="width: 80px; height: 18px;"></div>
+                                    <div class="placeholder w-8 h-2.5 mb-1"></div>
+                                    <div class="placeholder w-20 h-4.5"></div>
                                 </div>
-                                <div class="stock-info">
-                                    <div class="placeholder" style="width: 24px; height: 9px; margin-bottom: 3px; margin-left: auto;"></div>
-                                    <div class="placeholder" style="width: 44px; height: 14px; margin-left: auto;"></div>
+                                <div class="stock-info text-right">
+                                    <div class="placeholder w-6 h-2.5 mb-1 ml-auto"></div>
+                                    <div class="placeholder w-11 h-3.5 ml-auto"></div>
                                 </div>
                             </div>
-                            <div class="card-actions">
-                                <div class="placeholder" style="height: 28px;"></div>
-                                <div class="placeholder" style="height: 28px;"></div>
+                            <div class="card-actions grid grid-cols-2 gap-1.5 mt-auto">
+                                <div class="placeholder h-7"></div>
+                                <div class="placeholder h-7"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Product Card 8 -->
-                    <div class="product-card">
-                        <div class="card-img-container placeholder" style="height: 135px; border-radius: 0;"></div>
-                        <div class="card-body">
-                            <div class="card-meta">
-                                <div class="placeholder" style="width: 42%; height: 9px;"></div>
-                                <div class="placeholder" style="width: 24%; height: 9px;"></div>
+                    <div class="product-card bg-white border border-border-custom rounded-lg overflow-hidden flex flex-col shadow-xs hover:shadow-md transition-shadow">
+                        <div class="card-img-container placeholder h-[135px] w-full rounded-none"></div>
+                        <div class="card-body p-3 flex flex-col flex-1 gap-2">
+                            <div class="card-meta flex justify-between items-center mb-1">
+                                <div class="placeholder w-[42%] h-2.5"></div>
+                                <div class="placeholder w-[24%] h-2.5"></div>
                             </div>
-                            <div class="placeholder" style="width: 78%; height: 15px; margin-bottom: 6px;"></div>
-                            <div class="placeholder" style="width: 58%; height: 9px; margin-bottom: 12px;"></div>
-                            <div class="price-row">
+                            <div class="placeholder w-[78%] h-4 mb-1"></div>
+                            <div class="placeholder w-[58%] h-2.5 mb-2"></div>
+                            <div class="price-row flex justify-between items-end border-b border-dashed border-border-custom pb-2.5 mb-2">
                                 <div>
-                                    <div class="placeholder" style="width: 40px; height: 9px; margin-bottom: 3px;"></div>
-                                    <div class="placeholder" style="width: 96px; height: 18px;"></div>
+                                    <div class="placeholder w-10 h-2.5 mb-1"></div>
+                                    <div class="placeholder w-24 h-4.5"></div>
                                 </div>
-                                <div class="stock-info">
-                                    <div class="placeholder" style="width: 32px; height: 9px; margin-bottom: 3px; margin-left: auto;"></div>
-                                    <div class="placeholder" style="width: 56px; height: 14px; margin-left: auto;"></div>
+                                <div class="stock-info text-right">
+                                    <div class="placeholder w-8 h-2.5 mb-1 ml-auto"></div>
+                                    <div class="placeholder w-14 h-3.5 ml-auto"></div>
                                 </div>
                             </div>
-                            <div class="card-actions">
-                                <div class="placeholder" style="height: 28px;"></div>
-                                <div class="placeholder" style="height: 28px;"></div>
+                            <div class="card-actions grid grid-cols-2 gap-1.5 mt-auto">
+                                <div class="placeholder h-7"></div>
+                                <div class="placeholder h-7"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Product Card 9 (Revealed on See All) -->
-                    <div class="product-card">
-                        <div class="card-img-container placeholder" style="height: 135px; border-radius: 0;"></div>
-                        <div class="card-body">
-                            <div class="card-meta">
-                                <div class="placeholder" style="width: 38%; height: 9px;"></div>
-                                <div class="placeholder" style="width: 22%; height: 9px;"></div>
+                    <div class="product-card bg-white border border-border-custom rounded-lg overflow-hidden flex flex-col shadow-xs hover:shadow-md transition-shadow">
+                        <div class="card-img-container placeholder h-[135px] w-full rounded-none"></div>
+                        <div class="card-body p-3 flex flex-col flex-1 gap-2">
+                            <div class="card-meta flex justify-between items-center mb-1">
+                                <div class="placeholder w-[38%] h-2.5"></div>
+                                <div class="placeholder w-[22%] h-2.5"></div>
                             </div>
-                            <div class="placeholder" style="width: 82%; height: 15px; margin-bottom: 6px;"></div>
-                            <div class="placeholder" style="width: 62%; height: 9px; margin-bottom: 12px;"></div>
-                            <div class="price-row">
+                            <div class="placeholder w-[82%] h-4 mb-1"></div>
+                            <div class="placeholder w-[62%] h-2.5 mb-2"></div>
+                            <div class="price-row flex justify-between items-end border-b border-dashed border-border-custom pb-2.5 mb-2">
                                 <div>
-                                    <div class="placeholder" style="width: 38px; height: 9px; margin-bottom: 3px;"></div>
-                                    <div class="placeholder" style="width: 86px; height: 18px;"></div>
+                                    <div class="placeholder w-9.5 h-2.5 mb-1"></div>
+                                    <div class="placeholder w-21.5 h-4.5"></div>
                                 </div>
-                                <div class="stock-info">
-                                    <div class="placeholder" style="width: 34px; height: 9px; margin-bottom: 3px; margin-left: auto;"></div>
-                                    <div class="placeholder" style="width: 46px; height: 14px; margin-left: auto;"></div>
+                                <div class="stock-info text-right">
+                                    <div class="placeholder w-8.5 h-2.5 mb-1 ml-auto"></div>
+                                    <div class="placeholder w-11.5 h-3.5 ml-auto"></div>
                                 </div>
                             </div>
-                            <div class="card-actions">
-                                <div class="placeholder" style="height: 28px;"></div>
-                                <div class="placeholder" style="height: 28px;"></div>
+                            <div class="card-actions grid grid-cols-2 gap-1.5 mt-auto">
+                                <div class="placeholder h-7"></div>
+                                <div class="placeholder h-7"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Product Card 10 (Revealed on See All) -->
-                    <div class="product-card">
-                        <div class="card-img-container placeholder" style="height: 135px; border-radius: 0;"></div>
-                        <div class="card-body">
-                            <div class="card-meta">
-                                <div class="placeholder" style="width: 46%; height: 9px;"></div>
-                                <div class="placeholder" style="width: 18%; height: 9px;"></div>
+                    <div class="product-card bg-white border border-border-custom rounded-lg overflow-hidden flex flex-col shadow-xs hover:shadow-md transition-shadow">
+                        <div class="card-img-container placeholder h-[135px] w-full rounded-none"></div>
+                        <div class="card-body p-3 flex flex-col flex-1 gap-2">
+                            <div class="card-meta flex justify-between items-center mb-1">
+                                <div class="placeholder w-[46%] h-2.5"></div>
+                                <div class="placeholder w-[18%] h-2.5"></div>
                             </div>
-                            <div class="placeholder" style="width: 76%; height: 15px; margin-bottom: 6px;"></div>
-                            <div class="placeholder" style="width: 56%; height: 9px; margin-bottom: 12px;"></div>
-                            <div class="price-row">
+                            <div class="placeholder w-[76%] h-4 mb-1"></div>
+                            <div class="placeholder w-[56%] h-2.5 mb-2"></div>
+                            <div class="price-row flex justify-between items-end border-b border-dashed border-border-custom pb-2.5 mb-2">
                                 <div>
-                                    <div class="placeholder" style="width: 42px; height: 9px; margin-bottom: 3px;"></div>
-                                    <div class="placeholder" style="width: 78px; height: 18px;"></div>
+                                    <div class="placeholder w-10.5 h-2.5 mb-1"></div>
+                                    <div class="placeholder w-19.5 h-4.5"></div>
                                 </div>
-                                <div class="stock-info">
-                                    <div class="placeholder" style="width: 28px; height: 9px; margin-bottom: 3px; margin-left: auto;"></div>
-                                    <div class="placeholder" style="width: 42px; height: 14px; margin-left: auto;"></div>
+                                <div class="stock-info text-right">
+                                    <div class="placeholder w-7 h-2.5 mb-1 ml-auto"></div>
+                                    <div class="placeholder w-10.5 h-3.5 ml-auto"></div>
                                 </div>
                             </div>
-                            <div class="card-actions">
-                                <div class="placeholder" style="height: 28px;"></div>
-                                <div class="placeholder" style="height: 28px;"></div>
+                            <div class="card-actions grid grid-cols-2 gap-1.5 mt-auto">
+                                <div class="placeholder h-7"></div>
+                                <div class="placeholder h-7"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Product Card 11 (Revealed on See All) -->
-                    <div class="product-card">
-                        <div class="card-img-container placeholder" style="height: 135px; border-radius: 0;"></div>
-                        <div class="card-body">
-                            <div class="card-meta">
-                                <div class="placeholder" style="width: 36%; height: 9px;"></div>
-                                <div class="placeholder" style="width: 26%; height: 9px;"></div>
+                    <div class="product-card bg-white border border-border-custom rounded-lg overflow-hidden flex flex-col shadow-xs hover:shadow-md transition-shadow">
+                        <div class="card-img-container placeholder h-[135px] w-full rounded-none"></div>
+                        <div class="card-body p-3 flex flex-col flex-1 gap-2">
+                            <div class="card-meta flex justify-between items-center mb-1">
+                                <div class="placeholder w-[36%] h-2.5"></div>
+                                <div class="placeholder w-[26%] h-2.5"></div>
                             </div>
-                            <div class="placeholder" style="width: 92%; height: 15px; margin-bottom: 6px;"></div>
-                            <div class="placeholder" style="width: 72%; height: 9px; margin-bottom: 12px;"></div>
-                            <div class="price-row">
+                            <div class="placeholder w-[92%] h-4 mb-1"></div>
+                            <div class="placeholder w-[72%] h-2.5 mb-2"></div>
+                            <div class="price-row flex justify-between items-end border-b border-dashed border-border-custom pb-2.5 mb-2">
                                 <div>
-                                    <div class="placeholder" style="width: 34px; height: 9px; margin-bottom: 3px;"></div>
-                                    <div class="placeholder" style="width: 90px; height: 18px;"></div>
+                                    <div class="placeholder w-8.5 h-2.5 mb-1"></div>
+                                    <div class="placeholder w-22.5 h-4.5"></div>
                                 </div>
-                                <div class="stock-info">
-                                    <div class="placeholder" style="width: 36px; height: 9px; margin-bottom: 3px; margin-left: auto;"></div>
-                                    <div class="placeholder" style="width: 50px; height: 14px; margin-left: auto;"></div>
+                                <div class="stock-info text-right">
+                                    <div class="placeholder w-9 h-2.5 mb-1 ml-auto"></div>
+                                    <div class="placeholder w-12.5 h-3.5 ml-auto"></div>
                                 </div>
                             </div>
-                            <div class="card-actions">
-                                <div class="placeholder" style="height: 28px;"></div>
-                                <div class="placeholder" style="height: 28px;"></div>
+                            <div class="card-actions grid grid-cols-2 gap-1.5 mt-auto">
+                                <div class="placeholder h-7"></div>
+                                <div class="placeholder h-7"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Product Card 12 (Revealed on See All) -->
-                    <div class="product-card">
-                        <div class="card-img-container placeholder" style="height: 135px; border-radius: 0;"></div>
-                        <div class="card-body">
-                            <div class="card-meta">
-                                <div class="placeholder" style="width: 52%; height: 9px;"></div>
-                                <div class="placeholder" style="width: 14%; height: 9px;"></div>
+                    <div class="product-card bg-white border border-border-custom rounded-lg overflow-hidden flex flex-col shadow-xs hover:shadow-md transition-shadow">
+                        <div class="card-img-container placeholder h-[135px] w-full rounded-none"></div>
+                        <div class="card-body p-3 flex flex-col flex-1 gap-2">
+                            <div class="card-meta flex justify-between items-center mb-1">
+                                <div class="placeholder w-[52%] h-2.5"></div>
+                                <div class="placeholder w-[14%] h-2.5"></div>
                             </div>
-                            <div class="placeholder" style="width: 84%; height: 15px; margin-bottom: 6px;"></div>
-                            <div class="placeholder" style="width: 64%; height: 9px; margin-bottom: 12px;"></div>
-                            <div class="price-row">
+                            <div class="placeholder w-[84%] h-4 mb-1"></div>
+                            <div class="placeholder w-[64%] h-2.5 mb-2"></div>
+                            <div class="price-row flex justify-between items-end border-b border-dashed border-border-custom pb-2.5 mb-2">
                                 <div>
-                                    <div class="placeholder" style="width: 46px; height: 9px; margin-bottom: 3px;"></div>
-                                    <div class="placeholder" style="width: 84px; height: 18px;"></div>
+                                    <div class="placeholder w-11.5 h-2.5 mb-1"></div>
+                                    <div class="placeholder w-21 h-4.5"></div>
                                 </div>
-                                <div class="stock-info">
-                                    <div class="placeholder" style="width: 30px; height: 9px; margin-bottom: 3px; margin-left: auto;"></div>
-                                    <div class="placeholder" style="width: 44px; height: 14px; margin-left: auto;"></div>
+                                <div class="stock-info text-right">
+                                    <div class="placeholder w-7.5 h-2.5 mb-1 ml-auto"></div>
+                                    <div class="placeholder w-11 h-3.5 ml-auto"></div>
                                 </div>
                             </div>
-                            <div class="card-actions">
-                                <div class="placeholder" style="height: 28px;"></div>
-                                <div class="placeholder" style="height: 28px;"></div>
+                            <div class="card-actions grid grid-cols-2 gap-1.5 mt-auto">
+                                <div class="placeholder h-7"></div>
+                                <div class="placeholder h-7"></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- See All Button -->
-                <div class="see-all-container">
-                    <button class="btn-see-all" id="btnSeeAll">
+                <div class="see-all-container flex justify-center items-center mt-3.5 mb-9">
+                    <button class="btn-see-all inline-flex items-center gap-2 bg-white border-[1.5px] border-primary text-primary hover:bg-primary hover:text-white font-bold text-xs sm:text-sm py-2.5 px-6 rounded-md shadow-xs hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer" id="btnSeeAll">
                         <span>Lihat Semua Produk (12)</span>
-                        <span class="material-symbols-outlined">expand_more</span>
+                        <span class="material-symbols-outlined text-lg transition-transform duration-300">expand_more</span>
                     </button>
                 </div>
             </div>
         </main>
-
-        <!-- <div class="floating-checkout">
-            <div class="checkout-content">
-                <div class="checkout-total">
-                    <div class="placeholder" style="width: 60px; height: 12px; margin-bottom: 4px;"></div>
-                    <div class="placeholder" style="width: 150px; height: 24px;"></div>
-                </div>
-                <div class="checkout-actions">
-                    <button class="btn-nego-multi" disabled><span class="material-symbols-outlined">chat</span></button>
-                    <button class="btn-checkout" disabled><span class="material-symbols-outlined">check_circle</span></button>
-                </div>
-            </div>
-        </div> -->
     </div>
+    <!-- Main Wrapper End -->
 
     <!-- Footer Section Begin -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-row">
-                <div class="footer-col footer-col-about">
+    <footer class="footer bg-[#f3f6fa] pt-12 sm:pt-16 pb-0 border-t border-[#e1e7ec] w-full">
+        <div class="footer-container w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8">
+            <div class="footer-row flex flex-col md:flex-row flex-wrap justify-between gap-8 mb-10">
+                <!-- Col 1: About -->
+                <div class="footer-col footer-col-about flex-1 min-w-[260px] max-w-sm">
                     <div class="footer__about">
-                        <div class="footer__about__logo">
-                            <a href="./index.html" class="brand"><span class="brand-link">Link</span><span class="brand-supply">Supply</span></a>
+                        <div class="footer__about__logo mb-4">
+                            <a href="./index.html" class="brand inline-flex items-center text-2xl font-extrabold tracking-tight">
+                                <span class="brand-link text-primary">Link</span><span class="brand-supply text-[#1c1c1c]">Supply</span>
+                            </a>
                         </div>
-                        <ul>
+                        <ul class="space-y-2 text-sm text-[#1c1c1c]">
                             <li>Alamat: Jl. Gatau No. 69, Rembang</li>
                             <li>Telepon: +62 21 555 1234</li>
                             <li>Email: support@linksupply.id</li>
                         </ul>
                     </div>
                 </div>
-                <div class="footer-col footer-col-links">
+
+                <!-- Col 2: Useful Links -->
+                <div class="footer-col footer-col-links flex-1 min-w-[280px] max-w-md">
                     <div class="footer__widget">
-                        <h6>Tautan Berguna</h6>
-                        <div class="footer__widget__links">
-                            <ul>
-                                <li><a href="#">Tentang Kami</a></li>
-                                <li><a href="#">Tentang Toko Kami</a></li>
-                                <li><a href="#">Belanja Aman</a></li>
-                                <li><a href="#">Informasi Pengiriman</a></li>
-                                <li><a href="#">Kebijakan Privasi</a></li>
-                                <li><a href="#">Peta Situs</a></li>
+                        <h6 class="text-base font-bold text-[#1c1c1c] mb-4">Tautan Berguna</h6>
+                        <div class="footer__widget__links grid grid-cols-2 gap-4">
+                            <ul class="space-y-2 text-sm">
+                                <li><a href="#" class="text-[#1c1c1c] hover:text-primary hover:translate-x-1 inline-block transition-all duration-150">Tentang Kami</a></li>
+                                <li><a href="#" class="text-[#1c1c1c] hover:text-primary hover:translate-x-1 inline-block transition-all duration-150">Tentang Toko Kami</a></li>
+                                <li><a href="#" class="text-[#1c1c1c] hover:text-primary hover:translate-x-1 inline-block transition-all duration-150">Belanja Aman</a></li>
+                                <li><a href="#" class="text-[#1c1c1c] hover:text-primary hover:translate-x-1 inline-block transition-all duration-150">Informasi Pengiriman</a></li>
+                                <li><a href="#" class="text-[#1c1c1c] hover:text-primary hover:translate-x-1 inline-block transition-all duration-150">Kebijakan Privasi</a></li>
+                                <li><a href="#" class="text-[#1c1c1c] hover:text-primary hover:translate-x-1 inline-block transition-all duration-150">Peta Situs</a></li>
                             </ul>
-                            <ul>
-                                <li><a href="#">Siapa Kami</a></li>
-                                <li><a href="#">Layanan Kami</a></li>
-                                <li><a href="#">Proyek</a></li>
-                                <li><a href="#">Kontak</a></li>
-                                <li><a href="#">Inovasi</a></li>
-                                <li><a href="#">Testimoni</a></li>
+                            <ul class="space-y-2 text-sm">
+                                <li><a href="#" class="text-[#1c1c1c] hover:text-primary hover:translate-x-1 inline-block transition-all duration-150">Siapa Kami</a></li>
+                                <li><a href="#" class="text-[#1c1c1c] hover:text-primary hover:translate-x-1 inline-block transition-all duration-150">Layanan Kami</a></li>
+                                <li><a href="#" class="text-[#1c1c1c] hover:text-primary hover:translate-x-1 inline-block transition-all duration-150">Proyek</a></li>
+                                <li><a href="#" class="text-[#1c1c1c] hover:text-primary hover:translate-x-1 inline-block transition-all duration-150">Kontak</a></li>
+                                <li><a href="#" class="text-[#1c1c1c] hover:text-primary hover:translate-x-1 inline-block transition-all duration-150">Inovasi</a></li>
+                                <li><a href="#" class="text-[#1c1c1c] hover:text-primary hover:translate-x-1 inline-block transition-all duration-150">Testimoni</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="footer-col footer-col-newsletter">
+
+                <!-- Col 3: Newsletter & Social -->
+                <div class="footer-col footer-col-newsletter flex-1 min-w-[260px] max-w-sm">
                     <div class="footer__widget">
-                        <h6>Berlangganan Newsletter Kami</h6>
-                        <p>Dapatkan info terbaru tentang produk dan penawaran spesial via email.</p>
-                        <form action="#" class="footer__newsletter__form" onsubmit="event.preventDefault();">
-                            <input type="email" placeholder="Masukkan email Anda" required>
-                            <button type="submit" class="site-btn btn-subscribe">LANGGANAN</button>
+                        <h6 class="text-base font-bold text-[#1c1c1c] mb-4">Berlangganan Newsletter Kami</h6>
+                        <p class="text-sm text-[#1c1c1c] mb-5 leading-relaxed">Dapatkan info terbaru tentang produk dan penawaran spesial via email.</p>
+                        <form action="#" class="footer__newsletter__form flex mb-6 w-full" onsubmit="event.preventDefault();">
+                            <input type="email" placeholder="Masukkan email Anda" required class="w-full text-sm px-4 py-3 text-[#1c1c1c] h-11 border border-[#e1e7ec] rounded-l outline-none bg-white focus:border-primary">
+                            <button type="submit" class="site-btn btn-subscribe bg-primary hover:bg-primary-dark text-white font-bold text-xs tracking-wider px-5 rounded-r cursor-pointer whitespace-nowrap transition-colors">LANGGANAN</button>
                         </form>
-                        <div class="footer__widget__social">
-                            <a href="#" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
-                            <a href="#" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
-                            <a href="#" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
-                            <a href="#" aria-label="Pinterest"><i class="fa fa-pinterest"></i></a>
+                        <div class="footer__widget__social flex items-center gap-3">
+                            <a href="#" aria-label="Facebook" class="w-10 h-10 inline-flex items-center justify-center text-[#404040] hover:text-white border border-[#e1e7ec] rounded-full bg-white hover:bg-primary hover:border-primary hover:-translate-y-0.5 transition-all shadow-xs"><i class="fa fa-facebook"></i></a>
+                            <a href="#" aria-label="Instagram" class="w-10 h-10 inline-flex items-center justify-center text-[#404040] hover:text-white border border-[#e1e7ec] rounded-full bg-white hover:bg-primary hover:border-primary hover:-translate-y-0.5 transition-all shadow-xs"><i class="fa fa-instagram"></i></a>
+                            <a href="#" aria-label="Twitter" class="w-10 h-10 inline-flex items-center justify-center text-[#404040] hover:text-white border border-[#e1e7ec] rounded-full bg-white hover:bg-primary hover:border-primary hover:-translate-y-0.5 transition-all shadow-xs"><i class="fa fa-twitter"></i></a>
+                            <a href="#" aria-label="Pinterest" class="w-10 h-10 inline-flex items-center justify-center text-[#404040] hover:text-white border border-[#e1e7ec] rounded-full bg-white hover:bg-primary hover:border-primary hover:-translate-y-0.5 transition-all shadow-xs"><i class="fa fa-pinterest"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="footer__bottom">
-                <div class="footer__copyright__text">
-                    <p>Copyright &copy;2026 Hak Cipta Dilindungi </p>
+
+            <!-- Footer Bottom -->
+            <div class="footer__bottom border-t border-[#e5eaef] py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="footer__copyright__text text-sm text-[#1c1c1c]">
+                    <p>Copyright &copy;2026 Hak Cipta Dilindungi</p>
                 </div>
-              <div class="footer__copyright__payment">
-  <div class="footer__copyright__payment">
-    <div class="footer__copyright__payment">
-<div class="footer__copyright__payment">
-    <span class="pay-badge">
-        <img src="Assets/gopay-seeklogo.png" alt="GoPay">
-    </span>
-
-    <span class="pay-badge">
-        <img src="Assets/shopeepay.png" alt="ShopeePay">
-    </span>
-
-    <span class="pay-badge">
-        <img src="Assets/alfamart-seeklogo.png" alt="Alfamart">
-    </span>
-</div>
-</div>
-</div>
-</div>
+                <div class="footer__copyright__payment flex items-center gap-3.5 flex-wrap">
+                    <span class="pay-badge inline-flex items-center justify-center">
+                        <img src="Assets/gopay-seeklogo.png" alt="GoPay" class="h-7 w-auto max-w-[75px] object-contain">
+                    </span>
+                    <span class="pay-badge inline-flex items-center justify-center">
+                        <img src="Assets/shopeepay.png" alt="ShopeePay" class="h-7 w-auto max-w-[75px] object-contain">
+                    </span>
+                    <span class="pay-badge inline-flex items-center justify-center">
+                        <img src="Assets/alfamart-seeklogo.png" alt="Alfamart" class="h-7 w-auto max-w-[75px] object-contain">
+                    </span>
+                </div>
             </div>
         </div>
     </footer>
