@@ -1,28 +1,19 @@
 {
-  "name": "web-bersama",
-  "version": "1.0.0",
-  "description": "LinkSupply adalah platform web rantai pasok dan pasar komoditas agribisnis (pertanian, perikanan, bahan makanan, perkebunan) yang menghubungkan petani, nelayan, koperasi, penyuplai, dan pembeli bisnis secara efisien dan transparan.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tailwindcss -i ./src/css/input.css -o ./dist/css/output.css --watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xzilliazia/Link-Supply.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/xzilliazia/Link-Supply/issues"
-  },
-  "homepage": "https://github.com/xzilliazia/Link-Supply#readme",
-  "devDependencies": {
-    "@tailwindcss/cli": "^4.3.3",
-    "autoprefixer": "^10.6.1",
-    "postcss": "^8.5.28",
-    "tailwindcss": "^4.3.3"
-  }
+    "$schema": "https://www.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite"
+    },
+    "devDependencies": {
+        "@tailwindcss/vite": "^4.0.0",
+        "concurrently": "^10.0.3",
+        "laravel-vite-plugin": "^3.1",
+        "tailwindcss": "^4.0.0",
+        "vite": "^8.0.0"
+    },
+    "optionalDependencies": {
+        "@laravel/multiplex": "^0.4.1"
+    }
 }

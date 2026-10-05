@@ -1,31 +1,78 @@
-# 🌾 LinkSupply - B2B Agricultural & Supply Chain Platform
+## LinkSupply
 
-LinkSupply adalah platform web rantai pasok dan pasar komoditas agribisnis (pertanian, perikanan, bahan makanan, perkebunan) yang menghubungkan petani, nelayan, koperasi, penyuplai, dan pembeli bisnis secara efisien dan transparan.
+LinkSupply is a Laravel application for browsing agricultural and supply-chain products. The catalog, product detail page, JSON catalog endpoint, shopping cart, and checkout UI have been migrated into this Laravel project.
 
----
+### Run locally
 
-## 🚀 Fitur Interaktif UI/UX Terkini
-- **Katalog Produk Dinamis**: 12 komoditas pertanian & perikanan lengkap dengan harga grosir, minimal pesanan, stok riil, dan rating.
-- **Pencarian Real-Time (Live Search)**: Pencarian instan berdasarkan nama, kategori, lokasi, atau deskripsi dengan debounce dan tombol *clear* cepat.
-- **Filter Multi-Kategori**: Tombol kategori dinamis (Semua, Perikanan, Pertanian, Bahan Makanan, Perkebunan).
-- **Pengurutan (Sorting Engine)**: Urutkan berdasarkan Rekomendasi, Harga Terendah/Tertinggi, Nama A-Z / Z-A, dan Rating.
-- **Keranjang Belanja Interaktif (Cart Drawer)**: Panel samping *offcanvas* dengan kontrol kuantitas, subtotal, badge animasi, dan penyimpanan lokal (*LocalStorage*).
-- **Modal Detail Produk (Quick View Modal)**: Pop-up spesifikasi lengkap komoditas, selektor kuantitas otomatis, dan keyboard accessibility (ESC).
-- **Wishlist / Favorit**: Toggle favorit dengan animasi ikon hati dan notifikasi *toast*.
-- **Pusat Notifikasi**: Dropdown panel notifikasi dengan penanda status unread.
-- **Filter Wilayah Pemasok**: Dropdown pilihan provinsi/kota asal penyuplai.
-- **Sistem Notifikasi Mengambang (Floating Toast)**: Umpan balik visual instan untuk setiap interaksi pengguna.
-- **Slider Banner Hero Responsif**: Auto-slide 5s, touch swipe mobile gesture, navigasi dots, dan pause on hover.
-- **Tombol Melayang Kembali ke Atas (Back-to-Top)**: Smooth scroll ke bagian atas halaman.
-- **Validasi Newsletter**: Umpan balik interaktif saat mendaftarkan email berlangganan.
+- In Laragon, serve this project with its document root set to `public`. With Laragon auto virtual hosts enabled, open `http://link-supply.test`.
+- Or run `php artisan serve` from this directory and open `http://127.0.0.1:8000`.
+- Install PHP dependencies with `composer install` if `vendor/` is missing. Ensure `.env` exists and has an `APP_KEY` (`php artisan key:generate`).
 
----
+### LinkSupply routes and data
 
-## 📖 Dokumentasi Lengkap
-Dokumentasi teknis pembaruan dapat dibaca di:
-👉 [Link-Supply/DOCUMENTATION.md](file:///c:/Kuliahhh/pem%20web/Link-Supply/Link-Supply/DOCUMENTATION.md)
+- `/` — product catalog
+- `/products/{id}` — product detail
+- `/api/products` — JSON catalog API
+- `/payment.html` — checkout
+- Product data: `resources/data/products.json`
+- Frontend assets: `public/assets`, `public/css`, and `public/js`
+- Feature notes: [docs/FEATURES.md](./docs/FEATURES.md)
 
----
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-## 💻 Cara Menjalankan
-Buka file [Link-Supply/index.html](file:///c:/Kuliahhh/pem%20web/Link-Supply/Link-Supply/index.html) langsung di browser atau gunakan Live Server di Visual Studio Code.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
+
+## About Laravel
+
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
+
+## Learning Laravel
+
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+
+In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+
+You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+
+## Agentic Development
+
+Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+
+```bash
+composer require laravel/boost --dev
+
+php artisan boost:install
+```
+
+Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+
+## Contributing
+
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+
+## Code of Conduct
+
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
