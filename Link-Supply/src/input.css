@@ -1,0 +1,34 @@
+/*
+ * ENTRI TAILWIND (v4) — satu-satunya tempat token desain didefinisikan.
+ *
+ * Build:  npx @tailwindcss/cli -i ./src/input.css -o ./dist/css/output.css --watch
+ *
+ * `@theme static` membuat semua token di bawah ikut menjadi CSS variable
+ * (--color-primary, dst.) sehingga css/style.css bisa memakainya tanpa menyalin hex.
+ */
+@import "tailwindcss";
+
+/* Pastikan Tailwind memindai HTML dan semua template JS (kelas ada di string JS) */
+@source "../index.html";
+@source "./js";
+
+@theme static {
+  /* Warna merek */
+  --color-primary: #00750c;
+  --color-primary-light: #72a857;
+  --color-primary-dark: #155402;
+
+  /* Teks & permukaan */
+  --color-text-main: #40513b;
+  --color-text-muted: #609966;
+  --color-bg-muted: #edf1d6;
+  --color-border-custom: #9dc08b;
+  --color-ink: #1c1c1c;
+
+  /* Footer */
+  --color-footer-bg: #f3f6fa;
+  --color-footer-line: #e1e7ec;
+  --color-footer-line-soft: #e5eaef;
+
+  --font-sans: "Inter", sans-serif;
+}
