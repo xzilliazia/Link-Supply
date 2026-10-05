@@ -827,8 +827,7 @@
             Toast.show('Keranjang Anda masih kosong!', 'warning', 'production_quantity_limits');
             return;
           }
-          this.closeDrawer();
-          Toast.show('Pesanan sedang diproses ke tahap pembayaran!', 'success', 'verified');
+          window.location.href = 'payment.html';
         });
       }
 
