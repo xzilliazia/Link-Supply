@@ -681,8 +681,6 @@
 
   const setCategoryFilter = (category) => {
     state.currentCategory = category;
-    
-    // Update active pill UI
     const pills = document.querySelectorAll('.category-pills .pill');
     pills.forEach(pill => {
       const pillCat = pill.dataset.category || 'all';
@@ -692,7 +690,6 @@
         pill.className = 'pill flex items-center gap-1.5 bg-white text-text-main border border-border-custom hover:bg-emerald-50 hover:text-primary py-1.5 px-2.5 sm:px-3 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors cursor-pointer';
       }
     });
-
     renderProducts();
   };
 
@@ -1422,26 +1419,13 @@
       });
     }
 
-    // Category Pills
     const pillsContainer = document.querySelector('.category-pills');
     if (pillsContainer) {
-      const categoryMap = {
-        'Semua': 'all',
-        'Perikanan': 'perikanan',
-        'Pertanian': 'pertanian',
-        'Bahan Makanan': 'bahan-makanan',
-        'Perkebunan': 'perkebunan',
-        'Lainnya': 'all'
-      };
-
       const pills = pillsContainer.querySelectorAll('.pill');
       pills.forEach(pill => {
-        const text = pill.textContent.trim();
-        const cat = categoryMap[text] || 'all';
-        pill.dataset.category = cat;
-
         pill.addEventListener('click', (e) => {
           e.preventDefault();
+          const cat = pill.dataset.category || 'all';
           setCategoryFilter(cat);
         });
       });
