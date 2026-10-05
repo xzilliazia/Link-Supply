@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran & Checkout - Link Supply</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#00750c',
+                            light: '#72a857',
+                            dark: '#155402',
+                        },
+                        'bg-main': '#ffffff',
+                        'bg-muted': '#edf1d6',
+                        'card-bg': '#ffffff',
+                        'text-main': '#40513b',
+                        'text-muted': '#609966',
+                        'border-custom': '#9dc08b',
+                        'placeholder-bg': 'rgba(157, 192, 139, 0.4)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-sans text-text-main text-sm antialiased bg-gray-50/80 min-h-screen flex flex-col">
+
+    <header class="sticky top-0 z-40 w-full bg-white border-b border-gray-200 px-4 sm:px-8 py-3.5 shadow-2xs">
+        <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
+            <div class="flex items-center gap-6">
+                <a href="index.html" class="flex items-center gap-1.5 group">
+                    <span class="material-symbols-outlined text-primary text-3xl">eco</span>
+                    <div class="text-xl sm:text-2xl font-extrabold flex items-center tracking-tight">
+                        <span class="text-primary">Link</span><span class="text-[#1c1c1c]">Supply.</span>
+                    </div>
+                </a>
+                <div class="hidden md:flex items-center text-xs text-gray-400 gap-2 border-l border-gray-200 pl-6">
+                    <span class="text-gray-500 font-medium">1. Keranjang</span>
+                    <span class="material-symbols-outlined text-sm">chevron_right</span>
+                    <span class="text-primary font-bold">2. Pembayaran</span>
+                    <span class="material-symbols-outlined text-sm">chevron_right</span>
+                    <span class="text-gray-400">3. Selesai</span>
+                </div>
+            </div>
+
+            <a href="index.html" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-gray-600 hover:text-primary transition-colors bg-gray-100 hover:bg-emerald-50 px-3 py-1.5 rounded-lg border border-gray-200 hover:border-border-custom">
+                <span class="material-symbols-outlined text-base">arrow_back</span>
+                <span>Kembali Belanja</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-8 py-6 sm:py-8">
+        <div class="mb-6">
+            <h1 class="text-xl sm:text-2xl font-extrabold text-gray-900">Konfirmasi & Pembayaran</h1>
+            <p class="text-xs sm:text-sm text-gray-500 mt-1">Pilih alamat tujuan pengiriman dan metode pembayaran yang Anda inginkan.</p>
+        </div>
+
+        <div id="emptyCartView" class="hidden py-16 text-center bg-white border border-dashed border-gray-300 rounded-2xl p-8 shadow-xs">
+            <span class="material-symbols-outlined text-6xl text-gray-300 mb-3 block">remove_shopping_cart</span>
+            <h2 class="text-lg font-bold text-gray-800 mb-1">Keranjang Belanja Masih Kosong</h2>
+            <p class="text-xs sm:text-sm text-gray-500 max-w-md mx-auto mb-6">Silakan pilih komoditas atau produk pasokan terlebih dahulu sebelum melanjutkan proses pembayaran.</p>
+            <a href="index.html" class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white text-xs sm:text-sm font-bold py-2.5 px-6 rounded-lg shadow-sm transition-colors">
+                <span class="material-symbols-outlined text-lg">storefront</span>
+                <span>Eksplor Produk Sekarang</span>
+            </a>
+        </div>
+
+        <div id="checkoutGrid" class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+            
+            <div class="lg:col-span-2 space-y-6">
+                
+                <section class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-6 shadow-xs">
+                    <div class="flex items-center justify-between pb-4 border-b border-gray-100 mb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-2xl">location_on</span>
+                            <h2 class="text-base font-bold text-gray-900">Alamat Pengiriman</h2>
+                        </div>
+                        <button id="btnToggleNewAddress" class="inline-flex items-center gap-1 text-xs font-bold text-primary hover:text-primary-dark cursor-pointer bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg border border-border-custom transition-colors">
+                            <span class="material-symbols-outlined text-base">add</span>
+                            <span>Tambah Alamat</span>
+                        </button>
+                    </div>
+
+                    <form id="newAddressForm" class="hidden mb-5 p-4 bg-emerald-50/50 border border-border-custom rounded-xl space-y-3">
+                        <div class="flex items-center justify-between border-b border-border-custom/40 pb-2">
+                            <h3 class="text-xs font-bold text-primary-dark">Tambah Alamat Baru</h3>
+                            <button type="button" id="btnCancelNewAddress" class="text-gray-400 hover:text-gray-600 text-xs cursor-pointer">
+                                <span class="material-symbols-outlined text-base">close</span>
+                            </button>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-gray-700 mb-1">Label Alamat</label>
+                            <input type="text" id="inputLabel" required placeholder="Contoh: Gudang Utama, Kantor, Toko" class="w-full text-xs px-3 py-2 border border-gray-300 rounded-lg outline-none bg-white focus:border-primary">
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[11px] font-semibold text-gray-700 mb-1">Nama Penerima</label>
+                                <input type="text" id="inputRecipient" required placeholder="Nama kontak / penanggung jawab" class="w-full text-xs px-3 py-2 border border-gray-300 rounded-lg outline-none bg-white focus:border-primary">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-semibold text-gray-700 mb-1">Nomor Telepon</label>
+                                <input type="tel" id="inputPhone" required placeholder="081234567890" class="w-full text-xs px-3 py-2 border border-gray-300 rounded-lg outline-none bg-white focus:border-primary">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-gray-700 mb-1">Alamat Lengkap</label>
+                            <textarea id="inputStreet" required rows="2" placeholder="Nama jalan, nomor gedung/gudang, RT/RW" class="w-full text-xs px-3 py-2 border border-gray-300 rounded-lg outline-none bg-white focus:border-primary"></textarea>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div>
+                                <label class="block text-[11px] font-semibold text-gray-700 mb-1">Kota / Kab</label>
+                                <input type="text" id="inputCity" required placeholder="Surabaya" class="w-full text-xs px-3 py-2 border border-gray-300 rounded-lg outline-none bg-white focus:border-primary">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-semibold text-gray-700 mb-1">Provinsi</label>
+                                <input type="text" id="inputProvince" required placeholder="Jawa Timur" class="w-full text-xs px-3 py-2 border border-gray-300 rounded-lg outline-none bg-white focus:border-primary">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-semibold text-gray-700 mb-1">Kode Pos</label>
+                                <input type="text" id="inputPostalCode" placeholder="60111" class="w-full text-xs px-3 py-2 border border-gray-300 rounded-lg outline-none bg-white focus:border-primary">
+                            </div>
+                        </div>
+                        <div class="flex justify-end gap-2 pt-2">
+                            <button type="button" id="btnCancelNewAddress2" class="px-3 py-1.5 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-lg hover:bg-gray-50 cursor-pointer">
+                                Batal
+                            </button>
+                            <button type="submit" class="px-4 py-1.5 bg-primary hover:bg-primary-dark text-white text-xs font-bold rounded-lg shadow-xs cursor-pointer transition-colors">
+                                Simpan Alamat
+                            </button>
+                        </div>
+                    </form>
+
+                    <div id="paymentAddressList" class="space-y-3"></div>
+                </section>
+
+                <section class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-6 shadow-xs">
+                    <div class="flex items-center gap-2 pb-4 border-b border-gray-100 mb-4">
+                        <span class="material-symbols-outlined text-primary text-2xl">payments</span>
+                        <h2 class="text-base font-bold text-gray-900">Metode Pembayaran</h2>
+                    </div>
+
+                    <div class="space-y-3" id="paymentMethodsList">
+                        
+                        <label class="payment-option flex items-center justify-between p-4 border-2 border-primary bg-emerald-50/30 rounded-xl cursor-pointer transition-all shadow-2xs" data-method="gopay">
+                            <div class="flex items-center gap-3.5">
+                                <input type="radio" name="paymentMethod" value="gopay" checked class="text-primary focus:ring-primary h-4.5 w-4.5 cursor-pointer">
+                                <div class="w-12 h-10 bg-white border border-gray-200 rounded-lg flex items-center justify-center p-1.5 shrink-0 shadow-2xs">
+                                    <img src="Assets/gopay-seeklogo.png" alt="GoPay" class="h-6 w-auto object-contain">
+                                </div>
+                                <div>
+                                    <div class="font-bold text-gray-900 text-xs sm:text-sm">GoPay</div>
+                                    <div class="text-[11px] text-gray-500">Bayar instan via aplikasi GoPay atau QRIS</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-full">Otomatis</span>
+                        </label>
+
+                        <label class="payment-option flex items-center justify-between p-4 border border-gray-200 hover:border-border-custom bg-white rounded-xl cursor-pointer transition-all shadow-2xs" data-method="shopeepay">
+                            <div class="flex items-center gap-3.5">
+                                <input type="radio" name="paymentMethod" value="shopeepay" class="text-primary focus:ring-primary h-4.5 w-4.5 cursor-pointer">
+                                <div class="w-12 h-10 bg-white border border-gray-200 rounded-lg flex items-center justify-center p-1.5 shrink-0 shadow-2xs">
+                                    <img src="Assets/shopeepay.png" alt="ShopeePay" class="h-6 w-auto object-contain">
+                                </div>
+                                <div>
+                                    <div class="font-bold text-gray-900 text-xs sm:text-sm">ShopeePay</div>
+                                    <div class="text-[11px] text-gray-500">Bayar via saldo ShopeePay atau scan barcode</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-full">Otomatis</span>
+                        </label>
+
+                        <label class="payment-option flex items-center justify-between p-4 border border-gray-200 hover:border-border-custom bg-white rounded-xl cursor-pointer transition-all shadow-2xs" data-method="indomaret">
+                            <div class="flex items-center gap-3.5">
+                                <input type="radio" name="paymentMethod" value="indomaret" class="text-primary focus:ring-primary h-4.5 w-4.5 cursor-pointer">
+                                <div class="w-12 h-10 bg-white border border-gray-200 rounded-lg flex items-center justify-center p-1.5 shrink-0 shadow-2xs">
+                                    <span class="material-symbols-outlined text-primary text-2xl">store</span>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-gray-900 text-xs sm:text-sm">Indomaret / Gerai Retail</div>
+                                    <div class="text-[11px] text-gray-500">Bayar di gerai Indomaret terdekat dengan kode bayar</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-medium text-gray-600 bg-gray-100 border border-gray-200 px-2 py-0.5 rounded-full">Gerai Retail</span>
+                        </label>
+
+                    </div>
+                </section>
+
+                <section class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-6 shadow-xs">
+                    <div class="flex items-center justify-between pb-4 border-b border-gray-100 mb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-2xl">inventory_2</span>
+                            <h2 class="text-base font-bold text-gray-900">Rincian Komoditas Dipesan</h2>
+                        </div>
+                        <span id="orderItemCount" class="text-xs font-semibold text-gray-500">0 Item</span>
+                    </div>
+
+                    <div id="paymentCartItems" class="divide-y divide-gray-100"></div>
+                </section>
+
+            </div>
+
+            <div class="lg:col-span-1 sticky top-20">
+                <div class="bg-white border border-gray-200 rounded-2xl p-5 sm:p-6 shadow-sm space-y-4">
+                    <h2 class="text-base font-bold text-gray-900 pb-3 border-b border-gray-100">Ringkasan Pembayaran</h2>
+
+                    <div class="space-y-2.5 text-xs">
+                        <div class="flex justify-between text-gray-600">
+                            <span>Subtotal Komoditas</span>
+                            <span id="summarySubtotal" class="font-bold text-gray-900">Rp 0</span>
+                        </div>
+                        <div class="flex justify-between text-gray-600">
+                            <span>Biaya Logistik Cold Chain</span>
+                            <span class="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 text-[11px]">Gratis Ongkir</span>
+                        </div>
+                        <div class="flex justify-between text-gray-600">
+                            <span>Biaya Layanan B2B</span>
+                            <span class="font-medium text-gray-500">Rp 0</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-3 border-t border-gray-100 flex justify-between items-baseline">
+                        <div>
+                            <div class="text-xs text-gray-500 font-medium">Total Tagihan</div>
+                            <div class="text-[11px] text-gray-400">Termasuk PPN & Pajak</div>
+                        </div>
+                        <div id="summaryTotal" class="text-lg sm:text-xl font-extrabold text-primary-dark">
+                            Rp 0
+                        </div>
+                    </div>
+
+                    <button id="btnBayarSekarang" class="w-full bg-primary hover:bg-primary-dark active:scale-[0.99] text-white font-bold py-3.5 px-4 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer mt-4">
+                        <span class="material-symbols-outlined text-xl">lock</span>
+                        <span>Bayar Sekarang</span>
+                    </button>
+
+                    <div class="flex items-center justify-center gap-2 text-[11px] text-gray-400 pt-1">
+                        <span class="material-symbols-outlined text-sm text-emerald-600">verified_user</span>
+                        <span>Transaksi Aman & Terenkripsi LinkSupply</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-6 mt-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
+            <p>&copy; 2026 LinkSupply. Hak Cipta Dilindungi.</p>
+            <div class="flex items-center gap-4">
+                <a href="#" class="hover:text-primary">Syarat & Ketentuan</a>
+                <a href="#" class="hover:text-primary">Kebijakan Privasi</a>
+                <a href="#" class="hover:text-primary">Bantuan Pembayaran</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const PRODUCTS_DATA = [
+                { id: 1, name: "Beras Pandan Wangi Premium", price: 14500, priceUnit: "kg", image: "Assets/pexels-shvets-production-8900041.jpg" },
+                { id: 2, name: "Ikan Gurame Segar Hidup", price: 32000, priceUnit: "kg", image: "Assets/pexels-1135897-30199346.jpg" },
+                { id: 3, name: "Cabai Merah Keriting Fresh", price: 28000, priceUnit: "kg", image: "Assets/pexels-kevin-malik-9016541.jpg" },
+                { id: 4, name: "Bawang Merah Brebes Super", price: 35000, priceUnit: "kg", image: "Assets/pexels-yuslava-36897781.jpg" },
+                { id: 5, name: "Udang Vaname Fresh Size 40", price: 68000, priceUnit: "kg", image: "Assets/pexels-1135897-30199346.jpg" },
+                { id: 6, name: "Kopi Robusta Dampit Green Bean", price: 75000, priceUnit: "kg", image: "Assets/pexels-yuslava-36897781.jpg" },
+                { id: 7, name: "Jagung Pipil Kering Pakan", price: 6200, priceUnit: "kg", image: "Assets/pexels-shvets-production-8900041.jpg" },
+                { id: 8, name: "Ikan Tongkol Segar Beku (IQF)", price: 24000, priceUnit: "kg", image: "Assets/pexels-1135897-30199346.jpg" },
+                { id: 9, name: "Jahe Merah Segar Grade A", price: 22000, priceUnit: "kg", image: "Assets/pexels-yuslava-36897781.jpg" },
+                { id: 10, name: "Minyak Goreng Sawit Curah", price: 15500, priceUnit: "liter", image: "Assets/pexels-tima-miroshnichenko-6169177.jpg" },
+                { id: 11, name: "Gula Pasir Tebu Kristal Putih", price: 16800, priceUnit: "kg", image: "Assets/pexels-nicolas-rueda-175965148-17546504.jpg" },
+                { id: 12, name: "Cengkeh Kering Pilihan Asli", price: 115000, priceUnit: "kg", image: "Assets/pexels-kevin-malik-9016541.jpg" }
+            ];
+
+            const formatIDR = (num) => {
+                return new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    maximumFractionDigits: 0
+                }).format(num);
+            };
+
+            const escapeHtml = (str) => {
+                if (!str) return '';
+                return String(str)
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            };
+
+            let cart = JSON.parse(localStorage.getItem('linksupply_cart') || '[]');
+            let addresses = JSON.parse(localStorage.getItem('linksupply_addresses') || '[]');
+
+            if (addresses.length === 0) {
+                addresses = [
+                    {
+                        id: 'addr_1',
+                        label: 'Gudang Utama',
+                        recipient: 'Mitra Tani Sejahtera (Bpk. Joko)',
+                        phone: '+62 812-3456-7890',
+                        street: 'Jl. Raya Agrobisnis No. 45, RT 02 / RW 05',
+                        city: 'Cianjur',
+                        province: 'Jawa Barat',
+                        postalCode: '43211',
+                        isDefault: true
+                    }
+                ];
+                localStorage.setItem('linksupply_addresses', JSON.stringify(addresses));
+            }
+
+            let selectedAddressId = (addresses.find(a => a.isDefault) || addresses[0])?.id || '';
+
+            const emptyView = document.getElementById('emptyCartView');
+            const checkoutGrid = document.getElementById('checkoutGrid');
+
+            const renderCartItems = () => {
+                if (cart.length === 0) {
+                    if (emptyView) emptyView.classList.remove('hidden');
+                    if (checkoutGrid) checkoutGrid.classList.add('hidden');
+                    return;
+                }
+
+                if (emptyView) emptyView.classList.add('hidden');
+                if (checkoutGrid) checkoutGrid.classList.remove('hidden');
+
+                const container = document.getElementById('paymentCartItems');
+                const countEl = document.getElementById('orderItemCount');
+                const subtotalEl = document.getElementById('summarySubtotal');
+                const totalEl = document.getElementById('summaryTotal');
+
+                let totalCount = 0;
+                let subtotal = 0;
+
+                const itemsHtml = cart.map(item => {
+                    const product = PRODUCTS_DATA.find(p => p.id === Number(item.id)) || {
+                        name: 'Komoditas Pasokan',
+                        price: item.price || 0,
+                        priceUnit: 'kg',
+                        image: 'Assets/pexels-shvets-production-8900041.jpg'
+                    };
+
+                    const itemTotal = product.price * item.quantity;
+                    totalCount += item.quantity;
+                    subtotal += itemTotal;
+
+                    return `
+                        <div class="py-3.5 flex items-center gap-3.5">
+                            <img src="${product.image}" alt="${escapeHtml(product.name)}" class="w-14 h-14 object-cover rounded-lg border border-gray-200 shrink-0">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-bold text-xs sm:text-sm text-gray-900 truncate">${escapeHtml(product.name)}</h3>
+                                <div class="text-[11px] text-gray-500 mt-0.5">
+                                    ${formatIDR(product.price)} / ${product.priceUnit} &times; <strong class="text-gray-800">${item.quantity} ${product.priceUnit}</strong>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0">
+                                <div class="font-extrabold text-xs sm:text-sm text-gray-900">${formatIDR(itemTotal)}</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                if (container) container.innerHTML = itemsHtml;
+                if (countEl) countEl.textContent = `${totalCount} Item`;
+                if (subtotalEl) subtotalEl.textContent = formatIDR(subtotal);
+                if (totalEl) totalEl.textContent = formatIDR(subtotal);
+            };
+
+            const renderAddresses = () => {
+                const list = document.getElementById('paymentAddressList');
+                if (!list) return;
+
+                if (addresses.length === 0) {
+                    list.innerHTML = `
+                        <div class="p-4 text-center text-xs text-gray-500 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                            Belum ada alamat pengiriman. Silakan tambah alamat baru.
+                        </div>
+                    `;
+                    return;
+                }
+
+                list.innerHTML = addresses.map(addr => {
+                    const isSelected = addr.id === selectedAddressId;
+                    return `
+                        <label class="block p-3.5 sm:p-4 rounded-xl border-2 transition-all cursor-pointer ${isSelected ? 'border-primary bg-emerald-50/20 shadow-2xs' : 'border-gray-200 hover:border-gray-300 bg-white'}">
+                            <div class="flex items-start gap-3">
+                                <input type="radio" name="selectedShippingAddress" value="${addr.id}" ${isSelected ? 'checked' : ''} class="mt-1 text-primary focus:ring-primary h-4 w-4 cursor-pointer">
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="font-bold text-xs sm:text-sm text-gray-900">${escapeHtml(addr.label)}</span>
+                                        ${addr.isDefault ? '<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">Utama</span>' : ''}
+                                    </div>
+                                    <div class="text-xs font-semibold text-gray-800">${escapeHtml(addr.recipient)} <span class="text-gray-500 font-normal">(${escapeHtml(addr.phone)})</span></div>
+                                    <div class="text-xs text-gray-600 mt-0.5 leading-relaxed">${escapeHtml(addr.street)}</div>
+                                    <div class="text-xs text-gray-500 mt-0.5">${escapeHtml(addr.city)}, ${escapeHtml(addr.province)} ${escapeHtml(addr.postalCode || '')}</div>
+                                </div>
+                            </div>
+                        </label>
+                    `;
+                }).join('');
+
+                list.querySelectorAll('input[name="selectedShippingAddress"]').forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        selectedAddressId = e.target.value;
+                        renderAddresses();
+                    });
+                });
+            };
+
+            const toggleBtn = document.getElementById('btnToggleNewAddress');
+            const form = document.getElementById('newAddressForm');
+            const cancelBtn = document.getElementById('btnCancelNewAddress');
+            const cancelBtn2 = document.getElementById('btnCancelNewAddress2');
+
+            const toggleAddressForm = (show) => {
+                if (show) {
+                    form.classList.remove('hidden');
+                    toggleBtn.classList.add('hidden');
+                } else {
+                    form.classList.add('hidden');
+                    toggleBtn.classList.remove('hidden');
+                    form.reset();
+                }
+            };
+
+            if (toggleBtn) toggleBtn.addEventListener('click', () => toggleAddressForm(true));
+            if (cancelBtn) cancelBtn.addEventListener('click', () => toggleAddressForm(false));
+            if (cancelBtn2) cancelBtn2.addEventListener('click', () => toggleAddressForm(false));
+
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const newAddr = {
+                        id: 'addr_' + Date.now(),
+                        label: document.getElementById('inputLabel').value.trim(),
+                        recipient: document.getElementById('inputRecipient').value.trim(),
+                        phone: document.getElementById('inputPhone').value.trim(),
+                        street: document.getElementById('inputStreet').value.trim(),
+                        city: document.getElementById('inputCity').value.trim(),
+                        province: document.getElementById('inputProvince').value.trim(),
+                        postalCode: document.getElementById('inputPostalCode').value.trim(),
+                        isDefault: addresses.length === 0
+                    };
+
+                    addresses.unshift(newAddr);
+                    selectedAddressId = newAddr.id;
+                    localStorage.setItem('linksupply_addresses', JSON.stringify(addresses));
+                    renderAddresses();
+                    toggleAddressForm(false);
+                });
+            }
+
+            const paymentOptions = document.querySelectorAll('.payment-option');
+            paymentOptions.forEach(opt => {
+                opt.addEventListener('click', () => {
+                    paymentOptions.forEach(o => {
+                        o.classList.remove('border-primary', 'bg-emerald-50/30', 'border-2');
+                        o.classList.add('border-gray-200', 'bg-white', 'border');
+                    });
+                    opt.classList.remove('border-gray-200', 'bg-white', 'border');
+                    opt.classList.add('border-primary', 'bg-emerald-50/30', 'border-2');
+                    const radio = opt.querySelector('input[type="radio"]');
+                    if (radio) radio.checked = true;
+                });
+            });
+
+            const btnBayar = document.getElementById('btnBayarSekarang');
+            if (btnBayar) {
+                btnBayar.addEventListener('click', (e) => {
+                    e.preventDefault();
+                });
+            }
+
+            renderCartItems();
+            renderAddresses();
+        });
+    </script>
+</body>
+</html>
