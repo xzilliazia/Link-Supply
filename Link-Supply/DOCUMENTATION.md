@@ -13,7 +13,8 @@ Sebelum pembaruan, antarmuka memiliki tata letak visual dasar dengan kartu produ
 ## 🚀 Fitur & Peningkatan Interaktivitas yang Ditambahkan
 
 ### 1. 🛍️ Katalog Produk Dinamis (*Dynamic Product Catalog*)
-- **Dataset Terstruktur**: 12 komoditas B2B realistis yang mencakup kategori Perikanan, Pertanian, Bahan Makanan, dan Perkebunan lengkap dengan informasi harga grosir per satuan, minimal pemesanan (*minimum order*), stok riil, lokasi asal penyuplai, rating bintang, jumlah terjual, dan badge status (*Terlaris, Segar, Organik, Standar SNI, dll.*).
+- **Dataset Terstruktur**: 12 komoditas B2B realistis disimpan di `js/product.json`, mencakup kategori Perikanan, Pertanian, Bahan Makanan, dan Perkebunan lengkap dengan informasi harga grosir per satuan, minimal pemesanan (*minimum order*), stok riil, lokasi asal penyuplai, rating bintang, jumlah terjual, dan badge status (*Terlaris, Segar, Organik, Standar SNI, dll.*). Aplikasi mengambil dataset melalui `fetch()` saat halaman dimuat; file JSON ini merupakan sumber data statis read-only, bukan backend untuk membuat atau mengubah produk.
+- **Menjalankan katalog**: Buka halaman melalui server lokal seperti VS Code Live Server (bukan `file://`) agar browser dapat mengambil `js/product.json`. Jika permintaan gagal, katalog menampilkan pesan error dan detail teknisnya dicatat di console browser.
 - **Animasi Kartu**: Efek *hover elevation*, *smooth zoom* pada gambar komoditas, dan animasi *fade-in* saat filter diterapkan.
 - **Lihat Semua Produk (*Expand / Collapse*)**: Tampilan awal menampilkan 8 produk unggulan, dengan tombol interaktif untuk membuka seluruh 12 produk secara mulus (*smooth transition*).
 
@@ -118,7 +119,8 @@ Link-Supply/
 │   ├── css/
 │   │   └── style.css            # Stylesheet kustom untuk animasi, drawer, modal, toast, dll.
 │   ├── js/
-│   │   └── app.js              # Script utama interaktivitas aplikasi (Vanilla ES6+)
+│   │   ├── app.js              # Script utama interaktivitas aplikasi (Vanilla ES6+)
+│   │   └── product.json        # Dataset produk yang dimuat oleh aplikasi
 │   ├── index.html              # Halaman utama aplikasi LinkSupply
 │   └── DOCUMENTATION.md        # Dokumentasi lengkap pembaruan
 └── .vscode/
