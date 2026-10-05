@@ -17,269 +17,13 @@
   'use strict';
 
   /* ==========================================================================
-     1. PRODUCT DATASET
-     ========================================================================== */
-  const PRODUCTS_DATA = [
-    {
-      id: 1,
-      name: "Beras Pandan Wangi Premium",
-      category: "pertanian",
-      categoryLabel: "Pertanian",
-      categoryIcon: "wheat",
-      price: 14500,
-      priceUnit: "kg",
-      minOrder: 50,
-      minOrderUnit: "kg",
-      stock: 4500,
-      stockUnit: "kg",
-      location: "Cianjur, Jawa Barat",
-      province: "Jawa Barat",
-      rating: 4.9,
-      soldCount: "1.2k",
-      image: "Assets/pexels-shvets-production-8900041.jpg",
-      badge: "Terlaris",
-      badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-300",
-      desc: "Beras Pandan Wangi asli langsung dari petani binaan Cianjur. Memiliki aroma wangi pandan alami yang khas, butiran pulen, bersih, dan bebas pemutih maupun pengawet sintetis. Cocok untuk kebutuhan restoran, katering, dan supermarket."
-    },
-    {
-      id: 2,
-      name: "Ikan Gurame Segar Hidup",
-      category: "perikanan",
-      categoryLabel: "Perikanan",
-      categoryIcon: "water",
-      price: 32000,
-      priceUnit: "kg",
-      minOrder: 25,
-      minOrderUnit: "kg",
-      stock: 1200,
-      stockUnit: "kg",
-      location: "Tulungagung, Jawa Timur",
-      province: "Jawa Timur",
-      rating: 4.8,
-      soldCount: "850",
-      image: "Assets/pexels-1135897-30199346.jpg",
-      badge: "Segar",
-      badgeColor: "bg-blue-100 text-blue-800 border-blue-300",
-      desc: "Ikan Gurame budidaya kolam air deras berkualitas tinggi. Kondisi sehat, bobot rata-rata 500-800 gram per ekor. Dipanen langsung sebelum pengiriman dengan armada beroksigen untuk menjaga kesegaran maksimal."
-    },
-    {
-      id: 3,
-      name: "Cabai Merah Keriting Fresh",
-      category: "pertanian",
-      categoryLabel: "Pertanian",
-      categoryIcon: "wheat",
-      price: 28000,
-      priceUnit: "kg",
-      minOrder: 20,
-      minOrderUnit: "kg",
-      stock: 850,
-      stockUnit: "kg",
-      location: "Kediri, Jawa Timur",
-      province: "Jawa Timur",
-      rating: 4.7,
-      soldCount: "2.1k",
-      image: "Assets/pexels-kevin-malik-9016541.jpg",
-      badge: "Diskon 10%",
-      badgeColor: "bg-red-100 text-red-800 border-red-300",
-      desc: "Cabai merah keriting grade A hasil petik harian dari dataran tinggi. Tingkat kepedasan stabil, warna merah menyala, tekstur padat dan daya simpan lama untuk kebutuhan pasar induk dan industri olahan."
-    },
-    {
-      id: 4,
-      name: "Bawang Merah Brebes Super",
-      category: "bahan-makanan",
-      categoryLabel: "Bahan Makanan",
-      categoryIcon: "grocery",
-      price: 35000,
-      priceUnit: "kg",
-      minOrder: 30,
-      minOrderUnit: "kg",
-      stock: 2100,
-      stockUnit: "kg",
-      location: "Brebes, Jawa Tengah",
-      province: "Jawa Tengah",
-      rating: 4.9,
-      soldCount: "3.4k",
-      image: "Assets/pexels-yuslava-36897781.jpg",
-      badge: "Unggulan",
-      badgeColor: "bg-purple-100 text-purple-800 border-purple-300",
-      desc: "Bawang merah varietas Bima Brebes pilihan ukuran sedang-besar. Kering sempurna dengan aroma harum menyengat dan rasa gurih yang kuat. Bebas dari busuk dan tanah sisa."
-    },
-    {
-      id: 5,
-      name: "Udang Vaname Fresh Size 40",
-      category: "perikanan",
-      categoryLabel: "Perikanan",
-      categoryIcon: "water",
-      price: 68000,
-      priceUnit: "kg",
-      minOrder: 15,
-      minOrderUnit: "kg",
-      stock: 950,
-      stockUnit: "kg",
-      location: "Banyuwangi, Jawa Timur",
-      province: "Jawa Timur",
-      rating: 4.9,
-      soldCount: "640",
-      image: "Assets/pexels-1135897-30199346.jpg",
-      badge: "Kualitas Ekspor",
-      badgeColor: "bg-amber-100 text-amber-800 border-amber-300",
-      desc: "Udang Vaname tambak bersertifikasi CBIB. Isi 40 ekor per kilogram, tekstur kenyal manis alami, diproses dengan rantai dingin (cold chain) higienis tanpa bahan kimia tambahan."
-    },
-    {
-      id: 6,
-      name: "Kopi Robusta Dampit Green Bean",
-      category: "perkebunan",
-      categoryLabel: "Perkebunan",
-      categoryIcon: "potted_plant",
-      price: 75000,
-      priceUnit: "kg",
-      minOrder: 10,
-      minOrderUnit: "kg",
-      stock: 1800,
-      stockUnit: "kg",
-      location: "Malang, Jawa Timur",
-      province: "Jawa Timur",
-      rating: 4.9,
-      soldCount: "920",
-      image: "Assets/pexels-yuslava-36897781.jpg",
-      badge: "Grade 1",
-      badgeColor: "bg-stone-100 text-stone-800 border-stone-300",
-      desc: "Biji kopi mentah (green bean) Robusta lereng Gunung Semeru Dampit. Kadar air 12%, diproses secara natural / semi-washed dengan body tebal dan notes cokelat karamel khas."
-    },
-    {
-      id: 7,
-      name: "Jagung Pipil Kering Pakan",
-      category: "pertanian",
-      categoryLabel: "Pertanian",
-      categoryIcon: "wheat",
-      price: 6200,
-      priceUnit: "kg",
-      minOrder: 100,
-      minOrderUnit: "kg",
-      stock: 12000,
-      stockUnit: "kg",
-      location: "Grobogan, Jawa Tengah",
-      province: "Jawa Tengah",
-      rating: 4.6,
-      soldCount: "5.8k",
-      image: "Assets/pexels-shvets-production-8900041.jpg",
-      badge: "Pasokan Besar",
-      badgeColor: "bg-yellow-100 text-yellow-800 border-yellow-300",
-      desc: "Jagung pipil kadar air maksimal 14%, bersih dari kotoran dan tongkol. Ideal untuk bahan baku pakan ternak unggas dan peternakan skala komersial."
-    },
-    {
-      id: 8,
-      name: "Ikan Tongkol Segar Beku (IQF)",
-      category: "perikanan",
-      categoryLabel: "Perikanan",
-      categoryIcon: "water",
-      price: 24000,
-      priceUnit: "kg",
-      minOrder: 50,
-      minOrderUnit: "kg",
-      stock: 3500,
-      stockUnit: "kg",
-      location: "Rembang, Jawa Tengah",
-      province: "Jawa Tengah",
-      rating: 4.7,
-      soldCount: "1.5k",
-      image: "Assets/pexels-1135897-30199346.jpg",
-      badge: "Cold Chain",
-      badgeColor: "bg-cyan-100 text-cyan-800 border-cyan-300",
-      desc: "Ikan tongkol hasil tangkapan nelayan laut Jawa langsung dibekukan dengan sistem IQF (Individual Quick Freezing) di atas kapal. Mutu terjamin segar seperti baru dipancing."
-    },
-    {
-      id: 9,
-      name: "Jahe Merah Segar Grade A",
-      category: "perkebunan",
-      categoryLabel: "Perkebunan",
-      categoryIcon: "potted_plant",
-      price: 22000,
-      priceUnit: "kg",
-      minOrder: 20,
-      minOrderUnit: "kg",
-      stock: 1400,
-      stockUnit: "kg",
-      location: "Karanganyar, Jawa Tengah",
-      province: "Jawa Tengah",
-      rating: 4.8,
-      soldCount: "780",
-      image: "Assets/pexels-yuslava-36897781.jpg",
-      badge: "Organik",
-      badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-300",
-      desc: "Rimpang jahe merah tua berkualitas tinggi, beraroma pedas pekat dengan kandungan minyak atsiri melimpah. Bersih dan cocok untuk jamu, herbal, dan industri farmasi."
-    },
-    {
-      id: 10,
-      name: "Minyak Goreng Sawit Curah",
-      category: "bahan-makanan",
-      categoryLabel: "Bahan Makanan",
-      categoryIcon: "grocery",
-      price: 15500,
-      priceUnit: "liter",
-      minOrder: 50,
-      minOrderUnit: "liter",
-      stock: 6000,
-      stockUnit: "liter",
-      location: "Surabaya, Jawa Timur",
-      province: "Jawa Timur",
-      rating: 4.7,
-      soldCount: "8.9k",
-      image: "Assets/pexels-tima-miroshnichenko-6169177.jpg",
-      badge: "B2B Best Price",
-      badgeColor: "bg-orange-100 text-orange-800 border-orange-300",
-      desc: "Minyak goreng kelapa sawit murni terfortifikasi vitamin A. Warna jernih, titik asap tinggi, dan hemat digunakan untuk produksi kuliner skala menengah hingga besar."
-    },
-    {
-      id: 11,
-      name: "Gula Pasir Tebu Kristal Putih",
-      category: "bahan-makanan",
-      categoryLabel: "Bahan Makanan",
-      categoryIcon: "grocery",
-      price: 16800,
-      priceUnit: "kg",
-      minOrder: 50,
-      minOrderUnit: "kg",
-      stock: 8000,
-      stockUnit: "kg",
-      location: "Madiun, Jawa Timur",
-      province: "Jawa Timur",
-      rating: 4.9,
-      soldCount: "4.2k",
-      image: "Assets/pexels-nicolas-rueda-175965148-17546504.jpg",
-      badge: "Standar SNI",
-      badgeColor: "bg-blue-100 text-blue-800 border-blue-300",
-      desc: "Gula kristal putih dari tebu pilihan pabrik gula modern. Butiran halus seragam, manis murni alami, berstandar mutu SNI dan BPOM."
-    },
-    {
-      id: 12,
-      name: "Cengkeh Kering Pilihan Asli",
-      category: "perkebunan",
-      categoryLabel: "Perkebunan",
-      categoryIcon: "potted_plant",
-      price: 115000,
-      priceUnit: "kg",
-      minOrder: 5,
-      minOrderUnit: "kg",
-      stock: 600,
-      stockUnit: "kg",
-      location: "Pacitan, Jawa Timur",
-      province: "Jawa Timur",
-      rating: 4.9,
-      soldCount: "410",
-      image: "Assets/pexels-kevin-malik-9016541.jpg",
-      badge: "Premium",
-      badgeColor: "bg-purple-100 text-purple-800 border-purple-300",
-      desc: "Bunga cengkeh kering pilihan matang pohon dengan kadar air rendah < 12%. Bebas gagang sampah, warna cokelat mengkilap, dan aroma khas yang sangat kuat."
-    }
-  ];
-
-  /* ==========================================================================
-     2. APPLICATION STATE
+     1. APPLICATION STATE
      ========================================================================== */
   const state = {
-    products: [...PRODUCTS_DATA],
-    filteredProducts: [...PRODUCTS_DATA],
+    products: [],
+    filteredProducts: [],
+    productsLoading: true,
+    productsError: false,
     currentCategory: 'all',
     currentLocation: 'all',
     searchQuery: '',
@@ -293,7 +37,7 @@
   };
 
   /* ==========================================================================
-     3. UTILITY HELPERS
+     2. UTILITY HELPERS
      ========================================================================== */
   const formatIDR = (number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -313,7 +57,7 @@
   };
 
   /* ==========================================================================
-     4. TOAST NOTIFICATION SYSTEM
+     3. TOAST NOTIFICATION SYSTEM
      ========================================================================== */
   const Toast = {
     container: null,
@@ -381,7 +125,7 @@
   };
 
   /* ==========================================================================
-     5. HERO SLIDER CONTROLLER
+     4. HERO SLIDER CONTROLLER
      ========================================================================== */
   const initSlider = () => {
     const slider = document.getElementById('adSlider');
@@ -495,7 +239,7 @@
   };
 
   /* ==========================================================================
-     6. PRODUCT CATALOG RENDERER & FILTERS
+     5. PRODUCT CATALOG RENDERER & FILTERS
      ========================================================================== */
   const renderProducts = () => {
     const productGrid = document.getElementById('productGrid');
@@ -503,6 +247,28 @@
     const btnSeeAll = document.getElementById('btnSeeAll');
 
     if (!productGrid) return;
+
+    if (state.productsLoading) {
+      if (productCountEl) productCountEl.textContent = 'Memuat produk...';
+      productGrid.innerHTML = `
+        <div class="col-span-full py-16 px-4 text-center text-sm text-gray-500" role="status">
+          Memuat katalog produk...
+        </div>
+      `;
+      return;
+    }
+
+    if (state.productsError) {
+      if (productCountEl) productCountEl.textContent = '0 produk';
+      productGrid.innerHTML = `
+        <div class="col-span-full py-16 px-4 text-center bg-white border border-dashed border-gray-300 rounded-xl shadow-xs" role="alert">
+          <span class="material-symbols-outlined text-6xl text-gray-300 mb-3 block">cloud_off</span>
+          <h3 class="text-lg font-bold text-gray-800 mb-1">Katalog Gagal Dimuat</h3>
+          <p class="text-sm text-gray-500">Periksa koneksi atau jalankan halaman melalui server lokal, lalu muat ulang.</p>
+        </div>
+      `;
+      return;
+    }
 
     // Filter products
     let filtered = state.products.filter(item => {
@@ -718,7 +484,7 @@
   };
 
   /* ==========================================================================
-     7. CART CONTROLLER & DRAWER
+     6. CART CONTROLLER & DRAWER
      ========================================================================== */
   const Cart = {
     drawer: null,
@@ -933,7 +699,7 @@
     },
 
     addItem(productId, qtyToAdd = 1) {
-      const product = PRODUCTS_DATA.find(p => p.id === Number(productId));
+      const product = state.products.find(p => p.id === Number(productId));
       if (!product) return;
 
       const existing = state.cart.find(item => item.id === product.id);
@@ -1295,7 +1061,7 @@
   };
 
   /* ==========================================================================
-     8. QUICK VIEW MODAL CONTROLLER
+     7. QUICK VIEW MODAL CONTROLLER
      ========================================================================== */
   const QuickView = {
     modal: null,
@@ -1446,7 +1212,7 @@
     },
 
     open(productId) {
-      const product = PRODUCTS_DATA.find(p => p.id === Number(productId));
+      const product = state.products.find(p => p.id === Number(productId));
       if (!product) return;
 
       this.currentProduct = product;
@@ -1505,7 +1271,7 @@
   };
 
   /* ==========================================================================
-     9. NOTIFICATION PANEL
+     8. NOTIFICATION PANEL
      ========================================================================== */
   const initNotifications = () => {
     const notifBtn = document.querySelector('.icon-group span:first-child');
@@ -1589,7 +1355,7 @@
   };
 
   /* ==========================================================================
-     10. LOCATION SELECTOR
+     9. LOCATION SELECTOR
      ========================================================================== */
   const initLocationSelector = () => {
     const locBtn = document.querySelector('.location');
@@ -1641,7 +1407,7 @@
   };
 
   /* ==========================================================================
-     11. BACK TO TOP BUTTON
+     10. BACK TO TOP BUTTON
      ========================================================================== */
   const initBackToTop = () => {
     let btn = document.getElementById('btnBackToTop');
@@ -1670,7 +1436,7 @@
   };
 
   /* ==========================================================================
-     12. SEARCH & SORT INTERACTION
+     11. SEARCH & SORT INTERACTION
      ========================================================================== */
   const initSearchAndSort = () => {
     const searchBar = document.querySelector('.search-bar');
@@ -1755,7 +1521,7 @@
   };
 
   /* ==========================================================================
-     13. GLOBAL EVENT DELEGATION
+     12. GLOBAL EVENT DELEGATION
      ========================================================================== */
   const initGlobalEvents = () => {
     // Delegated product card actions
@@ -1843,13 +1609,36 @@
   };
 
   /* ==========================================================================
-     14. APPLICATION INITIALIZATION
+     13. APPLICATION INITIALIZATION
      ========================================================================== */
+  const loadProducts = async () => {
+    try {
+      const response = await fetch('./js/product.json');
+      if (!response.ok) {
+        throw new Error(`Product dataset request failed with status ${response.status}`);
+      }
+
+      const products = await response.json();
+      if (!Array.isArray(products)) {
+        throw new Error('Product dataset must be a JSON array');
+      }
+
+      state.products = products;
+      state.filteredProducts = [...products];
+      state.productsLoading = false;
+      renderProducts();
+    } catch (error) {
+      console.error('Unable to load the product dataset.', error);
+      state.productsLoading = false;
+      state.productsError = true;
+      renderProducts();
+    }
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     Toast.init();
     initSlider();
     initSearchAndSort();
-    renderProducts();
     Cart.init();
     Profile.init();
     QuickView.init();
@@ -1857,6 +1646,7 @@
     initLocationSelector();
     initBackToTop();
     initGlobalEvents();
+    loadProducts();
   });
 
 })();
