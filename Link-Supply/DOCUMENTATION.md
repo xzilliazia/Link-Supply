@@ -13,13 +13,15 @@ Sebelum pembaruan, antarmuka memiliki tata letak visual dasar dengan kartu produ
 ## 🚀 Fitur & Peningkatan Interaktivitas yang Ditambahkan
 
 ### 1. 🛍️ Katalog Produk Dinamis (*Dynamic Product Catalog*)
-- **Dataset Terstruktur**: 12 komoditas B2B realistis disimpan di `js/product.json`, mencakup kategori Perikanan, Pertanian, Bahan Makanan, dan Perkebunan lengkap dengan informasi harga grosir per satuan, minimal pemesanan (*minimum order*), stok riil, lokasi asal penyuplai, rating bintang, jumlah terjual, dan badge status (*Terlaris, Segar, Organik, Standar SNI, dll.*). Aplikasi mengambil dataset melalui `fetch()` saat halaman dimuat; file JSON ini merupakan sumber data statis read-only, bukan backend untuk membuat atau mengubah produk.
-- **Menjalankan katalog**: Buka halaman melalui server lokal seperti VS Code Live Server (bukan `file://`) agar browser dapat mengambil `js/product.json`. Jika permintaan gagal, katalog menampilkan pesan error dan detail teknisnya dicatat di console browser.
-- **Animasi Kartu**: Efek *hover elevation*, *smooth zoom* pada gambar komoditas, dan animasi *fade-in* saat filter diterapkan.
-- **Lihat Semua Produk (*Expand / Collapse*)**: Tampilan awal menampilkan 8 produk unggulan, dengan tombol interaktif untuk membuka seluruh 12 produk secara mulus (*smooth transition*).
+- **Data dari API JSON lokal**: Katalog produk dibaca dari `js/product.json`; kategori dan notifikasi dibaca dari `js/site.json`. Keduanya menggunakan `fetch()` dan format respons `{ "success": true, "message": "...", "data": ... }`. Berkas-berkas ini adalah sumber data statis read-only, bukan backend untuk membuat atau mengubah data.
+- **Status request API**: Produk, kategori, notifikasi, dan pilihan wilayah menampilkan status loading. Katalog, notifikasi, dan rincian produk di halaman pembayaran menampilkan pesan error dari API serta aksi **Coba Lagi** jika request gagal.
+- **Menjalankan API lokal**: Jalankan folder `Link-Supply` melalui server lokal seperti VS Code Live Server lalu buka `index.html` dari alamat server (bukan `file://`) agar browser dapat mengambil berkas JSON.
+- **CSS Tailwind via NPM**: Jalankan `npm install` dari root repositori, kemudian `npm run build:css` untuk membuat `Link-Supply/css/tailwind.css`. Gunakan `npm run watch:css` saat mengembangkan UI; tidak ada Tailwind CDN yang digunakan.
+- **Kartu Produk**: Kartu marketplace responsif; memilih kartu akan membuka detail dan opsi pemesanan.
+- **Katalog 24 Produk**: Seluruh 24 produk dari API dimuat dan ditampilkan sejak awal. Tombol perluasan otomatis disembunyikan jika semua produk sudah terlihat.
 
-### 2. 🔍 Pencarian Cerdas & Cepat (*Live Real-time Search*)
-- **Instant Search with Debounce**: Menyaring katalog produk secara langsung saat pengguna mengetik kata kunci nama produk, kategori, lokasi, atau deskripsi (kecepatan respon 200ms debounce).
+### 2. 🔍 Pencarian Produk
+- Pencarian berdasarkan nama produk, kategori, lokasi, atau deskripsi diterapkan setelah pengguna menekan `Enter` atau tombol **Cari**.
 - **Tombol Hapus Pencarian (Clear 'X')**: Tombol cepat untuk menghapus teks pencarian dan mengembalikan daftar produk.
 - **Empty State Informatif**: Jika pencarian tidak menemukan hasil, ditampilkan ilustrasi *empty state* yang ramah disertai tombol **"Reset Semua Filter"**.
 
@@ -50,51 +52,45 @@ Dropdown pengurutan produk yang responsif mendukung:
   - State kosong (*Empty Cart*) dengan tombol ajakan *"Mulai Eksplor Produk"*.
   - Penyimpanan persisten lokal (*LocalStorage*) sehingga keranjang tidak hilang saat halaman dimuat ulang.
 
-### 6. 🔍 Modal Detail Produk Cepat (*Quick View Modal*)
-- Mengklik tombol **"Detail"** atau foto produk membuka *modal popup* beranimasi.
+### 6. 🔍 Detail Produk & Pemesanan
+- Mengklik kartu produk atau memfokuskannya lalu menekan `Enter` / `Space` membuka *modal popup* beranimasi. Kartu tidak menampilkan badge promosi maupun tombol favorit, detail, atau keranjang.
 - Menampilkan:
-  - Foto resolusi tinggi dan badge produk.
+  - Foto resolusi tinggi tanpa label promosi produk.
   - Informasi penyuplai, lokasi kota/provinsi, rating, dan status terverifikasi.
   - Deskripsi lengkap spesifikasi komoditas pasokan.
   - Stepper jumlah pesanan (*quantity selector*) yang disesuaikan dengan aturan minimal pemesanan (*minimum order*).
-  - Tombol langsung **"Tambah ke Keranjang"**.
+  - Tombol **"Tambah ke Keranjang"** hanya tersedia setelah detail produk dibuka.
   - Aksesibilitas keyboard: tombol `Escape (ESC)` atau klik di luar modal (*backdrop*) untuk menutup modal.
 
-### 7. ❤️ Favorit / Wishlist Interaktif
-- Tombol ikon hati (*heart*) pada setiap kartu produk.
-- Menambahkan atau menghapus produk dari daftar favorit dengan animasi hati menyala (*red fill*) dan notifikasi *toast*.
-- Tersimpan di *LocalStorage*.
-
-### 8. 🔔 Pusat Notifikasi (*Notification Dropdown Panel*)
+### 7. 🔔 Pusat Notifikasi (*Notification Dropdown Panel*)
 - Ikon lonceng navbar dilengkapi indikator *unread counter*.
 - Klik ikon membuka panel notifikasi (*promo panen raya, status armada logistik, pasokan baru*).
 - Tombol **"Tandai dibaca"** untuk menghapus badge notifikasi yang belum dibaca.
 
-### 9. 📍 Pemilih Wilayah Pemasok (*Location Selector Dropdown*)
+### 8. 📍 Pemilih Wilayah Pemasok (*Location Selector Dropdown*)
 - Klik tombol **"Lokasi"** di navbar membuka dropdown filter wilayah (*Semua Wilayah, Jawa Timur, Jawa Tengah, Jawa Barat*).
 - Menyaring produk sesuai asal daerah penyuplai komoditas.
 
-### 10. 🍞 Sistem Notifikasi Mengambang (*Floating Toast Feedback*)
+### 9. 🍞 Sistem Notifikasi Mengambang (*Floating Toast Feedback*)
 - Notifikasi mengambang (*toast*) yang elegan di sudut kanan bawah untuk setiap aksi pengguna:
   - Berhasil menambahkan produk ke keranjang.
   - Berhasil mengubah kuantitas / menghapus produk.
-  - Menambah / menghapus dari wishlist favorit.
   - Berhasil mendaftarkan email newsletter.
   - Reset filter.
 - Otomatis hilang (*auto-dismiss*) setelah 3 detik atau dapat ditutup manual.
 
-### 11. 🎞️ Slider Banner Hero Interaktif
+### 10. 🎞️ Slider Banner Hero Interaktif
 - Pergantian slide otomatis (*auto-slide*) setiap 5 detik.
 - Jeda otomatis (*pause on hover*) saat kursor diarahkan ke banner.
 - Dukungan navigasi sentuh (*touch swipe gesture*) untuk layar *smartphone / tablet*.
 - Tombol navigasi slide sebelumnya/berikutnya dan *dots indicator*.
 - Tombol CTA banner yang langsung mengarahkan dan memfilter katalog produk terkait.
 
-### 12. ⬆️ Tombol Melayang Kembali ke Atas (*Back to Top FAB*)
+### 11. ⬆️ Tombol Melayang Kembali ke Atas (*Back to Top FAB*)
 - Tombol melayang (*Floating Action Button*) muncul secara halus saat pengguna menggulir halaman ke bawah melebihi 350px.
 - Mengklik tombol akan menggulirkan halaman kembali ke atas secara mulus (*smooth scroll*).
 
-### 13. ✉️ Validasi & Umpan Balik Formulir Newsletter
+### 12. ✉️ Validasi & Umpan Balik Formulir Newsletter
 - Validasi email saat pengguna menekan tombol **"LANGGANAN"** di bagian *footer*.
 - Menampilkan pesan konfirmasi sukses pendaftaran melalui sistem *toast*.
 
@@ -119,8 +115,18 @@ Link-Supply/
 │   ├── css/
 │   │   └── style.css            # Stylesheet kustom untuk animasi, drawer, modal, toast, dll.
 │   ├── js/
-│   │   ├── app.js              # Script utama interaktivitas aplikasi (Vanilla ES6+)
-│   │   └── product.json        # Dataset produk yang dimuat oleh aplikasi
+│   │   ├── app.js              # Entry point dan inisialisasi modul ESM
+│   │   ├── api.js              # Fetch serta validasi envelope API JSON
+│   │   ├── core.js             # State aplikasi dan utilitas bersama
+│   │   ├── toast.js            # Sistem notifikasi toast
+│   │   ├── catalog.js          # Render, filter, urut, dan muat katalog produk
+│   │   ├── cart.js             # Keranjang dan drawer belanja
+│   │   ├── profile.js          # Profil dan manajemen alamat
+│   │   ├── product-detail.js   # Detail produk dan pemesanan
+│   │   ├── site-ui.js          # Slider, notifikasi situs, lokasi, dan back-to-top
+│   │   ├── events.js           # Delegasi event global dan newsletter
+│   │   ├── product.json        # Data katalog produk
+│   │   └── site.json           # Data kategori dan notifikasi
 │   ├── index.html              # Halaman utama aplikasi LinkSupply
 │   └── DOCUMENTATION.md        # Dokumentasi lengkap pembaruan
 └── .vscode/
@@ -136,16 +142,14 @@ Link-Supply/
    - Klik kategori seperti **Perikanan** atau **Pertanian** pada deretan tombol kategori.
    - Pilih pengurutan **Harga Terendah** atau **Rating Tertinggi** pada dropdown *Urutkan*.
 2. **Uji Keranjang Belanja**:
-   - Klik tombol **"+ Keranjang"** pada salah satu produk.
+   - Klik kartu produk, pilih jumlah pada panel detail, lalu klik **"Tambah ke Keranjang"**.
    - Perhatikan animasi badge merah di ikon keranjang navbar.
    - Klik ikon keranjang untuk membuka drawer samping, ubah jumlah pesanan dengan tombol `+` / `-`, atau hapus produk.
 3. **Uji Modal Detail Produk**:
-   - Klik tombol **"Detail"** pada salah satu kartu produk atau klik gambarnya.
+   - Klik kartu produk atau fokuskan dengan keyboard lalu tekan `Enter` / `Space`.
    - Ubah kuantitas pesanan pada modal dan klik **"Tambah ke Keranjang"**.
    - Tekan tombol `Escape` pada keyboard untuk menutup modal.
-4. **Uji Wishlist Favorit**:
-   - Klik ikon hati pada kartu produk untuk memfavoritkan.
-5. **Uji Navigasi Responsif & Mobile**:
+4. **Uji Navigasi Responsif & Mobile**:
    - Buka pada perangkat bergerak atau gunakan *Responsive Mode* browser untuk menguji swipe banner hero dan tata letak responsif.
 
 ---

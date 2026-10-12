@@ -9,13 +9,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<<<<<<< HEAD
 
     <!-- Stylesheet: hasil build Tailwind (dari src/input.css), lalu CSS kustom -->
     <link rel="stylesheet" href="./dist/css/output.css">
     <link rel="stylesheet" href="./src/css/style.css">
+=======
+
+    <link rel="stylesheet" href="css/tailwind.css">
+    <link rel="stylesheet" href="css/style.css">
+>>>>>>> 9edf12b (notif, layout)
 </head>
 <body class="page-bg font-sans text-text-main text-sm antialiased min-h-screen">
 
+<<<<<<< HEAD
     <!-- =====================================================================
          1. NAVBAR
          ===================================================================== -->
@@ -23,6 +30,11 @@
 
         <!-- Logo -->
         <div class="flex items-center gap-1 shrink-0 order-1">
+=======
+    <!-- Navbar Begin -->
+    <header class="navbar sticky top-0 z-50 w-full bg-white border-b border-gray-200 px-4 sm:px-6 md:px-8 py-2.5 flex flex-wrap md:flex-nowrap items-center justify-between gap-3 shadow-sm">
+        <div class="logo-area flex items-center gap-1 shrink-0 order-1">
+>>>>>>> 9edf12b (notif, layout)
             <span class="material-symbols-outlined text-primary text-3xl sm:text-4xl select-none">eco</span>
             <div class="text-xl sm:text-2xl font-extrabold flex items-center tracking-tight">
                 <span class="text-primary">Link</span><span class="text-ink">Supply.</span>
@@ -56,10 +68,22 @@
                     <span id="cartBadge" class="hidden absolute -top-1.5 -right-2 bg-red-500 text-white text-[10px] font-bold h-4 min-w-4 px-1 rounded-full items-center justify-center shadow-xs transition-transform duration-200"></span>
                 </button>
             </div>
+<<<<<<< HEAD
 
             <div class="flex items-center gap-2 text-primary cursor-pointer select-none hover:opacity-90 transition-opacity">
                 <div class="w-8 h-8 rounded-full bg-emerald-100 text-primary-dark flex items-center justify-center font-bold text-xs border border-border-custom shadow-xs">LS</div>
                 <div class="hidden sm:flex flex-col">
+=======
+            <div class="icon-group flex items-center gap-3 sm:gap-4 text-primary border-r-0 md:border-r border-gray-200 md:pr-4 lg:pr-6">
+                <span class="material-symbols-outlined icon-btn cursor-pointer text-xl sm:text-2xl hover:opacity-80 transition-opacity select-none">notifications</span>
+                <span class="material-symbols-outlined icon-btn cursor-pointer text-xl sm:text-2xl hover:opacity-80 transition-opacity select-none">shopping_cart</span>
+            </div>
+            <div class="user-profile flex items-center gap-2 text-primary cursor-pointer select-none hover:opacity-90 transition-opacity" id="userProfileBtn">
+                <div class="w-8 h-8 rounded-full bg-emerald-100 text-primary-dark flex items-center justify-center font-bold text-xs border border-border-custom shadow-xs">
+                    LS
+                </div>
+                <div class="user-text hidden sm:flex flex-col">
+>>>>>>> 9edf12b (notif, layout)
                     <span class="text-xs font-bold text-gray-800 leading-tight">Mitra Tani Sejahtera</span>
                     <span class="text-[10px] text-text-muted leading-tight">Supplier Terverifikasi</span>
                 </div>
@@ -87,44 +111,34 @@
                 <div id="sliderDots" class="absolute bottom-2.5 sm:bottom-3.5 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10 py-1 sm:py-1.5 px-3 bg-black/25 backdrop-blur-sm rounded-full"></div>
             </div>
 
-            <section class="category-pills flex gap-1.5 sm:gap-2 overflow-x-auto pb-2 mb-4 scrollbar-none">
-                <a href="#" data-category="all" class="pill active flex items-center gap-1.5 bg-primary-dark text-bg-muted border border-primary-dark py-1.5 px-2.5 sm:px-3 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap shadow-xs cursor-pointer transition-all"><span class="material-symbols-outlined text-base">eco</span> Semua</a>
-                <a href="#" data-category="perikanan" class="pill flex items-center gap-1.5 bg-white text-text-main border border-border-custom hover:bg-emerald-50 hover:text-primary py-1.5 px-2.5 sm:px-3 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors cursor-pointer"><span class="material-symbols-outlined text-base">water</span> Perikanan</a>
-                <a href="#" data-category="pertanian" class="pill flex items-center gap-1.5 bg-white text-text-main border border-border-custom hover:bg-emerald-50 hover:text-primary py-1.5 px-2.5 sm:px-3 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors cursor-pointer"><span class="material-symbols-outlined text-base">wheat</span> Pertanian</a>
-                <a href="#" data-category="bahan-makanan" class="pill flex items-center gap-1.5 bg-white text-text-main border border-border-custom hover:bg-emerald-50 hover:text-primary py-1.5 px-2.5 sm:px-3 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors cursor-pointer"><span class="material-symbols-outlined text-base">grocery</span> Bahan Makanan</a>
-                <a href="#" data-category="perkebunan" class="pill flex items-center gap-1.5 bg-white text-text-main border border-border-custom hover:bg-emerald-50 hover:text-primary py-1.5 px-2.5 sm:px-3 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors cursor-pointer"><span class="material-symbols-outlined text-base">potted_plant</span> Perkebunan</a>
-                <a href="#" data-category="lainnya" class="pill flex items-center gap-1.5 bg-white text-text-main border border-border-custom hover:bg-emerald-50 hover:text-primary py-1.5 px-2.5 sm:px-3 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors cursor-pointer"><span class="material-symbols-outlined text-base">steppers</span> Lainnya</a>
+            <div class="catalog-toolbar flex items-center gap-3 mb-4">
+            <section class="category-pills flex flex-1 min-w-0 gap-1.5 sm:gap-2 overflow-x-auto py-1 scrollbar-none" aria-label="Filter kategori">
+                <span class="py-2 text-xs text-gray-500" role="status">Memuat kategori...</span>
             </section>
+                <div class="sort-box flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-600 shrink-0">
+                    <span class="material-symbols-outlined text-lg sm:text-xl text-gray-500">sort</span>
+                    <label for="sortProducts" class="hidden sm:inline font-medium">Urutkan:</label>
+                    <select id="sortProducts" class="py-1.5 sm:py-2 pl-2.5 pr-8 border border-gray-300 rounded-lg bg-white text-gray-800 text-xs sm:text-sm cursor-pointer outline-none focus:border-primary-dark shadow-xs">
+                        <option value="default">Rekomendasi</option>
+                        <option value="price-low">Harga Terendah</option>
+                        <option value="price-high">Harga Tertinggi</option>
+                        <option value="name-az">Nama A - Z</option>
+                        <option value="name-za">Nama Z - A</option>
+                        <option value="rating-high">Rating Tertinggi</option>
+                    </select>
+                </div>
+            </div>
 
-            <!-- 2c. Katalog produk -->
-            <div>
-                <div class="flex justify-between items-center mb-4 sm:mb-5">
-                    <div class="flex items-center gap-2 sm:gap-2.5">
-                        <strong class="text-base sm:text-lg font-bold text-gray-900">Semua Produk</strong>
-                        <span id="productCount" class="text-xs sm:text-sm text-gray-500"></span>
-                    </div>
-
-                    <div class="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-600">
-                        <span class="material-symbols-outlined text-lg sm:text-xl text-gray-500">sort</span>
-                        <label for="sortProducts" class="hidden sm:inline font-medium">Urutkan:</label>
-                        <select id="sortProducts" class="py-1.5 sm:py-2 pl-2.5 pr-8 border border-gray-300 rounded-lg bg-white text-gray-800 text-xs sm:text-sm cursor-pointer outline-none focus:border-primary-dark shadow-xs">
-                            <option value="default">Rekomendasi</option>
-                            <option value="price-low">Harga Terendah</option>
-                            <option value="price-high">Harga Tertinggi</option>
-                            <option value="name-az">Nama A - Z</option>
-                            <option value="name-za">Nama Z - A</option>
-                            <option value="rating-high">Rating Tertinggi</option>
-                        </select>
-                    </div>
+            <div class="product-area">
+                <div class="grid-container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2.5 sm:gap-3 mb-5" id="productGrid">
+                    <div class="col-span-full py-16 px-4 text-center text-sm text-gray-500" role="status">Memuat katalog produk...</div>
                 </div>
 
-                <!-- Kartu dirender js/components/catalog.js dari js/data/products.js -->
-                <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mb-5"></div>
-
-                <div id="seeAllContainer" class="flex justify-center items-center mt-3.5 mb-9">
-                    <button id="btnSeeAll" type="button" class="inline-flex items-center gap-2 bg-white border-[1.5px] border-primary text-primary hover:bg-primary hover:text-white font-bold text-xs sm:text-sm py-2.5 px-6 rounded-md shadow-xs hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer">
-                        <span id="seeAllLabel">Lihat Semua Produk</span>
-                        <span id="seeAllIcon" class="material-symbols-outlined text-lg transition-transform duration-300">expand_more</span>
+                <!-- See All Button -->
+                <div class="see-all-container flex justify-center items-center mt-3.5 mb-9">
+                    <button class="btn-see-all inline-flex items-center gap-2 bg-white border-[1.5px] border-primary text-primary hover:bg-primary hover:text-white font-bold text-xs sm:text-sm py-2.5 px-6 rounded-md shadow-xs hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer" id="btnSeeAll">
+                        <span>Lihat Semua Produk</span>
+                        <span class="material-symbols-outlined text-lg transition-transform duration-300">expand_more</span>
                     </button>
                 </div>
             </div>
@@ -202,6 +216,7 @@
         </div>
     </footer>
 
+<<<<<<< HEAD
     <!-- =====================================================================
          4. OVERLAY (tersembunyi sampai dibuka oleh JS)
          ===================================================================== -->
@@ -347,5 +362,9 @@
 
     <!-- Titik masuk JavaScript (ES module: wajib dijalankan lewat server lokal, bukan file://) -->
     <script type="module" src="./src/js/main.js"></script>
+=======
+    <!-- Link Interactive Application Script -->
+    <script type="module" src="js/app.js"></script>
+>>>>>>> 9edf12b (notif, layout)
 </body>
 </html>
