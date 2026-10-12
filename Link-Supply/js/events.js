@@ -2,7 +2,6 @@ import { escapeHtml } from './core.js';
 import { Toast } from './toast.js';
 import { Cart } from './cart.js';
 import { Profile } from './profile.js';
-import { QuickView } from './product-detail.js';
 
   /* ==========================================================================
      12. GLOBAL EVENT DELEGATION
@@ -10,15 +9,6 @@ import { QuickView } from './product-detail.js';
   export const initGlobalEvents = () => {
     // Delegated product card actions
     document.addEventListener('click', (e) => {
-      // Quick View Modal Trigger
-      const quickViewEl = e.target.closest('[data-action="quickview"]');
-      if (quickViewEl) {
-        e.stopPropagation();
-        const id = Number(quickViewEl.dataset.id);
-        QuickView.open(id);
-        return;
-      }
-
       // Cart Drawer Quantity Controls
       const cartPlus = e.target.closest('[data-action="cart-plus"]');
       if (cartPlus) {
@@ -39,16 +29,9 @@ import { QuickView } from './product-detail.js';
       }
     });
 
-    // Keyboard ESC to close modal or drawer
+    // Keyboard ESC to close drawers
     document.addEventListener('keydown', (e) => {
-      const productCard = e.target.closest('.product-card[data-action="quickview"]');
-      if (productCard && (e.key === 'Enter' || e.key === ' ')) {
-        e.preventDefault();
-        QuickView.open(productCard.dataset.id);
-        return;
-      }
       if (e.key === 'Escape') {
-        QuickView.close();
         Cart.closeDrawer();
         Profile.closeDrawer();
       }

@@ -12,6 +12,15 @@ Sebelum pembaruan, antarmuka memiliki tata letak visual dasar dengan kartu produ
 
 ## 🚀 Fitur & Peningkatan Interaktivitas yang Ditambahkan
 
+### 0.1. 🖼️ Skeleton Gambar
+- Semua gambar di halaman utama dan pembayaran menampilkan placeholder shimmer sampai berhasil dimuat; gambar yang gagal berhenti beranimasi.
+- Pemantauan mencakup gambar yang dimuat secara dinamis, seperti kartu produk, detail produk, dan item keranjang.
+
+### 0. ⏳ Layar Loading Halaman
+- Layar loading menutupi konten sampai browser selesai memuat halaman dan request awal katalog serta kategori/notifikasi selesai.
+- Jika request awal data belum selesai dalam 15 detik, request dibatalkan dan halaman menampilkan layar error penuh dengan tombol **Coba Lagi**.
+- Jika request data gagal, layar loading tetap ditutup agar pesan error dan tombol **Coba Lagi** yang sudah tersedia dapat digunakan.
+
 ### 1. 🛍️ Katalog Produk Dinamis (*Dynamic Product Catalog*)
 - **Data dari API JSON lokal**: Katalog produk dibaca dari `js/product.json`; kategori dan notifikasi dibaca dari `js/site.json`. Keduanya menggunakan `fetch()` dan format respons `{ "success": true, "message": "...", "data": ... }`. Berkas-berkas ini adalah sumber data statis read-only, bukan backend untuk membuat atau mengubah data.
 - **Status request API**: Produk, kategori, notifikasi, dan pilihan wilayah menampilkan status loading. Katalog, notifikasi, dan rincian produk di halaman pembayaran menampilkan pesan error dari API serta aksi **Coba Lagi** jika request gagal.
@@ -53,14 +62,17 @@ Dropdown pengurutan produk yang responsif mendukung:
   - Penyimpanan persisten lokal (*LocalStorage*) sehingga keranjang tidak hilang saat halaman dimuat ulang.
 
 ### 6. 🔍 Detail Produk & Pemesanan
-- Mengklik kartu produk atau memfokuskannya lalu menekan `Enter` / `Space` membuka *modal popup* beranimasi. Kartu tidak menampilkan badge promosi maupun tombol favorit, detail, atau keranjang.
+- Mengklik atau memfokuskan kartu produk lalu menekan `Enter` membuka halaman detail produk (`product.html?id=...`).
+- Halaman detail memuat informasi produk dari katalog, menyediakan kontrol jumlah sesuai minimal pesanan dan stok, serta dapat menambahkan produk ke keranjang.
+- Halaman detail mempertahankan navbar dan footer utama, serta menampilkan ringkasan rating, jumlah ulasan, distribusi bintang, dan ulasan contoh yang diberi label sebagai data pratinjau.
+- Tata letak desktop membagi galeri, informasi produk, dan kartu pembelian lengket; tablet menempatkan kartu pembelian setelah detail, sedangkan ponsel menggunakan bilah pembelian tetap di bawah layar.
 - Menampilkan:
-  - Foto resolusi tinggi tanpa label promosi produk.
-  - Informasi penyuplai, lokasi kota/provinsi, rating, dan status terverifikasi.
-  - Deskripsi lengkap spesifikasi komoditas pasokan.
+  - Foto produk tanpa label promosi.
+  - Lokasi asal, kategori, harga, status ketersediaan, jumlah stok, jumlah terjual, dan rating produk.
+  - Deskripsi produk dan daftar spesifikasi yang mudah dipindai.
+  - Ringkasan rating dengan jumlah dan distribusi ulasan, lalu ulasan contoh berisi nama, rating, tanggal, dan komentar.
   - Stepper jumlah pesanan (*quantity selector*) yang disesuaikan dengan aturan minimal pemesanan (*minimum order*).
-  - Tombol **"Tambah ke Keranjang"** hanya tersedia setelah detail produk dibuka.
-  - Aksesibilitas keyboard: tombol `Escape (ESC)` atau klik di luar modal (*backdrop*) untuk menutup modal.
+  - Tombol **"Tambah ke Keranjang"** pada halaman detail produk.
 
 ### 7. 🔔 Pusat Notifikasi (*Notification Dropdown Panel*)
 - Ikon lonceng navbar dilengkapi indikator *unread counter*.
@@ -82,6 +94,7 @@ Dropdown pengurutan produk yang responsif mendukung:
 ### 10. 🎞️ Slider Banner Hero Interaktif
 - Pergantian slide otomatis (*auto-slide*) setiap 5 detik.
 - Jeda otomatis (*pause on hover*) saat kursor diarahkan ke banner.
+- Gambar hanya diminta saat slidenya ditampilkan; gambar pertama diprioritaskan. Jika gambar gagal dimuat, gradien latar tetap terlihat di belakang teks.
 - Dukungan navigasi sentuh (*touch swipe gesture*) untuk layar *smartphone / tablet*.
 - Tombol navigasi slide sebelumnya/berikutnya dan *dots indicator*.
 - Tombol CTA banner yang langsung mengarahkan dan memfilter katalog produk terkait.
@@ -113,7 +126,7 @@ Link-Supply/
 │   │   ├── pexels-tima-miroshnichenko-6169177.jpg
 │   │   └── pexels-yuslava-36897781.jpg
 │   ├── css/
-│   │   └── style.css            # Stylesheet kustom untuk animasi, drawer, modal, toast, dll.
+│   │   └── style.css            # Stylesheet kustom untuk animasi, drawer, detail produk, toast, dll.
 │   ├── js/
 │   │   ├── app.js              # Entry point dan inisialisasi modul ESM
 │   │   ├── api.js              # Fetch serta validasi envelope API JSON
@@ -122,12 +135,14 @@ Link-Supply/
 │   │   ├── catalog.js          # Render, filter, urut, dan muat katalog produk
 │   │   ├── cart.js             # Keranjang dan drawer belanja
 │   │   ├── profile.js          # Profil dan manajemen alamat
-│   │   ├── product-detail.js   # Detail produk dan pemesanan
+│   │   ├── product-page.js     # Halaman detail produk dan pemesanan
 │   │   ├── site-ui.js          # Slider, notifikasi situs, lokasi, dan back-to-top
 │   │   ├── events.js           # Delegasi event global dan newsletter
 │   │   ├── product.json        # Data katalog produk
 │   │   └── site.json           # Data kategori dan notifikasi
 │   ├── index.html              # Halaman utama aplikasi LinkSupply
+│   ├── product.html            # Halaman detail produk berdasarkan ID katalog
+│   ├── payment.html            # Halaman checkout dan pembayaran
 │   └── DOCUMENTATION.md        # Dokumentasi lengkap pembaruan
 └── .vscode/
     └── settings.json
@@ -145,12 +160,12 @@ Link-Supply/
    - Klik kartu produk, pilih jumlah pada panel detail, lalu klik **"Tambah ke Keranjang"**.
    - Perhatikan animasi badge merah di ikon keranjang navbar.
    - Klik ikon keranjang untuk membuka drawer samping, ubah jumlah pesanan dengan tombol `+` / `-`, atau hapus produk.
-3. **Uji Modal Detail Produk**:
-   - Klik kartu produk atau fokuskan dengan keyboard lalu tekan `Enter` / `Space`.
-   - Ubah kuantitas pesanan pada modal dan klik **"Tambah ke Keranjang"**.
-   - Tekan tombol `Escape` pada keyboard untuk menutup modal.
+3. **Uji Halaman Detail Produk**:
+   - Klik kartu produk atau fokuskan dengan keyboard lalu tekan `Enter`.
+   - Pastikan deskripsi, spesifikasi, ringkasan ulasan, distribusi rating, dan ulasan contoh tampil.
+   - Ubah kuantitas pesanan sesuai minimal dan stok, lalu klik **"Tambah ke Keranjang"**.
 4. **Uji Navigasi Responsif & Mobile**:
-   - Buka pada perangkat bergerak atau gunakan *Responsive Mode* browser untuk menguji swipe banner hero dan tata letak responsif.
+   - Buka pada perangkat bergerak atau gunakan *Responsive Mode* browser untuk menguji swipe banner hero dan tata letak halaman detail serta ulasan.
 
 ---
 *Dibuat untuk meningkatkan interaksi, kegunaan (usability), dan estetika platform B2B LinkSupply.*

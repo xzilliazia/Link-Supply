@@ -1,5 +1,5 @@
-export const fetchApiData = async (url) => {
-    const response = await fetch(url);
+export const fetchApiData = async (url, options = {}) => {
+    const response = await fetch(url, options);
     let result;
 
     try {

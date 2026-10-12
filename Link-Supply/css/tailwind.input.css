@@ -2,6 +2,7 @@
 
 @source "../index.html";
 @source "../payment.html";
+@source "../product.html";
 @source "../js/**/*.js";
 @source "../js/*.json";
 
