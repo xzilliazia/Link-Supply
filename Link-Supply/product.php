@@ -1,9 +1,80 @@
+<?php
+$products = require __DIR__ . '/products-data.php';
+$requestedProductId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+$product = null;
+
+if (is_int($requestedProductId)) {
+    foreach ($products as $item) {
+        if ($item['id'] === $requestedProductId) {
+            $product = $item;
+            break;
+        }
+    }
+}
+
+if ($product === null) {
+    http_response_code(404);
+}
+
+$pageTitle = $product['name'] ?? 'Produk tidak ditemukan';
+$escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+$formatIDR = static fn (int $value): string => 'Rp ' . number_format($value, 0, ',', '.');
+
+if ($product !== null) {
+    $originalPrice = (int) (ceil(($product['price'] / 0.85) / 500) * 500);
+    $ratingDistribution = $product['rating'] < 4.75
+        ? [5 => 98, 4 => 22, 3 => 6, 2 => 1, 1 => 1]
+        : ($product['rating'] < 4.85
+            ? [5 => 110, 4 => 15, 3 => 2, 2 => 1, 1 => 0]
+            : [5 => 120, 4 => 6, 3 => 1, 2 => 1, 1 => 0]);
+    $available = $product['stock'] > 0;
+    $productView = [
+        'id' => $product['id'],
+        'title' => $product['name'],
+        'pricing' => [
+            'amount' => $product['price'],
+            'unit' => $product['priceUnit'],
+            'originalAmount' => $originalPrice,
+            'discountPercent' => max(1, (int) round((1 - $product['price'] / $originalPrice) * 100)),
+        ],
+        'sales' => ['sold' => $product['soldCount']],
+        'rating' => [
+            'value' => $product['rating'],
+            'count' => 128,
+            'distribution' => $ratingDistribution,
+        ],
+        'inventory' => [
+            'stock' => $product['stock'],
+            'minimum' => $product['minOrder'],
+            'minimumLabel' => number_format($product['minOrder'], 0, ',', '.') . ' ' . $product['minOrderUnit'],
+            'available' => $available,
+            'status' => $available ? 'Siap dipasok' : 'Stok habis',
+            'message' => $available ? '' : 'Pasokan ini sedang habis. Silakan cek kembali nanti.',
+        ],
+        'specs' => [
+            'condition' => $available ? 'Tersedia' : 'Stok habis',
+            'unitWeight' => '1 ' . $product['priceUnit'],
+            'category' => $product['categoryLabel'],
+            'showcase' => $product['province'] ?: $product['location'],
+            'description' => $product['desc'],
+        ],
+        'seller' => ['name' => 'Pemasok Pilihan', 'verified' => true],
+        'gallery' => ['pasokan', 'kualitas', 'kemasan'],
+        'variants' => ['Standar', 'Pilihan grosir'],
+    ];
+    $mockReviews = [
+        ['name' => 'Rina Puspitasari', 'rating' => 5, 'date' => '12 Juni 2025', 'comment' => 'Kualitas produk sesuai deskripsi, jumlah pas, dan pengiriman tertata rapi.'],
+        ['name' => 'Budi Santoso', 'rating' => 5, 'date' => '28 Mei 2025', 'comment' => 'Pasokan datang tepat waktu. Respons penjual cepat saat memastikan jadwal pengiriman.'],
+        ['name' => 'Dewi Anggraini', 'rating' => 4, 'date' => '10 Mei 2025', 'comment' => 'Kualitasnya baik dan konsisten untuk kebutuhan usaha. Akan memesan kembali.'],
+    ];
+}
+?>
 <!DOCTYPE html>
 <html lang="id" class="product-detail-page">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Produk | LinkSupply</title>
+    <title><?= htmlspecialchars($pageTitle, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?> | LinkSupply</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -50,16 +121,21 @@
 
     <div class="product-page-shell">
         <main class="product-page-main">
-            <div id="productDetail" class="product-page__container" aria-live="polite">
-                <div class="product-page__skeleton" role="status" aria-label="Memuat detail produk">
-                    <span></span>
-                    <div class="product-page__skeleton-layout">
-                        <span></span>
-                        <div><span></span><span></span><span></span><span></span></div>
-                        <span></span>
+            <?php if ($product !== null): ?>
+                <?php
+                $renderProductDetail = require __DIR__ . '/product-detail-view.php';
+                $renderProductDetail($productView, $escape, $formatIDR, $mockReviews);
+                ?>
+            <?php else: ?>
+                <div class="product-page__container product-page__content product-page__error-state">
+                    <div class="product-page__message" role="alert">
+                        <span class="material-symbols-outlined" aria-hidden="true">cloud_off</span>
+                        <h1>Produk tidak dapat dimuat</h1>
+                        <p>Produk yang Anda cari tidak ditemukan.</p>
+                        <a class="product-page__button" href="./index.php">Kembali ke katalog</a>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
         </main>
     </div>
     <!-- Main Wrapper End -->
@@ -72,7 +148,7 @@
                 <div class="footer-col footer-col-about flex-1 min-w-[260px] max-w-sm">
                     <div class="footer__about">
                         <div class="footer__about__logo mb-4">
-                            <a href="./index.html" class="brand inline-flex items-center text-2xl font-extrabold tracking-tight">
+                            <a href="./index.php" class="brand inline-flex items-center text-2xl font-extrabold tracking-tight">
                                 <span class="brand-link text-primary">Link</span><span class="brand-supply text-[#1c1c1c]">Supply</span>
                             </a>
                         </div>
@@ -149,6 +225,11 @@
     </footer>
     <!-- Footer Section End -->
 
+    <?php if ($product !== null): ?>
+        <script>
+            window.LINKSUPPLY_PRODUCT = <?= json_encode($product, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR) ?>;
+        </script>
+    <?php endif; ?>
     <script type="module" src="js/image-loading.js"></script>
     <script type="module" src="js/app.js"></script>
     <script type="module" src="js/product-page.js"></script>

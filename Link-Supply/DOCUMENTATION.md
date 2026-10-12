@@ -22,9 +22,10 @@ Sebelum pembaruan, antarmuka memiliki tata letak visual dasar dengan kartu produ
 - Jika request data gagal, layar loading tetap ditutup agar pesan error dan tombol **Coba Lagi** yang sudah tersedia dapat digunakan.
 
 ### 1. 🛍️ Katalog Produk Dinamis (*Dynamic Product Catalog*)
-- **Data dari API JSON lokal**: Katalog produk dibaca dari `js/product.json`; kategori dan notifikasi dibaca dari `js/site.json`. Keduanya menggunakan `fetch()` dan format respons `{ "success": true, "message": "...", "data": ... }`. Berkas-berkas ini adalah sumber data statis read-only, bukan backend untuk membuat atau mengubah data.
+- **Data dari PHP**: Katalog produk disimpan sebagai array PHP di `products-data.php` dan disajikan melalui `products-api.php` dalam format `{ "success": true, "message": "...", "data": ... }`. Kategori dan notifikasi tetap dibaca dari `js/site.json`.
+- **Server-side rendering**: `index.php` mengulang array katalog dengan `foreach` dan mengirim kartu produk sebagai HTML pada respons awal. JavaScript memakai data server-rendered untuk filter, pencarian, dan pengurutan tanpa request katalog kedua.
 - **Status request API**: Produk, kategori, notifikasi, dan pilihan wilayah menampilkan status loading. Katalog, notifikasi, dan rincian produk di halaman pembayaran menampilkan pesan error dari API serta aksi **Coba Lagi** jika request gagal.
-- **Menjalankan API lokal**: Jalankan folder `Link-Supply` melalui server lokal seperti VS Code Live Server lalu buka `index.html` dari alamat server (bukan `file://`) agar browser dapat mengambil berkas JSON.
+- **Menjalankan situs lokal**: Jalankan `php -S localhost:8000 -t Link-Supply` dari root repositori dan buka `http://localhost:8000/index.php`. PHP diperlukan untuk SSR katalog, endpoint data, dan halaman detail.
 - **CSS Tailwind via NPM**: Jalankan `npm install` dari root repositori, kemudian `npm run build:css` untuk membuat `Link-Supply/css/tailwind.css`. Gunakan `npm run watch:css` saat mengembangkan UI; tidak ada Tailwind CDN yang digunakan.
 - **Kartu Produk**: Kartu marketplace responsif; memilih kartu akan membuka detail dan opsi pemesanan.
 - **Katalog 24 Produk**: Seluruh 24 produk dari API dimuat dan ditampilkan sejak awal. Tombol perluasan otomatis disembunyikan jika semua produk sudah terlihat.
@@ -62,8 +63,9 @@ Dropdown pengurutan produk yang responsif mendukung:
   - Penyimpanan persisten lokal (*LocalStorage*) sehingga keranjang tidak hilang saat halaman dimuat ulang.
 
 ### 6. 🔍 Detail Produk & Pemesanan
-- Mengklik atau memfokuskan kartu produk lalu menekan `Enter` membuka halaman detail produk (`product.html?id=...`).
-- Halaman detail memuat informasi produk dari katalog, menyediakan kontrol jumlah sesuai minimal pesanan dan stok, serta dapat menambahkan produk ke keranjang.
+- Mengklik atau memfokuskan kartu produk lalu menekan `Enter` membuka halaman detail produk (`product.php?id=...`), dengan data produk dipilih di sisi server.
+- Halaman detail dirender di sisi server oleh `product.php` dan `product-detail-view.php`. JavaScript hanya mengaktifkan kontrol browser seperti galeri, jumlah sesuai minimal pesanan/stok, dan aksi keranjang.
+- Data katalog berbentuk array multidimensi PHP. Loop `foreach` mencari produk berdasarkan ID dan merender galeri, distribusi rating, serta daftar ulasan; kondisi stok menentukan label dan pesan status pasokan.
 - Halaman detail mempertahankan navbar dan footer utama, serta menampilkan ringkasan rating, jumlah ulasan, distribusi bintang, dan ulasan contoh yang diberi label sebagai data pratinjau.
 - Tata letak desktop membagi galeri, informasi produk, dan kartu pembelian lengket; tablet menempatkan kartu pembelian setelah detail, sedangkan ponsel menggunakan bilah pembelian tetap di bawah layar.
 - Menampilkan:
@@ -135,13 +137,15 @@ Link-Supply/
 │   │   ├── catalog.js          # Render, filter, urut, dan muat katalog produk
 │   │   ├── cart.js             # Keranjang dan drawer belanja
 │   │   ├── profile.js          # Profil dan manajemen alamat
-│   │   ├── product-page.js     # Halaman detail produk dan pemesanan
+│   │   ├── product-page.js     # Interaksi browser detail produk
 │   │   ├── site-ui.js          # Slider, notifikasi situs, lokasi, dan back-to-top
 │   │   ├── events.js           # Delegasi event global dan newsletter
-│   │   ├── product.json        # Data katalog produk
 │   │   └── site.json           # Data kategori dan notifikasi
-│   ├── index.html              # Halaman utama aplikasi LinkSupply
-│   ├── product.html            # Halaman detail produk berdasarkan ID katalog
+│   ├── products-data.php       # Data katalog dalam array PHP
+│   ├── products-api.php        # Endpoint JSON untuk katalog dan checkout
+│   ├── product-detail-view.php # Template PHP untuk tampilan detail produk
+│   ├── index.php               # Halaman utama dan grid katalog server-rendered
+│   ├── product.php             # Halaman detail produk berdasarkan ID katalog
 │   ├── payment.html            # Halaman checkout dan pembayaran
 │   └── DOCUMENTATION.md        # Dokumentasi lengkap pembaruan
 └── .vscode/

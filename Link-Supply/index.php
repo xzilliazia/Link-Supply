@@ -1,3 +1,8 @@
+<?php
+$catalogProducts = require __DIR__ . '/products-data.php';
+$escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+$formatIDR = static fn (int $value): string => 'Rp ' . number_format($value, 0, ',', '.');
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -173,11 +178,37 @@
 
             <div class="product-area">
                 <div class="grid-container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2.5 sm:gap-3 mb-5" id="productGrid">
-                    <div class="col-span-full py-16 px-4 text-center text-sm text-gray-500" role="status">Memuat katalog produk...</div>
+                    <?php foreach ($catalogProducts as $index => $product): ?>
+                        <a href="./product.php?id=<?= (int) $product['id'] ?>" class="product-card bg-white border border-gray-200 rounded-xl overflow-hidden flex flex-col shadow-xs card-fade-in<?= $index >= 24 ? ' hidden-by-see-all' : '' ?>" aria-label="Lihat detail <?= $escape($product['name']) ?>">
+                            <div class="card-img-wrap relative aspect-square w-full overflow-hidden bg-gray-100 group/img">
+                                <img src="<?= $escape($product['image']) ?>" alt="<?= $escape($product['name']) ?>" class="w-full h-full object-cover" loading="lazy">
+                            </div>
+                            <div class="card-body p-3 flex flex-col flex-1 gap-2">
+                                <h4 class="product-title font-medium text-gray-800 text-xs sm:text-sm leading-snug line-clamp-2 hover:text-primary transition-colors" title="<?= $escape($product['name']) ?>">
+                                    <?= $escape($product['name']) ?>
+                                </h4>
+                                <div class="card-meta flex justify-between items-center text-[11px] sm:text-xs text-text-muted">
+                                    <span class="flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-sm" aria-hidden="true">location_on</span>
+                                        <span class="truncate max-w-[120px]" title="<?= $escape($product['location']) ?>"><?= $escape(explode(',', $product['location'])[0]) ?></span>
+                                    </span>
+                                    <span class="flex items-center gap-0.5 text-amber-500 font-semibold">
+                                        <span class="material-symbols-outlined text-sm text-amber-400" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">star</span>
+                                        <?= $escape((string) $product['rating']) ?>
+                                    </span>
+                                </div>
+                                <div class="price-row mt-auto pt-1">
+                                    <div class="text-primary-dark font-extrabold text-base sm:text-lg">
+                                        <?= $formatIDR($product['price']) ?> <span class="text-[11px] text-gray-500 font-normal">/<?= $escape($product['priceUnit']) ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
 
                 <!-- See All Button -->
-                <div class="see-all-container flex justify-center items-center mt-3.5 mb-9">
+                <div class="see-all-container flex justify-center items-center mt-3.5 mb-9"<?= count($catalogProducts) <= 24 ? ' style="display:none"' : '' ?>>
                     <button class="btn-see-all inline-flex items-center gap-2 bg-white border-[1.5px] border-primary text-primary hover:bg-primary hover:text-white font-bold text-xs sm:text-sm py-2.5 px-6 rounded-md shadow-xs hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer" id="btnSeeAll">
                         <span>Lihat Semua Produk</span>
                         <span class="material-symbols-outlined text-lg transition-transform duration-300">expand_more</span>
@@ -196,7 +227,7 @@
                 <div class="footer-col footer-col-about flex-1 min-w-[260px] max-w-sm">
                     <div class="footer__about">
                         <div class="footer__about__logo mb-4">
-                            <a href="./index.html" class="brand inline-flex items-center text-2xl font-extrabold tracking-tight">
+                            <a href="./index.php" class="brand inline-flex items-center text-2xl font-extrabold tracking-tight">
                                 <span class="brand-link text-primary">Link</span><span class="brand-supply text-[#1c1c1c]">Supply</span>
                             </a>
                         </div>
@@ -274,6 +305,9 @@
     <!-- Footer Section End -->
 
     <!-- Link Interactive Application Script -->
+    <script>
+        window.LINKSUPPLY_PRODUCTS = <?= json_encode($catalogProducts, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR) ?>;
+    </script>
     <script type="module" src="js/image-loading.js"></script>
     <script type="module" src="js/app.js"></script>
 </body>

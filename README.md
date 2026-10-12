@@ -20,8 +20,14 @@ LinkSupply adalah platform web rantai pasok dan pasar komoditas agribisnis (pert
 - **Tombol Melayang Kembali ke Atas (Back-to-Top)**: Smooth scroll ke bagian atas halaman.
 - **Validasi Newsletter**: Umpan balik interaktif saat mendaftarkan email berlangganan.
 
-### Struktur JavaScript
-Kode dipisah menjadi modul berdasarkan tanggung jawab di `Link-Supply/js/`: state dan utilitas (`core.js`), request JSON (`api.js`), katalog (`catalog.js`), detail produk (`product-page.js`), keranjang (`cart.js`), profil/alamat (`profile.js`), UI situs (`site-ui.js`), event global (`events.js`), dan notifikasi toast (`toast.js`). `app.js` hanya menginisialisasi modul halaman utama.
+### Struktur Aplikasi
+Data katalog dikelola sebagai array PHP di `Link-Supply/products-data.php`. Halaman katalog (`Link-Supply/index.php`) merender grid kartu produk di sisi server, sementara detail (`Link-Supply/product.php` dan `Link-Supply/product-detail-view.php`) merender halaman produk. `Link-Supply/products-api.php` menyediakan data untuk checkout. JavaScript menangani filter katalog dan interaksi browser seperti galeri, kuantitas, dan keranjang.
+
+### Pemrosesan Data PHP
+- `$products` adalah array multidimensi: setiap elemen menyimpan field satu produk.
+- `foreach` mencari produk berdasarkan ID, lalu mengulang data galeri, pilihan pasokan, bintang, dan ulasan untuk merender HTML.
+- Kondisi `if` menentukan status stok (`Siap dipasok` atau `Stok habis`) dan pesan ketersediaannya sebelum halaman dikirim ke browser.
+- `$productView` mengelompokkan informasi ke array bersarang seperti `pricing`, `inventory`, `rating`, dan `specs` agar struktur data tetap jelas.
 
 ---
 
@@ -39,4 +45,10 @@ npm install
 npm run build:css
 ```
 
-Lalu jalankan folder `Link-Supply` menggunakan server seperti **Live Server** di Visual Studio Code dan buka `index.html` dari alamat server. Jangan membuka file melalui `file://` karena browser memblokir request `fetch()` ke berkas JSON lokal. Saat mengembangkan CSS, gunakan `npm run watch:css`.
+Jalankan situs melalui PHP 8.1+ dari direktori proyek:
+
+```sh
+php -S localhost:8000 -t Link-Supply
+```
+
+Buka `http://localhost:8000/index.php`. Server PHP diperlukan untuk SSR katalog/detail produk dan endpoint data katalog. Saat mengembangkan CSS, gunakan `npm run watch:css`.
