@@ -110,12 +110,9 @@ import { Toast } from './toast.js';
     filtered.forEach((product, index) => {
       const isHidden = !state.isExpanded && index >= state.initialVisibleCount;
 
-      const card = document.createElement('div');
-      card.className = `product-card bg-white border border-gray-200 rounded-xl overflow-hidden flex flex-col shadow-xs card-fade-in cursor-pointer ${isHidden ? 'hidden-by-see-all' : ''}`;
-      card.dataset.id = product.id;
-      card.dataset.action = 'quickview';
-      card.setAttribute('role', 'button');
-      card.setAttribute('tabindex', '0');
+      const card = document.createElement('a');
+      card.href = `./product.html?id=${encodeURIComponent(product.id)}`;
+      card.className = `product-card bg-white border border-gray-200 rounded-xl overflow-hidden flex flex-col shadow-xs card-fade-in ${isHidden ? 'hidden-by-see-all' : ''}`;
       card.setAttribute('aria-label', `Lihat detail ${product.name}`);
 
       card.innerHTML = `
@@ -376,7 +373,7 @@ import { Toast } from './toast.js';
   };
 
 
-const loadProducts = async () => {
+const loadProducts = async (signal) => {
     state.productsLoading = true;
     state.productsError = false;
     state.productsMessage = '';
@@ -384,7 +381,7 @@ const loadProducts = async () => {
     renderLocationOptions();
 
     try {
-      const result = await fetchApiData('./js/product.json');
+      const result = await fetchApiData('./js/product.json', { signal });
       const products = result.data;
       const requiredProductFields = ['name', 'category', 'categoryLabel', 'location', 'province', 'desc', 'image', 'priceUnit', 'minOrderUnit', 'stockUnit'];
       if (!Array.isArray(products) || products.some(product => (
@@ -417,8 +414,8 @@ const loadProducts = async () => {
 
 
 
-export const initCatalog = () => {
+export const initCatalog = (signal) => {
   initSearchAndSort();
   initLocationSelector();
-  loadProducts();
+  return loadProducts(signal);
 };

@@ -20,6 +20,24 @@ import { setCategoryFilter } from './catalog.js';
     let currentIndex = 0;
     let autoSlideTimer = null;
 
+    const loadSlideImage = (index) => {
+      const image = slides[index]?.querySelector('.slide-banner__image');
+      if (!image || image.dataset.requested === 'true') return;
+
+      image.addEventListener('error', () => {
+        image.classList.add('is-unavailable');
+      }, { once: true });
+
+      if (image.dataset.src) {
+        image.dataset.requested = 'true';
+        image.src = image.dataset.src;
+      } else if (image.complete && image.naturalWidth === 0) {
+        image.classList.add('is-unavailable');
+      }
+    };
+
+    loadSlideImage(currentIndex);
+
     dotsContainer.innerHTML = '';
     slides.forEach((_, index) => {
       const dot = document.createElement('button');
@@ -40,6 +58,7 @@ import { setCategoryFilter } from './catalog.js';
       dots.forEach((dot, idx) => {
         dot.classList.toggle('active', idx === currentIndex);
       });
+      loadSlideImage(currentIndex);
     };
 
     const goToSlide = (index) => {
@@ -316,7 +335,7 @@ import { setCategoryFilter } from './catalog.js';
     });
   };
 
-  const loadSiteData = async () => {
+  const loadSiteData = async (signal) => {
     state.siteLoading = true;
     state.siteError = false;
     state.siteMessage = '';
@@ -324,7 +343,7 @@ import { setCategoryFilter } from './catalog.js';
     renderNotifications();
 
     try {
-      const result = await fetchApiData('./js/site.json');
+      const result = await fetchApiData('./js/site.json', { signal });
       const data = result.data;
       const categories = data?.categories;
       const notifications = data?.notifications;
@@ -360,9 +379,9 @@ import { setCategoryFilter } from './catalog.js';
   };
 
 
-export const initSite = () => {
+export const initSite = (signal) => {
   initSlider(setCategoryFilter);
   initNotifications();
   initBackToTop();
-  loadSiteData();
+  return loadSiteData(signal);
 };

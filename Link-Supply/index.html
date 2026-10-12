@@ -12,7 +12,42 @@
     <link rel="stylesheet" href="css/tailwind.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="font-sans text-text-main text-sm antialiased bg-fixed bg-cover bg-center bg-no-repeat min-h-screen" style="background-color: #ffffff; background-image: linear-gradient(rgba(254, 254, 254, 0.88), rgba(255, 255, 255, 0.88)), url('Assets/pexels-strannik-sk-36849925.jpg');">
+<body class="font-sans text-text-main text-sm antialiased bg-fixed bg-cover bg-center bg-no-repeat min-h-screen" style="background-color: #ffffff;">
+
+    <div id="pageLoader" class="page-loader" role="status" aria-live="polite">
+        <span class="page-loader__spinner" aria-hidden="true"></span>
+        <p>Unloading truck..</p>
+    </div>
+
+    <section id="pageTimeoutError" class="page-timeout" role="alertdialog" aria-modal="true" aria-labelledby="pageTimeoutTitle" aria-describedby="pageTimeoutMessage" hidden>
+        <span class="material-symbols-outlined page-timeout__icon" aria-hidden="true">wifi_off</span>
+        <h1 id="pageTimeoutTitle">Loading page failed</h1>
+        <p id="pageTimeoutMessage">Check your internet connection then try again.</p>
+        <button id="pageTimeoutRetry" class="bg-primary hover:bg-primary-dark text-white font-semibold py-2.5 px-5 rounded-lg transition-colors cursor-pointer" type="button">Reload</button>
+    </section>
+    <script>
+        document.getElementById('pageTimeoutRetry')?.addEventListener('click', () => {
+            const loader = document.getElementById('pageLoader');
+            const loaderMessage = loader?.querySelector('p');
+            const timeoutError = document.getElementById('pageTimeoutError');
+
+            timeoutError?.setAttribute('hidden', '');
+            loader?.classList.remove('is-hidden');
+            loader?.setAttribute('aria-hidden', 'false');
+            if (loaderMessage) loaderMessage.textContent = 'Unloading truck...';
+            window.location.reload();
+        });
+
+        window.pageLoadTimeoutId = window.setTimeout(() => {
+            if (typeof window.handlePageLoadTimeout === 'function') {
+                window.handlePageLoadTimeout();
+                return;
+            }
+
+            document.getElementById('pageLoader')?.classList.add('is-hidden');
+            document.getElementById('pageTimeoutError')?.removeAttribute('hidden');
+        }, 15000);
+    </script>
 
     <!-- Navbar Begin -->
     <header class="navbar sticky top-0 z-50 w-full bg-white border-b border-gray-200 px-4 sm:px-6 md:px-8 py-2.5 flex flex-wrap md:flex-nowrap items-center justify-between gap-3 shadow-sm">
@@ -56,7 +91,8 @@
             <div class="slider-container group relative w-full overflow-hidden rounded-xl mb-4 sm:mb-5 shadow-lg" id="adSlider">
                 <div class="slider-wrapper flex w-full transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]" id="sliderWrapper">
                     
-                    <section class="slide-banner min-w-full w-full shrink-0 relative flex flex-col items-center justify-center text-center text-white min-h-[200px] sm:min-h-[250px] md:min-h-[290px] py-8 sm:py-11 md:py-14 px-4 sm:px-8 bg-cover bg-center" style="background-image: linear-gradient(135deg, rgba(83, 103, 90, 0.82) 0%, rgba(3, 15, 6, 0.88) 100%), url('Assets/pexels-shvets-production-8900041.jpg');">
+                    <section class="slide-banner min-w-full w-full shrink-0 relative flex flex-col items-center justify-center text-center text-white min-h-[200px] sm:min-h-[250px] md:min-h-[290px] py-8 sm:py-11 md:py-14 px-4 sm:px-8">
+                        <img class="slide-banner__image" src="./Assets/pexels-shvets-production-8900041.jpg" alt="" fetchpriority="high" decoding="async">
                         <div class="ad-content max-w-2xl px-2">
                             <span class="ad-badge inline-block bg-bg-muted/95 text-primary-dark text-xs font-bold px-3.5 py-1 rounded-md mb-3 sm:mb-4 tracking-wider shadow-sm">PROMO TERBATAS</span>
                             <h1 class="ad-title text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 leading-tight text-white">Flash Sale Panen Raya! Diskon Hingga 50%</h1>
@@ -65,7 +101,8 @@
                         </div>
                     </section>
 
-                    <section class="slide-banner min-w-full w-full shrink-0 relative flex flex-col items-center justify-center text-center text-white min-h-[200px] sm:min-h-[250px] md:min-h-[290px] py-8 sm:py-11 md:py-14 px-4 sm:px-8 bg-cover bg-center" style="background-image: linear-gradient(135deg, rgba(83, 103, 90, 0.82) 0%, rgba(3, 15, 6, 0.88) 100%), url('Assets/pexels-tima-miroshnichenko-6169177.jpg');">
+                    <section class="slide-banner min-w-full w-full shrink-0 relative flex flex-col items-center justify-center text-center text-white min-h-[200px] sm:min-h-[250px] md:min-h-[290px] py-8 sm:py-11 md:py-14 px-4 sm:px-8">
+                        <img class="slide-banner__image" data-src="./Assets/pexels-tima-miroshnichenko-6169177.jpg" alt="" decoding="async">
                         <div class="ad-content max-w-2xl px-2">
                             <span class="ad-badge inline-block bg-bg-muted/95 text-primary-dark text-xs font-bold px-3.5 py-1 rounded-md mb-3 sm:mb-4 tracking-wider shadow-sm">PENAWARAN KHUSUS</span>
                             <h1 class="ad-title text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 leading-tight text-white">Gratis Ongkir untuk Area Jawa Timur</h1>
@@ -74,7 +111,8 @@
                         </div>
                     </section>
                     
-                    <section class="slide-banner min-w-full w-full shrink-0 relative flex flex-col items-center justify-center text-center text-white min-h-[200px] sm:min-h-[250px] md:min-h-[290px] py-8 sm:py-11 md:py-14 px-4 sm:px-8 bg-cover bg-center" style="background-image: linear-gradient(135deg, rgba(83, 103, 90, 0.82) 0%, rgba(3, 15, 6, 0.88) 100%), url('Assets/pexels-1135897-30199346.jpg');">
+                    <section class="slide-banner min-w-full w-full shrink-0 relative flex flex-col items-center justify-center text-center text-white min-h-[200px] sm:min-h-[250px] md:min-h-[290px] py-8 sm:py-11 md:py-14 px-4 sm:px-8">
+                        <img class="slide-banner__image" data-src="./Assets/pexels-1135897-30199346.jpg" alt="" decoding="async">
                         <div class="ad-content max-w-2xl px-2">
                             <span class="ad-badge inline-block bg-bg-muted/95 text-primary-dark text-xs font-bold px-3.5 py-1 rounded-md mb-3 sm:mb-4 tracking-wider shadow-sm">MITRA BARU</span>
                             <h1 class="ad-title text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 leading-tight text-white">Koperasi Nelayan Pantura Resmi Bergabung</h1>
@@ -83,7 +121,8 @@
                         </div>
                     </section>
 
-                    <section class="slide-banner min-w-full w-full shrink-0 relative flex flex-col items-center justify-center text-center text-white min-h-[200px] sm:min-h-[250px] md:min-h-[290px] py-8 sm:py-11 md:py-14 px-4 sm:px-8 bg-cover bg-center" style="background-image: linear-gradient(135deg, rgba(83, 103, 90, 0.82) 0%, rgba(3, 15, 6, 0.88) 100%), url('Assets/pexels-yuslava-36897781.jpg');">
+                    <section class="slide-banner min-w-full w-full shrink-0 relative flex flex-col items-center justify-center text-center text-white min-h-[200px] sm:min-h-[250px] md:min-h-[290px] py-8 sm:py-11 md:py-14 px-4 sm:px-8">
+                        <img class="slide-banner__image" data-src="./Assets/pexels-yuslava-36897781.jpg" alt="" decoding="async">
                         <div class="ad-content max-w-2xl px-2">
                             <span class="ad-badge inline-block bg-bg-muted/95 text-primary-dark text-xs font-bold px-3.5 py-1 rounded-md mb-3 sm:mb-4 tracking-wider shadow-sm">KUALITAS EKSPOR</span>
                             <h1 class="ad-title text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 leading-tight text-white">Suplai Buah & Sayuran Organik Grade A</h1>
@@ -92,7 +131,8 @@
                         </div>
                     </section>
 
-                    <section class="slide-banner min-w-full w-full shrink-0 relative flex flex-col items-center justify-center text-center text-white min-h-[200px] sm:min-h-[250px] md:min-h-[290px] py-8 sm:py-11 md:py-14 px-4 sm:px-8 bg-cover bg-center" style="background-image: linear-gradient(135deg, rgba(83, 103, 90, 0.82) 0%, rgba(3, 15, 6, 0.88) 100%), url('Assets/pexels-nicolas-rueda-175965148-17546504.jpg');">
+                    <section class="slide-banner min-w-full w-full shrink-0 relative flex flex-col items-center justify-center text-center text-white min-h-[200px] sm:min-h-[250px] md:min-h-[290px] py-8 sm:py-11 md:py-14 px-4 sm:px-8">
+                        <img class="slide-banner__image" data-src="./Assets/pexels-nicolas-rueda-175965148-17546504.jpg" alt="" decoding="async">
                         <div class="ad-content max-w-2xl px-2">
                             <span class="ad-badge inline-block bg-bg-muted/95 text-primary-dark text-xs font-bold px-3.5 py-1 rounded-md mb-3 sm:mb-4 tracking-wider shadow-sm">SOLUSI LOGISTIK</span>
                             <h1 class="ad-title text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 leading-tight text-white">Jaga Kesegaran dengan Cold Storage Modern</h1>
@@ -234,6 +274,7 @@
     <!-- Footer Section End -->
 
     <!-- Link Interactive Application Script -->
+    <script type="module" src="js/image-loading.js"></script>
     <script type="module" src="js/app.js"></script>
 </body>
 </html>
