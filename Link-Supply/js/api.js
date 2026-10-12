@@ -5,6 +5,9 @@ export const fetchApiData = async (url, options = {}) => {
     try {
       result = await response.json();
     } catch {
+      if (url.endsWith('.php')) {
+        throw new Error(`Endpoint ${url} tidak mengembalikan JSON. Pastikan situs dijalankan melalui server PHP, bukan Live Server atau file://.`);
+      }
       throw new Error(`Respons API ${url} bukan JSON yang valid.`);
     }
 

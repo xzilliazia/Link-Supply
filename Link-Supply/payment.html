@@ -16,7 +16,7 @@
     <header class="sticky top-0 z-40 w-full bg-white border-b border-gray-200 px-4 sm:px-8 py-3.5 shadow-2xs">
         <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
             <div class="flex items-center gap-6">
-                <a href="index.html" class="flex items-center gap-1.5 group">
+                <a href="index.php" class="flex items-center gap-1.5 group">
                     <span class="material-symbols-outlined text-primary text-3xl">eco</span>
                     <div class="text-xl sm:text-2xl font-extrabold flex items-center tracking-tight">
                         <span class="text-primary">Link</span><span class="text-[#1c1c1c]">Supply.</span>
@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <a href="index.html" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-gray-600 hover:text-primary transition-colors bg-gray-100 hover:bg-emerald-50 px-3 py-1.5 rounded-lg border border-gray-200 hover:border-border-custom">
+            <a href="index.php" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-gray-600 hover:text-primary transition-colors bg-gray-100 hover:bg-emerald-50 px-3 py-1.5 rounded-lg border border-gray-200 hover:border-border-custom">
                 <span class="material-symbols-outlined text-base">arrow_back</span>
                 <span>Kembali Belanja</span>
             </a>
@@ -48,7 +48,7 @@
             <span class="material-symbols-outlined text-6xl text-gray-300 mb-3 block">remove_shopping_cart</span>
             <h2 class="text-lg font-bold text-gray-800 mb-1">Keranjang Belanja Masih Kosong</h2>
             <p class="text-xs sm:text-sm text-gray-500 max-w-md mx-auto mb-6">Silakan pilih komoditas atau produk pasokan terlebih dahulu sebelum melanjutkan proses pembayaran.</p>
-            <a href="index.html" class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white text-xs sm:text-sm font-bold py-2.5 px-6 rounded-lg shadow-sm transition-colors">
+            <a href="index.php" class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white text-xs sm:text-sm font-bold py-2.5 px-6 rounded-lg shadow-sm transition-colors">
                 <span class="material-symbols-outlined text-lg">storefront</span>
                 <span>Eksplor Produk Sekarang</span>
             </a>
@@ -410,7 +410,7 @@
                 renderCartItems();
 
                 try {
-                    const response = await fetch('./js/product.json');
+                    const response = await fetch('./products-api.php');
                     let result;
                     try {
                         result = await response.json();

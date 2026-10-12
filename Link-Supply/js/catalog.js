@@ -111,7 +111,7 @@ import { Toast } from './toast.js';
       const isHidden = !state.isExpanded && index >= state.initialVisibleCount;
 
       const card = document.createElement('a');
-      card.href = `./product.html?id=${encodeURIComponent(product.id)}`;
+      card.href = `./product.php?id=${encodeURIComponent(product.id)}`;
       card.className = `product-card bg-white border border-gray-200 rounded-xl overflow-hidden flex flex-col shadow-xs card-fade-in ${isHidden ? 'hidden-by-see-all' : ''}`;
       card.setAttribute('aria-label', `Lihat detail ${product.name}`);
 
@@ -381,7 +381,7 @@ const loadProducts = async (signal) => {
     renderLocationOptions();
 
     try {
-      const result = await fetchApiData('./js/product.json', { signal });
+      const result = await fetchApiData('./products-api.php', { signal });
       const products = result.data;
       const requiredProductFields = ['name', 'category', 'categoryLabel', 'location', 'province', 'desc', 'image', 'priceUnit', 'minOrderUnit', 'stockUnit'];
       if (!Array.isArray(products) || products.some(product => (
@@ -417,5 +417,15 @@ const loadProducts = async (signal) => {
 export const initCatalog = (signal) => {
   initSearchAndSort();
   initLocationSelector();
+  const serverProducts = window.LINKSUPPLY_PRODUCTS;
+  if (Array.isArray(serverProducts)) {
+    state.products = serverProducts;
+    state.filteredProducts = [...serverProducts];
+    state.productsLoading = false;
+    state.productsError = false;
+    state.productsMessage = 'Katalog produk berhasil dimuat.';
+    renderLocationOptions();
+    return Promise.resolve();
+  }
   return loadProducts(signal);
 };
