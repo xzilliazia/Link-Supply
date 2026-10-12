@@ -1,0 +1,21 @@
+@import "tailwindcss" source(none);
+
+@source "../index.html";
+@source "../payment.html";
+@source "../js/**/*.js";
+@source "../js/*.json";
+
+@theme {
+  --color-primary: #00750c;
+  --color-primary-light: #72a857;
+  --color-primary-dark: #155402;
+  --color-bg-main: #ffffff;
+  --color-bg-muted: #edf1d6;
+  --color-card-bg: #ffffff;
+  --color-text-main: #40513b;
+  --color-text-muted: #609966;
+  --color-border-custom: #9dc08b;
+  --color-placeholder-bg: rgba(157, 192, 139, 0.4);
+  --font-sans: Inter, sans-serif;
+  --shadow-2xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}

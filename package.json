@@ -1,0 +1,14 @@
+{
+  "name": "linksupply",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:css": "tailwindcss -i ./Link-Supply/css/tailwind.input.css -o ./Link-Supply/css/tailwind.css --minify",
+    "watch:css": "tailwindcss -i ./Link-Supply/css/tailwind.input.css -o ./Link-Supply/css/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.3.0",
+    "tailwindcss": "^4.3.3"
+  }
+}
