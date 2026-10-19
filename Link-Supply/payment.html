@@ -134,7 +134,7 @@
                             <div class="flex items-center gap-3.5">
                                 <input type="radio" name="paymentMethod" value="gopay" checked class="text-primary focus:ring-primary h-4.5 w-4.5 cursor-pointer">
                                 <div class="w-12 h-10 bg-white border border-gray-200 rounded-lg flex items-center justify-center p-1.5 shrink-0 shadow-2xs">
-                                    <img src="Assets/gopay-seeklogo.png" alt="GoPay" class="h-6 w-auto object-contain">
+                                    <img src="assets/images/gopay-seeklogo.png" alt="GoPay" class="h-6 w-auto object-contain">
                                 </div>
                                 <div>
                                     <div class="font-bold text-gray-900 text-xs sm:text-sm">GoPay</div>
@@ -148,7 +148,7 @@
                             <div class="flex items-center gap-3.5">
                                 <input type="radio" name="paymentMethod" value="shopeepay" class="text-primary focus:ring-primary h-4.5 w-4.5 cursor-pointer">
                                 <div class="w-12 h-10 bg-white border border-gray-200 rounded-lg flex items-center justify-center p-1.5 shrink-0 shadow-2xs">
-                                    <img src="Assets/shopeepay.png" alt="ShopeePay" class="h-6 w-auto object-contain">
+                                    <img src="assets/images/shopeepay.png" alt="ShopeePay" class="h-6 w-auto object-contain">
                                 </div>
                                 <div>
                                     <div class="font-bold text-gray-900 text-xs sm:text-sm">ShopeePay</div>
@@ -331,7 +331,7 @@
                         name: 'Komoditas Pasokan',
                         price: item.price || 0,
                         priceUnit: 'kg',
-                        image: 'Assets/pexels-shvets-production-8900041.jpg'
+                        image: 'assets/images/pexels-shvets-production-8900041.jpg'
                     };
 
                     const itemTotal = product.price * item.quantity;
@@ -410,7 +410,7 @@
                 renderCartItems();
 
                 try {
-                    const response = await fetch('./products-api.php');
+                    const response = await fetch('./api/products.php');
                     let result;
                     try {
                         result = await response.json();
