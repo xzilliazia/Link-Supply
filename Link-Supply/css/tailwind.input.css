@@ -1,8 +1,11 @@
 @import "tailwindcss" source(none);
 
-@source "../index.html";
+@source "../index.php";
 @source "../payment.html";
-@source "../product.html";
+@source "../product.php";
+@source "../api/**/*.php";
+@source "../data/**/*.php";
+@source "../includes/**/*.php";
 @source "../js/**/*.js";
 @source "../js/*.json";
 

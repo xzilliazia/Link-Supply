@@ -22,8 +22,9 @@ Sebelum pembaruan, antarmuka memiliki tata letak visual dasar dengan kartu produ
 - Jika request data gagal, layar loading tetap ditutup agar pesan error dan tombol **Coba Lagi** yang sudah tersedia dapat digunakan.
 
 ### 1. 🛍️ Katalog Produk Dinamis (*Dynamic Product Catalog*)
-- **Data dari PHP**: Katalog produk disimpan sebagai array PHP di `products-data.php` dan disajikan melalui `products-api.php` dalam format `{ "success": true, "message": "...", "data": ... }`. Kategori dan notifikasi tetap dibaca dari `js/site.json`.
-- **Server-side rendering**: `index.php` mengulang array katalog dengan `foreach` dan mengirim kartu produk sebagai HTML pada respons awal. JavaScript memakai data server-rendered untuk filter, pencarian, dan pengurutan tanpa request katalog kedua.
+- **Model OOP**: `data/products.json` menyimpan data katalog; `models/Product.php` memodelkan 17 atribut produk sebagai property `private readonly`, dan `models/ProductCatalog.php` memuat serta mencari kumpulan object produk. Getter publik menyediakan akses tanpa membuka property untuk diubah.
+- **Arsitektur MVC**: entry point `index.php`, `product.php`, dan `api/products.php` meneruskan request ke controller. Controller mengambil data melalui Model, kemudian meneruskannya ke View atau API.
+- **Server-side rendering**: `CatalogController` meneruskan object katalog ke `views/catalog.php` untuk mengirim kartu produk sebagai HTML pada respons awal. JavaScript memakai data server-rendered untuk filter, pencarian, dan pengurutan tanpa request katalog kedua.
 - **Status request API**: Produk, kategori, notifikasi, dan pilihan wilayah menampilkan status loading. Katalog, notifikasi, dan rincian produk di halaman pembayaran menampilkan pesan error dari API serta aksi **Coba Lagi** jika request gagal.
 - **Menjalankan situs lokal**: Jalankan `php -S localhost:8000 -t Link-Supply` dari root repositori dan buka `http://localhost:8000/index.php`. PHP diperlukan untuk SSR katalog, endpoint data, dan halaman detail.
 - **CSS Tailwind via NPM**: Jalankan `npm install` dari root repositori, kemudian `npm run build:css` untuk membuat `Link-Supply/css/tailwind.css`. Gunakan `npm run watch:css` saat mengembangkan UI; tidak ada Tailwind CDN yang digunakan.
@@ -64,8 +65,8 @@ Dropdown pengurutan produk yang responsif mendukung:
 
 ### 6. 🔍 Detail Produk & Pemesanan
 - Mengklik atau memfokuskan kartu produk lalu menekan `Enter` membuka halaman detail produk (`product.php?id=...`), dengan data produk dipilih di sisi server.
-- Halaman detail dirender di sisi server oleh `product.php` dan `product-detail-view.php`. JavaScript hanya mengaktifkan kontrol browser seperti galeri, jumlah sesuai minimal pesanan/stok, dan aksi keranjang.
-- Data katalog berbentuk array multidimensi PHP. Loop `foreach` mencari produk berdasarkan ID dan merender galeri, distribusi rating, serta daftar ulasan; kondisi stok menentukan label dan pesan status pasokan.
+- Halaman detail dirender di sisi server oleh `ProductController`, `views/product.php`, dan `views/ProductDetailView.php`. Detail menampilkan foto, harga, deskripsi, kategori, lokasi, minimum pesanan, dan stok dari produk terpilih; JavaScript menangani jumlah pesanan dan aksi keranjang.
+- `ProductCatalog` mencari object berdasarkan ID; Model `Product` menyiapkan data detail, distribusi rating, dan status stok untuk View. API mengubah object ke array JSON agar bentuk respons katalog dan integrasi checkout tetap kompatibel.
 - Halaman detail mempertahankan navbar dan footer utama, serta menampilkan ringkasan rating, jumlah ulasan, distribusi bintang, dan ulasan contoh yang diberi label sebagai data pratinjau.
 - Tata letak desktop membagi galeri, informasi produk, dan kartu pembelian lengket; tablet menempatkan kartu pembelian setelah detail, sedangkan ponsel menggunakan bilah pembelian tetap di bawah layar.
 - Menampilkan:
@@ -111,43 +112,54 @@ Dropdown pengurutan produk yang responsif mendukung:
 
 ---
 
-## 📁 Struktur File Proyek Terkini
+## 📁 Struktur Folder Proyek
+
+File dikelompokkan berdasarkan tanggung jawabnya agar endpoint, data, template, aset, dan halaman mudah ditemukan saat pemeliharaan atau audit.
 
 ```
 Link-Supply/
 ├── Link-Supply/
-│   ├── Assets/
-│   │   ├── alfamart-seeklogo.png
-│   │   ├── gopay-seeklogo.png
-│   │   ├── shopeepay.png
-│   │   ├── pexels-1135897-30199346.jpg
-│   │   ├── pexels-kevin-malik-9016541.jpg
-│   │   ├── pexels-nicolas-rueda-175965148-17546504.jpg
-│   │   ├── pexels-shvets-production-8900041.jpg
-│   │   ├── pexels-strannik-sk-36849925.jpg
-│   │   ├── pexels-tima-miroshnichenko-6169177.jpg
-│   │   └── pexels-yuslava-36897781.jpg
+│   ├── api/
+│   │   └── products.php            # Entry point API katalog
+│   ├── assets/
+│   │   ├── images/                 # Gambar aktif dan logo pembayaran
+│   │   └── archive/                # Varian gambar lama, tidak digunakan aplikasi
+│   ├── controllers/
+│   │   ├── CatalogController.php   # Request halaman katalog
+│   │   ├── ProductController.php   # Request detail produk
+│   │   └── ProductsApiController.php # Request API katalog
 │   ├── css/
-│   │   └── style.css            # Stylesheet kustom untuk animasi, drawer, detail produk, toast, dll.
+│   │   ├── style.css               # Gaya kustom aplikasi
+│   │   ├── tailwind.input.css      # Sumber Tailwind CSS
+│   │   └── tailwind.css            # CSS hasil build
+│   ├── data/
+│   │   └── products.json           # Data katalog
+│   ├── docs/
+│   │   └── FEATURES.md             # Dokumentasi fitur dan struktur proyek
+│   ├── models/
+│   │   ├── Product.php             # Model produk dengan property private
+│   │   └── ProductCatalog.php      # Koleksi dan pencarian produk
 │   ├── js/
-│   │   ├── app.js              # Entry point dan inisialisasi modul ESM
-│   │   ├── api.js              # Fetch serta validasi envelope API JSON
-│   │   ├── core.js             # State aplikasi dan utilitas bersama
-│   │   ├── toast.js            # Sistem notifikasi toast
-│   │   ├── catalog.js          # Render, filter, urut, dan muat katalog produk
-│   │   ├── cart.js             # Keranjang dan drawer belanja
-│   │   ├── profile.js          # Profil dan manajemen alamat
-│   │   ├── product-page.js     # Interaksi browser detail produk
-│   │   ├── site-ui.js          # Slider, notifikasi situs, lokasi, dan back-to-top
-│   │   ├── events.js           # Delegasi event global dan newsletter
-│   │   └── site.json           # Data kategori dan notifikasi
-│   ├── products-data.php       # Data katalog dalam array PHP
-│   ├── products-api.php        # Endpoint JSON untuk katalog dan checkout
-│   ├── product-detail-view.php # Template PHP untuk tampilan detail produk
-│   ├── index.php               # Halaman utama dan grid katalog server-rendered
-│   ├── product.php             # Halaman detail produk berdasarkan ID katalog
-│   ├── payment.html            # Halaman checkout dan pembayaran
-│   └── DOCUMENTATION.md        # Dokumentasi lengkap pembaruan
+│   │   ├── app.js                  # Entry point dan inisialisasi modul ESM
+│   │   ├── api.js                  # Fetch serta validasi envelope API JSON
+│   │   ├── catalog.js              # Render, filter, urut, dan muat katalog
+│   │   ├── cart.js                 # Keranjang dan drawer belanja
+│   │   ├── core.js                 # State aplikasi dan utilitas bersama
+│   │   ├── events.js               # Delegasi event global dan newsletter
+│   │   ├── image-loading.js        # Status pemuatan gambar
+│   │   ├── product-page.js         # Interaksi browser detail produk
+│   │   ├── profile.js              # Profil dan manajemen alamat
+│   │   ├── site-ui.js              # Slider, notifikasi, lokasi, dan back-to-top
+│   │   ├── site.json               # Data kategori dan notifikasi
+│   │   └── toast.js                 # Sistem notifikasi toast
+│   ├── views/
+│   │   ├── ProductDetailView.php   # Tampilan rincian produk
+│   │   ├── ViewHelper.php          # Utilitas escaping dan format harga
+│   │   ├── catalog.php             # Tampilan katalog
+│   │   └── product.php             # Kerangka halaman detail
+│   ├── index.php                   # Halaman utama dan katalog
+│   ├── product.php                 # Halaman detail produk
+│   └── payment.html                # Halaman checkout dan pembayaran
 └── .vscode/
     └── settings.json
 ```

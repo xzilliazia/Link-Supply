@@ -381,7 +381,7 @@ const loadProducts = async (signal) => {
     renderLocationOptions();
 
     try {
-      const result = await fetchApiData('./products-api.php', { signal });
+      const result = await fetchApiData('./api/products.php', { signal });
       const products = result.data;
       const requiredProductFields = ['name', 'category', 'categoryLabel', 'location', 'province', 'desc', 'image', 'priceUnit', 'minOrderUnit', 'stockUnit'];
       if (!Array.isArray(products) || products.some(product => (

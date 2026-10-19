@@ -76,33 +76,6 @@ const initProductPage = () => {
   });
   updateQuantity(quantityInputs[0]);
 
-  container.querySelectorAll('[data-variant-id]').forEach(button => {
-    button.addEventListener('click', () => {
-      container.querySelectorAll('[data-variant-id]').forEach(option => {
-        const selected = option === button;
-        option.classList.toggle('is-selected', selected);
-        option.setAttribute('aria-pressed', String(selected));
-        option.querySelector('.material-symbols-outlined').textContent = selected
-          ? 'check_circle'
-          : 'radio_button_unchecked';
-      });
-    });
-  });
-
-  container.querySelectorAll('[data-gallery-index]').forEach(button => {
-    button.addEventListener('click', () => {
-      const selectedIndex = Number(button.dataset.galleryIndex);
-      container.querySelectorAll('[data-gallery-index]').forEach(thumbnail => {
-        const selected = thumbnail === button;
-        thumbnail.classList.toggle('is-active', selected);
-        thumbnail.setAttribute('aria-pressed', String(selected));
-      });
-      container.querySelectorAll('[data-gallery-image]').forEach(image => {
-        image.classList.toggle('hidden', Number(image.dataset.galleryImage) !== selectedIndex);
-      });
-    });
-  });
-
   container.querySelectorAll('[data-expand-title]').forEach(button => {
     button.addEventListener('click', () => {
       const expanded = button.getAttribute('aria-expanded') !== 'true';
@@ -118,13 +91,6 @@ const initProductPage = () => {
     container.querySelector('[data-product-description]').classList.toggle('is-clamped', !expanded);
     button.setAttribute('aria-expanded', String(expanded));
     button.textContent = expanded ? 'Lihat lebih sedikit' : 'Lihat selengkapnya';
-  });
-
-  container.querySelector('[data-follow-seller]').addEventListener('click', event => {
-    const button = event.currentTarget;
-    const following = button.getAttribute('aria-pressed') !== 'true';
-    button.setAttribute('aria-pressed', String(following));
-    button.textContent = following ? 'Diikuti' : 'Ikuti';
   });
 
   const addToCart = () => {

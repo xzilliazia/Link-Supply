@@ -20,20 +20,19 @@ LinkSupply adalah platform web rantai pasok dan pasar komoditas agribisnis (pert
 - **Tombol Melayang Kembali ke Atas (Back-to-Top)**: Smooth scroll ke bagian atas halaman.
 - **Validasi Newsletter**: Umpan balik interaktif saat mendaftarkan email berlangganan.
 
-### Struktur Aplikasi
-Data katalog dikelola sebagai array PHP di `Link-Supply/products-data.php`. Halaman katalog (`Link-Supply/index.php`) merender grid kartu produk di sisi server, sementara detail (`Link-Supply/product.php` dan `Link-Supply/product-detail-view.php`) merender halaman produk. `Link-Supply/products-api.php` menyediakan data untuk checkout. JavaScript menangani filter katalog dan interaksi browser seperti galeri, kuantitas, dan keranjang.
-
-### Pemrosesan Data PHP
-- `$products` adalah array multidimensi: setiap elemen menyimpan field satu produk.
-- `foreach` mencari produk berdasarkan ID, lalu mengulang data galeri, pilihan pasokan, bintang, dan ulasan untuk merender HTML.
-- Kondisi `if` menentukan status stok (`Siap dipasok` atau `Stok habis`) dan pesan ketersediaannya sebelum halaman dikirim ke browser.
-- `$productView` mengelompokkan informasi ke array bersarang seperti `pricing`, `inventory`, `rating`, dan `specs` agar struktur data tetap jelas.
+### Struktur Aplikasi (MVC dan OOP)
+- **Model** (`Link-Supply/models/Product.php`) mewakili produk dan menyimpan seluruh 17 propertinya sebagai `private readonly`, dengan getter publik untuk akses. `Link-Supply/models/ProductCatalog.php` memuat data dari `Link-Supply/data/products.json`, lalu mengelola kumpulan object `Product`.
+- **Controller** (`Link-Supply/controllers/CatalogController.php`, `Link-Supply/controllers/ProductController.php`, `Link-Supply/controllers/ProductsApiController.php`) menangani request, berinteraksi dengan Model, lalu meneruskan hasil ke View atau API.
+- **View** (`Link-Supply/views/catalog.php`, `Link-Supply/views/product.php`, `Link-Supply/views/ProductDetailView.php`) merender HTML dari object dan data tampilan yang disiapkan Controller. `Link-Supply/views/ViewHelper.php` menangani escaping dan format harga.
+- `Link-Supply/index.php`, `Link-Supply/product.php`, dan `Link-Supply/api/products.php` menjadi entry point tipis yang meneruskan request ke Controller. Alur katalog: request → Controller → Model → View.
+- Array yang dipakai pada JSON API dan detail tampilan adalah format keluaran untuk kompatibilitas/presentasi; data produk aplikasi dikelola sebagai object `Product`. Loop dan kondisi pada template hanya mengatur pengulangan elemen HTML.
+- JavaScript tetap menangani filter, pengurutan, keranjang, dan interaksi browser; CSS serta URL aset tidak berubah meskipun template PHP berada dalam folder View.
 
 ---
 
 ## 📖 Dokumentasi Lengkap
-Dokumentasi teknis pembaruan dapat dibaca di:
-👉 [Link-Supply/DOCUMENTATION.md](Link-Supply/DOCUMENTATION.md)
+Dokumentasi fitur dan struktur proyek dapat dibaca di:
+👉 [Link-Supply/docs/FEATURES.md](Link-Supply/docs/FEATURES.md)
 
 ---
 
