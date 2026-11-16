@@ -1,12 +1,12 @@
 <?php
-  if (!empty($_GET['q'])) {
+if (! empty($_GET['q'])) {
     switch ($_GET['q']) {
-      case 'info':
-        phpinfo(); 
-        exit;
-      break;
+        case 'info':
+            phpinfo();
+            exit;
+            break;
     }
-  }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -64,9 +64,9 @@
                 <div class="title" title="Laragon">Laragon</div>
      
                 <div class="info"><br />
-                      <?php print($_SERVER['SERVER_SOFTWARE']); ?><br />
-                      PHP version: <?php print phpversion(); ?>   <span><a title="phpinfo()" href="/?q=info">info</a></span><br />
-                      Document Root: <?php print ($_SERVER['DOCUMENT_ROOT']); ?><br />
+                      <?php echo $_SERVER['SERVER_SOFTWARE']; ?><br />
+                      PHP version: <?php echo phpversion(); ?>   <span><a title="phpinfo()" href="/?q=info">info</a></span><br />
+                      Document Root: <?php echo $_SERVER['DOCUMENT_ROOT']; ?><br />
 
                 </div>
                 <div class="opt">

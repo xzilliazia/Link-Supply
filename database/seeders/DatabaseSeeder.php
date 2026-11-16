@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductSeeder::class);
 
         User::firstOrCreate(
-    ['email' => 'test@example.com'],
-    ['name' => 'Test User', 'password' => bcrypt('password')],
-);
+            ['email' => 'test@example.com'],
+            ['name' => 'Test User', 'password' => bcrypt('password')],
+        );
     }
 }

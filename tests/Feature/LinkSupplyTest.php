@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Order;
 use App\Models\Product;
 use Database\Seeders\ProductSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -146,6 +147,209 @@ class LinkSupplyTest extends TestCase
                 'payment_method' => $method,
             ]))->assertCreated();
         }
+    }
+
+    public function test_order_create_and_edit_endpoints_return_json_payloads(): void
+    {
+        $this->getJson('/api/orders/create')
+            ->assertOk()
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.items', [])
+            ->assertJsonPath('data.recipient_name', '');
+
+        $product = Product::query()->findOrFail(1);
+        $response = $this->postJson('/api/orders', $this->validOrderPayload([
+            'items' => [[
+                'product_id' => $product->id,
+                'quantity' => $product->min_order,
+            ]],
+        ]))->assertCreated();
+
+        $this->getJson('/api/orders/'.$response->json('data.id').'/edit')
+            ->assertOk()
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.items.0.product_id', $product->id);
+    }
+
+    public function test_order_update_replaces_items_and_synchronizes_stock(): void
+    {
+        $originalProduct = Product::query()->findOrFail(1);
+        $originalStock = $originalProduct->stock;
+        $quantity = $originalProduct->min_order;
+        $replacementProduct = Product::factory()->create([
+            'price' => 25000,
+            'min_order' => 1,
+            'stock' => 10,
+        ]);
+
+        $orderResponse = $this->postJson('/api/orders', $this->validOrderPayload([
+            'items' => [[
+                'product_id' => $originalProduct->id,
+                'quantity' => $quantity,
+            ]],
+        ]))->assertCreated();
+
+        $orderId = $orderResponse->json('data.id');
+
+        $this->putJson('/api/orders/'.$orderId, $this->validOrderPayload([
+            'items' => [[
+                'product_id' => $replacementProduct->id,
+                'quantity' => 3,
+            ]],
+            'recipient_name' => 'Updated Recipient',
+        ]))
+            ->assertOk()
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.recipient.name', 'Updated Recipient')
+            ->assertJsonPath('data.items.0.product_id', $replacementProduct->id)
+            ->assertJsonPath('data.total', 75000);
+
+        $this->assertDatabaseHas('products', [
+            'id' => $originalProduct->id,
+            'stock' => $originalStock,
+        ]);
+        $this->assertDatabaseHas('products', [
+            'id' => $replacementProduct->id,
+            'stock' => 7,
+        ]);
+        $this->assertDatabaseHas('order_items', [
+            'order_id' => $orderId,
+            'product_id' => $replacementProduct->id,
+            'quantity' => 3,
+            'line_total' => 75000,
+        ]);
+    }
+
+    public function test_order_update_counts_its_existing_reservation_when_checking_stock(): void
+    {
+        $product = Product::factory()->create([
+            'price' => 10000,
+            'min_order' => 1,
+            'stock' => 10,
+        ]);
+        $orderResponse = $this->postJson('/api/orders', $this->validOrderPayload([
+            'items' => [[
+                'product_id' => $product->id,
+                'quantity' => 2,
+            ]],
+        ]))->assertCreated();
+
+        $orderId = $orderResponse->json('data.id');
+
+        $this->putJson('/api/orders/'.$orderId, $this->validOrderPayload([
+            'items' => [[
+                'product_id' => $product->id,
+                'quantity' => 9,
+            ]],
+        ]))
+            ->assertOk()
+            ->assertJsonPath('data.items.0.quantity', 9)
+            ->assertJsonPath('data.total', 90000);
+
+        $this->assertDatabaseHas('products', [
+            'id' => $product->id,
+            'stock' => 1,
+        ]);
+    }
+
+    public function test_order_update_with_insufficient_stock_is_rejected_without_changes(): void
+    {
+        $originalProduct = Product::query()->findOrFail(1);
+        $quantity = $originalProduct->min_order;
+        $unavailableProduct = Product::factory()->create([
+            'min_order' => 1,
+            'stock' => 2,
+        ]);
+
+        $orderResponse = $this->postJson('/api/orders', $this->validOrderPayload([
+            'items' => [[
+                'product_id' => $originalProduct->id,
+                'quantity' => $quantity,
+            ]],
+        ]))->assertCreated();
+
+        $orderId = $orderResponse->json('data.id');
+        $stockAfterOrder = $originalProduct->fresh()->stock;
+
+        $this->putJson('/api/orders/'.$orderId, $this->validOrderPayload([
+            'items' => [[
+                'product_id' => $unavailableProduct->id,
+                'quantity' => 3,
+            ]],
+        ]))
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors('items.0.quantity');
+
+        $this->assertDatabaseHas('products', [
+            'id' => $originalProduct->id,
+            'stock' => $stockAfterOrder,
+        ]);
+        $this->assertDatabaseHas('products', [
+            'id' => $unavailableProduct->id,
+            'stock' => 2,
+        ]);
+        $this->assertDatabaseHas('order_items', [
+            'order_id' => $orderId,
+            'product_id' => $originalProduct->id,
+            'quantity' => $quantity,
+        ]);
+    }
+
+    public function test_deleting_pending_order_returns_reserved_stock(): void
+    {
+        $product = Product::query()->findOrFail(1);
+        $originalStock = $product->stock;
+        $quantity = $product->min_order;
+        $orderResponse = $this->postJson('/api/orders', $this->validOrderPayload([
+            'items' => [[
+                'product_id' => $product->id,
+                'quantity' => $quantity,
+            ]],
+        ]))->assertCreated();
+
+        $orderId = $orderResponse->json('data.id');
+
+        $this->deleteJson('/api/orders/'.$orderId)
+            ->assertOk()
+            ->assertJsonPath('success', true);
+
+        $this->assertDatabaseMissing('orders', ['id' => $orderId]);
+        $this->assertDatabaseMissing('order_items', ['order_id' => $orderId]);
+        $this->assertDatabaseHas('products', [
+            'id' => $product->id,
+            'stock' => $originalStock,
+        ]);
+    }
+
+    public function test_non_pending_orders_cannot_be_updated_or_deleted(): void
+    {
+        $product = Product::query()->findOrFail(1);
+        $quantity = $product->min_order;
+        $orderResponse = $this->postJson('/api/orders', $this->validOrderPayload([
+            'items' => [[
+                'product_id' => $product->id,
+                'quantity' => $quantity,
+            ]],
+        ]))->assertCreated();
+
+        $orderId = $orderResponse->json('data.id');
+        $productStockAfterOrder = $product->fresh()->stock;
+        Order::query()->findOrFail($orderId)->update(['status' => 'paid']);
+
+        $this->putJson('/api/orders/'.$orderId, $this->validOrderPayload())
+            ->assertStatus(409);
+
+        $this->deleteJson('/api/orders/'.$orderId)
+            ->assertStatus(409);
+
+        $this->assertDatabaseHas('orders', [
+            'id' => $orderId,
+            'status' => 'paid',
+        ]);
+        $this->assertDatabaseHas('products', [
+            'id' => $product->id,
+            'stock' => $productStockAfterOrder,
+        ]);
     }
 
     /** @return array<string, mixed> */
