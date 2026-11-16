@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "linksupply",
   "version": "1.0.0",
   "private": true,
@@ -11,4 +12,23 @@
     "@tailwindcss/cli": "4.3.0",
     "tailwindcss": "^4.3.3"
   }
+=======
+    "$schema": "https://www.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite"
+    },
+    "devDependencies": {
+        "@tailwindcss/vite": "^4.0.0",
+        "concurrently": "^10.0.3",
+        "laravel-vite-plugin": "^3.1",
+        "tailwindcss": "^4.0.0",
+        "vite": "^8.0.0"
+    },
+    "optionalDependencies": {
+        "@laravel/multiplex": "^0.4.1"
+    }
+>>>>>>> df55da55c6bb4c04b40741eab388bab7ebbe3f0d
 }
