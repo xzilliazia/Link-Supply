@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "linksupply",
   "version": "1.0.0",
   "private": true,
@@ -12,7 +11,6 @@
     "@tailwindcss/cli": "4.3.0",
     "tailwindcss": "^4.3.3"
   }
-=======
     "$schema": "https://www.schemastore.org/package.json",
     "private": true,
     "type": "module",
@@ -30,5 +28,4 @@
     "optionalDependencies": {
         "@laravel/multiplex": "^0.4.1"
     }
->>>>>>> df55da55c6bb4c04b40741eab388bab7ebbe3f0d
 }

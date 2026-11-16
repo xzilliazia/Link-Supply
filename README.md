@@ -4,7 +4,6 @@ Link-Supply is a Laravel learning project migrating a storefront prototype into 
 
 This is a prototype. Orders can be recorded for learning and testing, but there is no real payment gateway, customer authentication, or administration area.
 
-<<<<<<< HEAD
 ## 🚀 Fitur Interaktif UI/UX Terkini
 - **Layar Loading Halaman**: Menampilkan indikator saat resource halaman dan data awal katalog/kategori sedang dimuat, lalu memberikan opsi coba lagi jika request data melebihi batas waktu 15 detik.
 - **Skeleton Gambar**: Gambar produk, banner, keranjang, dan pembayaran menampilkan shimmer sampai selesai dimuat; gambar gagal berhenti beranimasi.
@@ -34,7 +33,17 @@ This is a prototype. Orders can be recorded for learning and testing, but there 
 ## 📖 Dokumentasi Lengkap
 Dokumentasi fitur dan struktur proyek dapat dibaca di:
 👉 [Link-Supply/docs/FEATURES.md](Link-Supply/docs/FEATURES.md)
-=======
+
+1. Open the project in Laragon and make sure the web server uses the `public` directory as its document root. Laravel's `.env`, source code, and dependencies must remain outside the web root.
+2. Install dependencies from the project root:
+
+## 💻 Cara Menjalankan
+Siapkan CSS Tailwind lokal dan jalankan web melalui server:
+
+Link-Supply is a Laravel learning project migrating a storefront prototype into Laravel MVC and Eloquent conventions. The current UI is retained as a frontend reference; the application code is organized around Laravel routes, controllers, form requests, resources, models, and database migrations.
+
+This is a prototype. Orders can be recorded for learning and testing, but there is no real payment gateway, customer authentication, or administration area.
+
 ## Requirements
 
 - PHP 8.4.1 or newer (the committed dependency lock currently requires it)
@@ -43,28 +52,10 @@ Dokumentasi fitur dan struktur proyek dapat dibaca di:
 - Laragon is supported for local Windows development
 
 ## Setup in Laragon
->>>>>>> df55da55c6bb4c04b40741eab388bab7ebbe3f0d
 
 1. Open the project in Laragon and make sure the web server uses the `public` directory as its document root. Laravel's `.env`, source code, and dependencies must remain outside the web root.
 2. Install dependencies from the project root:
 
-<<<<<<< HEAD
-## 💻 Cara Menjalankan
-Siapkan CSS Tailwind lokal dan jalankan web melalui server:
-
-```sh
-npm install
-npm run build:css
-```
-
-Jalankan situs melalui PHP 8.1+ dari direktori proyek:
-
-```sh
-php -S localhost:8000 -t Link-Supply
-```
-
-Buka `http://localhost:8000/index.php`. Server PHP diperlukan untuk SSR katalog/detail produk dan endpoint data katalog. Saat mengembangkan CSS, gunakan `npm run watch:css`.
-=======
    ```sh
    composer install
    npm install
@@ -102,6 +93,7 @@ php artisan route:list
 php artisan migrate:status
 ```
 
+Buka `http://localhost:8000/index.php`. Server PHP diperlukan untuk SSR katalog/detail produk dan endpoint data katalog. Saat mengembangkan CSS, gunakan `npm run watch:css`.
 ## Laravel structure
 
 - `routes/web.php` and `routes/api.php` define the application endpoints.
@@ -116,4 +108,3 @@ php artisan migrate:status
 - `tests/Feature` exercises route responses, catalog behavior, and order behavior against an in-memory SQLite database.
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the current Laravel boundaries, and [docs/FEATURES.md](docs/FEATURES.md) for the storefront behavior.
->>>>>>> df55da55c6bb4c04b40741eab388bab7ebbe3f0d

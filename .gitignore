@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 node_modules/
-=======
 *.log
 .DS_Store
 .env
@@ -28,4 +26,3 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
->>>>>>> df55da55c6bb4c04b40741eab388bab7ebbe3f0d
