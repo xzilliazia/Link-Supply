@@ -1,0 +1,40 @@
+{
+  "success": true,
+  "message": "Kategori dan notifikasi berhasil dimuat.",
+  "data": {
+    "categories": [
+      { "id": "all", "label": "Semua", "icon": "eco" },
+      { "id": "perikanan", "label": "Perikanan", "icon": "water" },
+      { "id": "pertanian", "label": "Pertanian", "icon": "wheat" },
+      { "id": "bahan-makanan", "label": "Bahan Makanan", "icon": "grocery" },
+      { "id": "perkebunan", "label": "Perkebunan", "icon": "potted_plant" },
+      { "id": "lainnya", "label": "Lainnya", "icon": "steppers" }
+    ],
+    "notifications": [
+      {
+        "id": 1,
+        "type": "promo",
+        "title": "Flash Sale Panen Raya!",
+        "message": "Diskon hingga 50% untuk komoditas beras & sayuran segar.",
+        "time": "10 menit yang lalu",
+        "unread": true
+      },
+      {
+        "id": 2,
+        "type": "delivery",
+        "title": "Pengiriman Jawa Timur Gratis",
+        "message": "Promo gratis ongkir untuk pemesanan minimal 500kg.",
+        "time": "2 jam yang lalu",
+        "unread": true
+      },
+      {
+        "id": 3,
+        "type": "supply",
+        "title": "Pasokan Baru Perikanan",
+        "message": "Koperasi Nelayan Pantura menambahkan 10 ton pasokan ikan segar.",
+        "time": "Kemarin",
+        "unread": true
+      }
+    ]
+  }
+}
